@@ -1,0 +1,19 @@
+.wrapper {
+    padding: 20px 0 26px 8px;
+    width: 232px;
+    height: 94vh;
+    position: fixed;
+    align-items: stretch;
+    overflow: hidden;
+
+    &:hover {
+        overflow-y: auto;
+        scroll-snap-type: y;
+        overscroll-behavior: contain;
+    }
+}
+// scroll sidebar
+
+.title {
+    font-weight: 700;
+}

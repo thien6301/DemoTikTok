@@ -1,0 +1,112 @@
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+.login-modal {
+    position: relative;
+}
+.modal-container {
+    position: relative;
+    overflow: auto;
+    padding: 48px 0 0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    width: 483px;
+}
+.modal-content {
+    flex: 1 1 0%;
+    overflow: auto;
+}
+.loginContainer {
+    margin: 0 50px;
+    width: 375px;
+}
+
+.title-login {
+    padding: 8px 0;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    margin: 16px auto;
+}
+.method {
+    font-family: 'ProximaNova';
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    height: 44px;
+    width: 100%;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    padding: 0 12px;
+}
+.policyConfirm {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 30px; 
+}
+.title-policy {
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 12px;
+    line-height: 15px;
+    width: 375px;
+    text-align: center;
+}
+.footer {
+    font-family: 'ProximaNova';
+    border-top: 2px solid rgba(22, 24, 35, 0.12);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+}
+.title-footer {
+    margin-right: 5px;
+}
+a {
+    color: rgb(22, 24, 35);
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+.footer a {
+    color: var(--primary);
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.close {
+    top: 14px;
+    right: 14px;
+    width: 41px;
+    height: 41px;
+    position: absolute;
+    background: rgba(22, 24, 35, 0.03);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

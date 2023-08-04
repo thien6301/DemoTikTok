@@ -1,0 +1,44 @@
+.content {
+    width: 280px;
+}
+.share-body {
+    padding: 8px 0 ;
+
+}
+.share-item {
+    height: 42px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    font-weight: 540;
+    margin: 3px 0;
+    font-size: 1.7rem;
+
+   
+
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+    &.separate {
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+    }
+}
+
+
+.icon + .title,
+.title + .icon {
+    margin-left: 20px;
+}
+
+
+.share-more {
+    display: flex;
+    justify-content: center;
+}
+
+
+.title {
+    margin-left: 12px;
+}
+//buttom share
