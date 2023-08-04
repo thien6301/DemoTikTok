@@ -1,0 +1,41 @@
+.wrapper {
+    width: 320px;
+    padding: 20px;
+    // line-height: 25px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.avatar {
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+}
+.body {
+    margin-top: 12px;
+}
+.nick-name {
+    font-size:  1.8rem;
+}
+.check {
+    color: aqua;
+}
+.name {
+    font-size: 1.4rem;
+}
+.analytics {
+    padding-top: 10px ;
+    font-size: 1.6rem;
+}
+.value ~ .value {
+    margin-left: 20px;
+}
+.lable {
+    margin-left: 5px;
+    color: #333;
+}
+

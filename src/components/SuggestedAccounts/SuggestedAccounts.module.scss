@@ -1,0 +1,65 @@
+.wrapper {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid;
+    border-color: rgba(226, 226, 234, 0.75);
+}
+
+.account-item {
+    display: flex;
+    padding: 8px;
+
+    &:hover {
+        cursor: pointer;
+        background-color:rgba(22, 24, 35, 0.03);
+    }
+}
+.lable {
+    font-family: 'ProximaNova';
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    padding: 0 8px;
+    color: rgba(22, 24, 35, 0.75);
+}
+.item-info {
+    line-height: 15px;
+    flex: 1;
+}
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+.nickname {
+    margin-bottom: -5px;
+    font-size: 16px;
+    line-height: 1;
+}
+.check {
+    margin-left: 4px;
+    color: rgb(32, 213, 236);
+}
+.name {
+    margin-top: 7px;
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgba(22, 24, 35, 0.75);
+    opacity: #161823bf;
+}
+.more-btn {
+    margin-left: 8px;
+    padding-top: 8px;
+    color: rgb(254, 44, 85);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

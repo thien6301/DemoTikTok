@@ -1,0 +1,41 @@
+.menu-list {
+    width: 214px;
+}
+.menu-body {
+    overflow-y: auto ;
+}
+.menu-item {
+    height: 42px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    font-weight: 540;
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+    &.separate {
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+    }
+}
+
+.header {
+    position: relative;
+    height: 50px;
+}
+.back-btn {
+    padding-right: 50px;
+    font-size: 1.7rem;
+    font-weight: 200;
+    width: 50%;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+.header-title {
+    font-weight: 550;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
