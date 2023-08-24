@@ -15,13 +15,14 @@ import {
 
 import { LoginContext } from '~/components/LoginProvider';
 
-
 import * as userService from '~/services/userService';
+// import * as followService from '~/services/followService'
 import SidebarDefault from './SidebarDefault';
 import { useEffect, useState } from 'react';
 import Footer from '~/components/Footer/Footer';
 import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 import { useContext } from 'react';
+// import FollowingAccounts from '~/components/SuggestedAccounts/FollowingAccounts';
 
 const cx = classNames.bind(styles);
 
@@ -29,21 +30,33 @@ const INIT_PAGE = 1;
 const PER_PAGE = 10;
 
 function Sidebar() {
-    const contextLogin = useContext(LoginContext)
+    const contextLogin = useContext(LoginContext);
     const [page, setPage] = useState(INIT_PAGE);
-    const [suggestedUser, setSuggestedUser] = useState([]);
+    const [suggestUser, setSuggestUser] = useState([]);
+
+
+    // const [followUser, setFollowUser] = useState([]);
 
     useEffect(() => {
         userService
-            .getSuggested(page, PER_PAGE)
+            .getSuggested(page,PER_PAGE)
             .then((data) => {
-                setSuggestedUser((prevUsers) => [...prevUsers, ...data]);
+                setSuggestUser((prevUsers) => [...prevUsers, ...data]);
             })
             .catch((error) => console.log(error));
     }, [page]);
+        // useEffect (() => {
+        //     followService 
+        //         .getFollower(page)
+        //         .then((data) => {
+        //             setFollowUser((prevUsers) => [...prevUsers, ...data])
+        //         })
+        //         .catch((error) => console.log(error))
+
+        // },[page])
+
 
     const handSeeMore = () => {
-        console.log(page);
         setPage((currentPage) => currentPage + 1);
     };
 
@@ -76,17 +89,14 @@ function Sidebar() {
                 />
             </Menu>
             {!contextLogin.data && <SidebarDefault />}
-            {contextLogin.data &&  <SuggestedAccounts
-                lable="Following accounts"
-                data={suggestedUser}
-                onSeeMore={handSeeMore}
-            />}
-
-
-
-
-            
-            {/* <SuggestedAccounts lable="Following accounts" /> */}
+            {contextLogin.data && (
+                <SuggestedAccounts
+                    lable="Suggested accounts"
+                    data={suggestUser}
+                    onSeeMore={handSeeMore}
+                />
+            )
+            }
             <Footer />
         </aside>
     );

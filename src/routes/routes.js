@@ -4,7 +4,7 @@ import config from '~/config';
 import { HeaderOnly } from '~/components/Layout';
 // Pages
 import Home from '~/pages/Home/Home';
-import Following from '~/pages/Following';
+import Following from '~/pages/Following/Following';
 import Profile from '~/pages/Profile';
 import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';

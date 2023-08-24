@@ -1,14 +1,18 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getCurrentUserService = async () => {
+export const getVideoFollowing = async (page, type = 'following') => {
     try {
-        const res = await httpRequest.get('auth/me', {
+        const res = await httpRequest.get('videos', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            params: {
+                page,
+                type,
             },
         });
         return res.data;
     } catch (error) {
-        console.log('errorGetCurrent: ', error.message);
+        console.log(error);
     }
 };

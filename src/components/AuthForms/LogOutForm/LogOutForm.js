@@ -1,6 +1,5 @@
-import classNames from 'classnames/bind';
-
 import styles from './LogOutForm.module.scss';
+import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import { useContext } from 'react';
 import { ModalContext } from '~/components/ModalProvider';

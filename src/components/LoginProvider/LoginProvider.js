@@ -10,7 +10,7 @@ function LoginProvider({ children }) {
     const [showError, setShowError] = useState(false);
     const [isNotify, setIsNotify] = useState(false);
     const contentModal = useContext(ModalContext);
-
+ 
     const handleDeleteData = () => {
         setData(null);
     };

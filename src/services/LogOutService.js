@@ -10,5 +10,6 @@ export const logoutService = async () => {
         return res;
     } catch (error) {
         console.log('errorLogout: ', error.message);
+        return new Promise((rs, rj) => rs(error));
     }
 };

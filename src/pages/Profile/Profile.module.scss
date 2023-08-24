@@ -1,0 +1,169 @@
+.wrapper {
+    width: 100%;
+    max-width: 1774px;
+}
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 32px 36px;
+}
+.profile-container {
+    position: relative;
+    margin-bottom: 20px;
+    max-width: 624px;
+    padding-right: 92px;
+}
+.profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.avatar {
+    border-radius: 50%;
+    width: 116px;
+    height: 116px;
+}
+.title-info {
+    margin-left: 20px;
+    cursor: pointer;
+}
+.nick-name {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.full-name {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 5px 0 15px 0;
+}
+.follow-btn {
+    width: 208px;
+    height: 36px;
+}
+.count-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 22px;
+    color: rgba(18, 18, 18, 0.75);
+}
+.count {
+    letter-spacing: 0.5px;
+    margin-right: 20px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: rgb(22, 24, 35);
+}
+strong {
+    margin-right: 6px;
+}
+.count span {
+    font-size: 1.6rem;
+    color: rgba(22, 24, 35, 0.75);
+}
+.user-bio {
+    margin: 10px 0;
+    color: rgb(22, 24, 35);
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+.profile-link {
+    color: rgb(254, 44, 85);
+    font-weight: 500;
+}
+.more-btn {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 12px;
+    right: 12px;
+}
+.share {
+    margin-right: 14px;
+}
+
+.profile-tablist {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(226, 226, 234, 0.75);
+}
+.tab-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 24px;
+    color: rgb(115, 116, 123);
+    padding: 0 32px;
+    height: 100%;
+}
+.lock-btn {
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+.tab-line {
+    bottom: 0;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    width: 122px;
+    background-color: black;
+    transform: translateX(0px);
+}
+.active {
+    color: rgb(22, 24, 35);
+}
+.active-line {
+    transform: translateX(122px);
+}
+.profile-videolist {
+}
+.cover {
+    display: grid;
+    gap: 24px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+.videolist-container {
+}
+.videos {
+    width: 190px;
+    height: 250px;
+}
+.thumb-video {
+    border-radius: 7px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.title-video {
+    display: block;
+    margin-top: 8px;
+}
+.liked {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 230px auto;
+}
+.like-lock-icon {
+    fill-opacity: 0.34;
+}
+.like-title {
+    margin-top: 24px;
+    font-size: 2.4rem;
+    font-weight: 600;
+}
+.like-desc {
+    margin-top: 8px;
+    color: rgba(22, 24, 35, 0.75);
+    font-weight: 400;
+}

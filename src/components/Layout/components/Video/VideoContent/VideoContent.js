@@ -136,9 +136,17 @@ function VideoContent({ data }) {
                             <span className={cx('music')}>{data.music}</span>
                         </div>
                     </div>
-                    <div className={cx('follow')}>
-                        <Button outline>Follow</Button>
-                    </div>
+
+                    {data.user.is_followed && (
+                        <div className={cx('follow')}>
+                            <Button up>Following</Button>
+                        </div>
+                    )}
+                    {!data.user.is_followed && (
+                        <div className={cx('follow')}>
+                            <Button outline>Follow</Button>
+                        </div>
+                    )}
                 </div>
 
                 <div className={cx('video-main')}>
@@ -207,7 +215,9 @@ function VideoContent({ data }) {
                         <Share items={share_Menu}>
                             <div className={cx('share-action')}>
                                 <span className={cx('spanIcon')}>
-                                    <div className= {cx('icon')}><ShareIcon  /></div>
+                                    <div className={cx('icon')}>
+                                        <ShareIcon />
+                                    </div>
                                 </span>
                                 <strong className={cx('share-count')}>
                                     {data.shares_count}

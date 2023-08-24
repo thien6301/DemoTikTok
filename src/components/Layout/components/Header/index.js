@@ -7,7 +7,6 @@ import 'tippy.js/dist/tippy.css'; // optional
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import config from '~/config';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import {
@@ -243,6 +242,7 @@ function Header() {
                             <Tippy content="Inbox">
                                 <button className={cx('action-btn')}>
                                     <InboxIcon />
+                                    <span className={cx('badge')}>17</span>
                                 </button>
                             </Tippy>
                         </>
@@ -264,7 +264,8 @@ function Header() {
                             </Button>
                         </>
                     )}
-                    {contextLogin.data ? (
+
+                    {contextLogin.data && (
                         <Menu items={userMenu}>
                             <Image
                                 className={cx('user-avatar')}
@@ -272,8 +273,9 @@ function Header() {
                                 src={contextLogin.data.avatar}
                             />
                         </Menu>
-                    ) : (
-                        <Menu items={userMenu}>
+                    )}
+                    {!contextLogin.data && (
+                        <Menu items={MENU_ITEMS}>
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>

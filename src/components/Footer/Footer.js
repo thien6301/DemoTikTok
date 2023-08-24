@@ -19,10 +19,10 @@ function Footer() {
                 <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en"> TikTok Rewards</a>
                 <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en"> TikTok Embeds</a>
             </div><div className= {cx('title')}>
-                <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en"> Help</a>
-                <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en"> Safety</a>
-                <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en"> Terms</a>
-                <a style={{color: "rgba(22, 24, 35, .5)" }}href= "https://www.tiktok.com/about?lang=en"> Priacy</a>
+                <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en">  hhHelp </a>
+                <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en">  Safety </a>
+                <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en">  Terms </a>
+                <a style={{color: "rgba(22, 24, 35, .5)" }}href= "https://www.tiktok.com/about?lang=en"> Priacy </a>
                 <a style={{color: "rgba(22, 24, 35, .5) "}}href= "https://www.tiktok.com/about?lang=en"> Creater Potal</a>
                 <a style={{color: "rgba(22, 24, 35, .5) "}} href= "https://www.tiktok.com/about?lang=en"> Community Guidelines</a>
             </div>
