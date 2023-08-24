@@ -14,4 +14,8 @@ Wrapper.propTypes = {
     className: PropTypes.string,
 };
 
+function Wrapper({ children }) {
+    return <div className={cx('wrapper')}>{children}</div>;
+}
+
 export default Wrapper;

@@ -8,6 +8,12 @@
 }
 .menu-item {
     overflow-y: hidden;
+    width: 214px;
+}
+.menu-body {
+    overflow-y: auto ;
+}
+.menu-item {
     height: 42px;
     display: flex;
     width: 100%;
