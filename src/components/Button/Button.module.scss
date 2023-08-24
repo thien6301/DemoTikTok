@@ -1,7 +1,7 @@
 .wrapper {
     font-size: 1.6rem;
     font-weight: 600;
-    font-family: 'ProximaNova', Arial, Tahoma, PingFangSC, sans-serif;
+    font-family: 'ProximaNova', Arial, Tahoma, sans-serif;
     padding: 9px 18px;
     min-width: 100px;
     border-radius: 4px;
@@ -80,6 +80,12 @@
         background-color: rgba(22, 24, 35, 0.03);
     }
 }
-.forLogin  {
+.forLogin {
     text-align: center;
+}
+.but {
+    .icon {
+        position: absolute;
+        left: 0;
+    }
 }

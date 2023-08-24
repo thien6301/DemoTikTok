@@ -7,7 +7,6 @@ import {
     faCommentDots,
     faHeart,
     faMusic,
-    faShare,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Button from '~/components/Button';
@@ -17,6 +16,7 @@ import {
     CopyLink,
     Embed,
     Send,
+    ShareIcon,
     SharetoFacebook,
     SharetoWatchsApp,
 } from '~/components/Icons';
@@ -63,7 +63,6 @@ function VideoContent({ data }) {
     const [playing, setPlaying] = useState();
     const [activeFav, setActiveFav] = useState(false);
     const [activeTym, setActiveTym] = useState(false);
-    
 
     const options = {
         root: null,
@@ -96,13 +95,10 @@ function VideoContent({ data }) {
 
     const handleFavorite = () => {
         setActiveFav((current) => !current);
-        
     };
 
     const handleTym = () => {
-        
         setActiveTym((current) => !current);
-
     };
 
     return (
@@ -141,9 +137,7 @@ function VideoContent({ data }) {
                         </div>
                     </div>
                     <div className={cx('follow')}>
-                        <Button outline small>
-                            Follow
-                        </Button>
+                        <Button outline>Follow</Button>
                     </div>
                 </div>
 
@@ -213,10 +207,7 @@ function VideoContent({ data }) {
                         <Share items={share_Menu}>
                             <div className={cx('share-action')}>
                                 <span className={cx('spanIcon')}>
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className={cx('icon')}
-                                    />
+                                    <div className= {cx('icon')}><ShareIcon  /></div>
                                 </span>
                                 <strong className={cx('share-count')}>
                                     {data.shares_count}

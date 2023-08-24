@@ -27,6 +27,9 @@ body {
     font-family: sans-serif;
     font-size: 1.6rem;
 }
+body.hidden {
+    overflow-y: hidden;
+}
 
 // scroll body
 
@@ -93,7 +96,8 @@ a[href] {
 
 // custom tippy
 body {
-    // overflow: hidden; 
+    // overflow: hidden;
+    overflow-y: overlay;
     .tippy-box {
         border-radius: 8px;
         font-size: 1.6rem;

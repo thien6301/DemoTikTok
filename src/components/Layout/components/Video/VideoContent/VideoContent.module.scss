@@ -16,10 +16,11 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
+    object-fit: cover;
 }
 .content-conainer {
     // margin-left: 68px;
-    min-width: 77%;
+    min-width: 76%;
     line-height: 1.5;
     margin-left: 12px;
     display: flex;

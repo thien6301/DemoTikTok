@@ -1,10 +1,13 @@
 .menu-list {
+    height: auto;
     width: 214px;
 }
 .menu-body {
-    overflow-y: auto ;
+    padding: 8px 0;
+
 }
 .menu-item {
+    overflow-y: hidden;
     height: 42px;
     display: flex;
     width: 100%;

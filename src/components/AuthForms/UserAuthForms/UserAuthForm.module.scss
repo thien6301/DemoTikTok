@@ -1,0 +1,39 @@
+.title-header {
+    color: rgb(22, 24, 35);
+    font-family: var(--font-family-second);
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 16px 0;
+}
+
+.list-button {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 375px;
+    margin: auto;
+}
+
+.item-button {
+    margin-bottom: 16px;
+    height: 44px;
+    display: inline;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+
+    .icon {
+        position: absolute;
+        left: 63px;
+    }
+
+    span {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+.more-btn {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}

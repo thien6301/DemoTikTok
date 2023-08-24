@@ -14,6 +14,7 @@ function Button({
     small = false,
     large = false,
     forLogin = false,
+    but = false,
     children,
     className,
     leftIcon,
@@ -43,6 +44,7 @@ function Button({
         disabaled,
         rounded,
         forLogin,
+        but,
     });
 
     return (
