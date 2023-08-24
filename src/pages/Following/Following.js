@@ -9,13 +9,12 @@ import * as followingVideoService from '~/services/followingVideoService';
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
-import FollowingDefault from '~/components/Following/followingDefault'
-
+import FollowingDefault from '~/components/Following/followingDefault';
 
 const cx = classNames.bind(styles);
 const INIT_PAGE = 1;
 function Following() {
-    const contextLogin = useContext(LoginContext)
+    const contextLogin = useContext(LoginContext);
     const [showVideo, setShowVideo] = useState([]);
     const [page, setPage] = useState(INIT_PAGE);
     useEffect(() => {

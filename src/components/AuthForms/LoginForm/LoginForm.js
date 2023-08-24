@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import styles from './LoginForm.module.scss';
 
-import { HidePassWordIcon, ShowPassWordIcon } from '~/components/Icons';
 import { LoginContext } from '~/components/LoginProvider';
+import { HidePassWordIcon, ShowPassWordIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
@@ -84,14 +84,14 @@ function LoginForm() {
                                 onClick={() => setIsShow(true)}
                                 className={cx('show-password')}
                             >
-                                <HidePassWordIcon />
+                                <HidePassWordIcon/>
                             </span>
                         ) : (
                             <span
                                 onClick={() => setIsShow(false)}
                                 className={cx('show-password')}
                             >
-                                <ShowPassWordIcon />
+                                <ShowPassWordIcon/>
                             </span>
                         )}
                     </div>
@@ -109,7 +109,7 @@ function LoginForm() {
                         Forgot password?
                     </span>
                     <Button
-                        // disabled={disabled}
+                        disabled={disabled}
                         primary
                         className={cx('button-login')}
                         onClick={handleSubmit}

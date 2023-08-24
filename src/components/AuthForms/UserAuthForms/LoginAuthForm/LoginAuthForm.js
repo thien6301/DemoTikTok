@@ -15,7 +15,6 @@ import {
     QrIcon,
     TwitterIcon,
     ViewProfile,
-    shareIcon,
 } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
@@ -66,7 +65,7 @@ const loginList = {
         },
         {
             id: 8,
-            icon: <AppleIcon />,
+            icon: <AppleIcon/>,
             title: 'Continue with Apple',
             disabled: true,
         },
