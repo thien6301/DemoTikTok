@@ -18,11 +18,34 @@ import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 function Profile() {
+    const [isUser, setIsUser] = useState([]);
+
+    useEffect(() => {
+        fetch(
+            `https://tiktok.fullstack.edu.vn/api/users${window.location.pathname}`,
+        )
+            .then((res) => res.json())
+            .then((res) => {
+                setIsUser(res.data);
+            });
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+    }, []);
+
+    console.log(isUser);
+
+    return (
+        <>
+                <ProfileTest  />
+        </>
+    );
+}
+
+const ProfileTest = () => {
     const [isActiveVideo, setIsActiveVideo] = useState(true);
     const [isActiveLike, setIsActiveLike] = useState(false);
     const [isActive, setIsActive] = useState(false);
-
-    const [isUser, setIsUser] = useState([]);
 
     const handleClickVideo = () => {
         setIsActiveVideo(true);
@@ -35,19 +58,6 @@ function Profile() {
         setIsActiveLike(true);
         setIsActive(true);
     };
-
-    useEffect(() => {
-        fetch(
-            `https://tiktok.fullstack.edu.vn/api/users${window.location.pathname}`,
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                setIsUser(res.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [isUser]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -194,6 +204,6 @@ function Profile() {
             </div>
         </div>
     );
-}
+};
 
 export default Profile;
