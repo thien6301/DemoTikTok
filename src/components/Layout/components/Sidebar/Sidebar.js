@@ -19,6 +19,7 @@ import SidebarDefault from './SidebarDefault';
 import { useEffect, useState } from 'react';
 import Footer from '~/components/Footer/Footer';
 import { LoginContext } from '~/components/LoginProvider';
+import DefaultLayout from '../../DefaultLayout';
 
 const cx = classNames.bind(styles);
 
@@ -71,15 +72,15 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 />
             </Menu>
-            {LoginContext.data ? (
+            {LoginContext.data && (
                 <SuggestedAccounts
                     lable="Following accounts"
                     data={suggestedUser}
                     onSeeMore={handSeeMore}
                 />
-            ) : (
-                <SidebarDefault />
             )}
+
+            {!LoginContext.data && <DefaultLayout />}
 
             {/* <SuggestedAccounts lable="Following accounts" /> */}
             <Footer />

@@ -109,7 +109,7 @@ function LoginForm() {
                         Forgot password?
                     </span>
                     <Button
-                        disabled={disabled}
+                        disabled={disabled} 
                         primary
                         className={cx('button-login')}
                         onClick={handleSubmit}

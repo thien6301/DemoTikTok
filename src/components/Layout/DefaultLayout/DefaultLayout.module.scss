@@ -1,8 +1,6 @@
 .wrapper {
     display: flex;
     align-items: center;
-
-    // position: relative;
 }
 
 .container {
@@ -183,5 +181,38 @@ a {
 
     &:hover {
         cursor: pointer;
+    }
+}
+.notify {
+    top: 15px;
+    position: absolute;
+    z-index: 999;
+    width: 768px;
+    padding: 10px 8px;
+    margin-left: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 43px;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 2px;
+    background: rgba(57, 59, 72, 0.67);
+    backdrop-filter: blur(5px);
+    animation:  slideAnimation 2.2s ease-in-out forwards;
+}
+@keyframes slideAnimation {
+    0% {
+        transform: translateY(-60px);
+    }
+    15% {
+        transform: translateY(0);
+    }
+    90% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-60px);
     }
 }
