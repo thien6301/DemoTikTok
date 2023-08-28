@@ -56,11 +56,11 @@ function Search() {
         }
     };
     const handleClick = () => {
-       
         setShowResult(false);
-        setSearchValue('')
+        setSearchValue('');
     };
 
+    // console.log(searchResult);
     return (
         <div>
             <HeadLessTippy
@@ -77,9 +77,9 @@ function Search() {
                             {searchResult.map((result) => (
                                 <div onClick={handleClick}>
                                     <AccountItem
-                                    key={result.id}
-                                    data={result}
-                                />
+                                        key={result.id}
+                                        data={result}
+                                    />
                                 </div>
                             ))}
                         </PopperWrapper>

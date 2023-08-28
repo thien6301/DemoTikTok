@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useContext } from 'react';
 import styles from './Header.module.scss';
 import Tippy from '@tippyjs/react';
 import Image from '~/components/Image';
@@ -6,6 +7,9 @@ import image from '~/assest/image';
 import 'tippy.js/dist/tippy.css'; // optional
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
+
+import { ModalContext } from '~/components/ModalProvider';
+import { LoginContext } from '~/components/LoginProvider';
 
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
@@ -199,13 +203,13 @@ const userMenu = [
     {
         icon: <Logout />,
         title: 'Log out',
-        to: '/logout',
         separate: true,
     },
 ];
 
 function Header() {
-    const currentUser = false;
+    const contextModal = useContext(ModalContext);
+    const contextLogin = useContext(LoginContext);
 
     return (
         <header className={cx('wrapper')}>
@@ -219,7 +223,7 @@ function Header() {
                 <Search />
 
                 <div className={cx('action')}>
-                    {currentUser ? (
+                    {contextLogin.data ? (
                         <>
                             <Button up>
                                 <FontAwesomeIcon
@@ -245,27 +249,36 @@ function Header() {
                                 <FontAwesomeIcon
                                     icon={faPlus}
                                     className={cx('upload')}
+                                    onClick={contextModal.handleShowModal}
                                 />
                                 Upload
                             </Button>
-                            <Button primary className={cx('custom-login')}>
+                            <Button
+                                primary
+                                className={cx('custom-login')}
+                                onClick={contextModal.handleShowModal}
+                            >
                                 Log in
                             </Button>
                         </>
                     )}
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS}>
-                        {currentUser ? (
+                    {contextLogin.data && (
+                        <Menu items={userMenu}>
                             <Image
                                 className={cx('user-avatar')}
-                                alt="avatar"
-                                src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/6688a592bb759458184d7c89bd2afa47~c5_100x100.jpeg?x-expires=1689930000&x-signature=tDbBEBlOE6a5GPQ9d3SNCCLmPWM%3D"
+                                alt={contextLogin.data.nickname}
+                                src={contextLogin.data.avatar}
                             />
-                        ) : (
-                            <button className={cx('more-btn')}>
+                        </Menu>
+                    )}
+
+                    {!contextLogin.data && (
+                        <Menu items={MENU_ITEMS}>
+                            <button button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>
-                        )}
-                    </Menu>
+                        </Menu>
+                    )}
                 </div>
             </div>
         </header>

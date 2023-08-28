@@ -21,6 +21,7 @@ import {
     SharetoWatchsApp,
 } from '~/components/Icons';
 import Share from '~/components/Popper/Share/share';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function VideoContent({ data }) {
@@ -63,7 +64,6 @@ function VideoContent({ data }) {
     const [playing, setPlaying] = useState();
     const [activeFav, setActiveFav] = useState(false);
     const [activeTym, setActiveTym] = useState(false);
-    
 
     const options = {
         root: null,
@@ -96,13 +96,10 @@ function VideoContent({ data }) {
 
     const handleFavorite = () => {
         setActiveFav((current) => !current);
-        
     };
 
     const handleTym = () => {
-        
         setActiveTym((current) => !current);
-
     };
 
     return (
@@ -140,11 +137,20 @@ function VideoContent({ data }) {
                             <span className={cx('music')}>{data.music}</span>
                         </div>
                     </div>
-                    <div className={cx('follow')}>
-                        <Button outline small>
-                            Follow
-                        </Button>
-                    </div>
+                    {data.user.is_followed && (
+                        <div className={cx('follow')}>
+                            <Button up small>
+                                Following
+                            </Button>
+                        </div>
+                    )}
+                    {!data.user.is_followed && (
+                        <div className={cx('follow')}>
+                            <Button outline small>
+                                Follow
+                            </Button>
+                        </div>
+                    )}
                 </div>
 
                 <div className={cx('video-main')}>

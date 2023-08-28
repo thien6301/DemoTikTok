@@ -16,8 +16,9 @@ import {
 import * as userService from '~/services/userService';
 import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 import SidebarDefault from './SidebarDefault';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Footer from '~/components/Footer/Footer';
+import { LoginContext } from '~/components/LoginProvider';
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +26,7 @@ const INIT_PAGE = 1;
 const PER_PAGE = 10;
 
 function Sidebar() {
+    const contextLogin = useContext(LoginContext);
     const [page, setPage] = useState(INIT_PAGE);
     const [suggestedUser, setSuggestedUser] = useState([]);
 
@@ -70,12 +72,16 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 />
             </Menu>
-            <SidebarDefault />
-            {/* <SuggestedAccounts
-                lable="Following accounts"
-                data={suggestedUser}
-                onSeeMore={handSeeMore}
-            /> */}
+            {contextLogin.data ? (
+                <SuggestedAccounts
+                    lable="Following accounts"
+                    data={suggestedUser}
+                    onSeeMore={handSeeMore}
+                />
+            ) : (
+                <SidebarDefault />
+            )}
+
             {/* <SuggestedAccounts lable="Following accounts" /> */}
             <Footer />
         </aside>

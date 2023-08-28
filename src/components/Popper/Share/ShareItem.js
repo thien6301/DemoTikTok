@@ -14,6 +14,7 @@ function ShareItem({ data, onClick }) {
             leftIcon={data.icon}
             to={data.to}
             onClick={onClick}
+            disabaled
         >
             {data.title}
         </Button>
