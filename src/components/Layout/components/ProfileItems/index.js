@@ -1,13 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from './ProfileItems.module.scss';
+import Tippy from '@tippyjs/react';
 
 import Image from '~/components/Image/Image';
 import Button from '~/components/Button';
 import {
+    ContentIcon,
     LockDefaultIcon,
     LockIcon,
     MoreIcon,
     ShareDefault,
+    UnFollow,
 } from '~/components/Icons';
 import { useState } from 'react';
 
@@ -28,10 +31,8 @@ function ProfileItems({ data, result }) {
         setActiveLiked(true);
         setActiveLine(true);
     };
-    console.log(result.description);
 
     const VideosItems = ({ result }) => {
-        console.log(result);
         return (
             <div className={cx('profile-videolist')}>
                 <div className={cx('videos')}>
@@ -39,14 +40,11 @@ function ProfileItems({ data, result }) {
                         className={cx('thumb-video')}
                         src={result.thumb_url}
                     />
-                    <p className={cx('title-video')}>
-                        {result.description}
-                    </p>
+                    <p className={cx('title-video')}>{result.description}</p>
                 </div>
             </div>
         );
     };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -59,10 +57,19 @@ function ProfileItems({ data, result }) {
                             <h2 className={cx('full-name')}>
                                 {data.first_name + ' ' + data.last_name}
                             </h2>
-                            <Button primary className={cx('follow-btn')}>
-                                {' '}
+                            <div className={cx('message-container')}>
+                                <Button outline className={cx('message')}>
+                                    Message
+                                </Button>
+                                <Tippy content="Unfollow" placement="bottom">
+                                    <div className={cx('unfollow')}>
+                                        <UnFollow />
+                                    </div>
+                                </Tippy>
+                            </div>
+                            {/* <Button primary className={cx('follow-btn')}>
                                 Follow
-                            </Button>
+                            </Button> */}
                         </div>
                     </div>
                     <h3 className={cx('count-info')}>
@@ -79,10 +86,7 @@ function ProfileItems({ data, result }) {
                             <span>Likes</span>
                         </div>
                     </h3>
-                    <h2 className={cx('user-bio')}>
-                        {data.bio}
-                        {/* Live 21h mỗi tối @ vô tui hát cho nghe nhaaa */}
-                    </h2>
+                    <h2 className={cx('user-bio')}>{data.bio}</h2>
                     <div className={cx('profile-link')}>
                         amiamii.passio.eco/home
                     </div>
@@ -106,7 +110,7 @@ function ProfileItems({ data, result }) {
                             )}
                             onClick={handleActiveVideos}
                         >
-                            Video
+                            Videos
                         </div>
                         <div
                             className={cx(
@@ -128,23 +132,36 @@ function ProfileItems({ data, result }) {
                         ></div>
                     </div>
 
-                    <div className= {cx('cover')}>
-                        {result.map((account) => (
-                            <div className={cx('cover')}>
-                                <VideosItems key={account.id} result={account} />
-                            </div>
-                        ))}
-                    </div>
+                    {activeVideo && result.length > 0 ? (
+                        <div className={cx('cover')}>
+                            {result.map((account) => (
+                                <VideosItems
+                                    key={account.id}
+                                    result={account}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className={cx('default-videos')}>
+                            <span className={cx('icon')}>
+                                <ContentIcon />
+                            </span>
+                            <p className={cx('title')}>No content</p>
+                            <p className={cx('defaultvideos-desc')}>
+                                This user has not published any videos.
+                            </p>
+                        </div>
+                    )}
 
                     {activeLiked && (
                         <div className={cx('liked')}>
-                            <span className={cx('liked-lock-icon')}>
+                            <span className={cx('icon')}>
                                 <LockDefaultIcon />
                             </span>
-                            <p className={cx('liked-title')}>
+                            <p className={cx('title')}>
                                 This user's liked videos are private
                             </p>
-                            <p className={cx('liked-desc')}>
+                            <p className={cx('desc')}>
                                 Videos liked by str1407 are currently hidden
                             </p>
                         </div>

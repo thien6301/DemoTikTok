@@ -40,7 +40,24 @@
 }
 .follow-btn {
     width: 208px;
+    // height: 36px;
+}
+.message-container {
+    display: flex;
+    flex-direction: row;
+}
+.message {
+    width: 164px;
+}
+.unfollow {
+    margin-left: 8px;
+    width: 36px;
     height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    cursor: pointer;
 }
 .count-info {
     display: flex;
@@ -57,7 +74,7 @@
     color: rgb(22, 24, 35);
 }
 strong {
-    margin-right: 6px;
+    // margin-right: 6px;
 }
 .count span {
     font-size: 1.6rem;
@@ -153,6 +170,15 @@ strong {
     display: block;
     margin-top: 8px;
 }
+.default-videos {
+    flex: 0 0 auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 490px;
+    align-items: center;
+    margin: 0px auto 50px auto;
+}
 .liked {
     flex: 1 1 auto;
     display: flex;
@@ -160,15 +186,15 @@ strong {
     align-items: center;
     margin: 230px auto;
 }
-.liked-lock-icon {
+.icon {
     fill-opacity: 0.34;
 }
-.liked-title {
+.title {
     margin-top: 24px;
     font-size: 2.4rem;
     font-weight: 600;
 }
-.liked-desc {
+.desc {
     margin-top: 8px;
     color: rgba(22, 24, 35, 0.75);
     font-weight: 400;

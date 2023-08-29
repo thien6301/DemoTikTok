@@ -94,52 +94,19 @@
     height: 48px;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 50%;
     font-size: 2.2rem;
-    margin: 8px 0 6px 0;
+    margin-bottom: 6px;
 }
-.icon {
-    margin-top: 13px;
-}
-.tym-action {
-    display: flex;
-    flex-direction: column;
 
-    &:hover {
-        cursor: pointer;
-    }
-}
-.cmt-action {
-    display: flex;
-    flex-direction: column;
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-.favorites-action {
-    display: flex;
-    flex-direction: column;
-
-    &:hover {
-        cursor: pointer;
-    }
-    // &:active {
-    //     .favorite {
-    //         display: none;
-    //     }
-    //     .favoriteActive {
-    //         display: flex;
-    //     }
-    // }
-}
-// .favoriteActive {
-//     display: none;
-// }
-
+.tym-action,
+.cmt-action,
+.favorites-action,
 .share-action {
     display: flex;
     flex-direction: column;
+    margin-top: 8px;
 
     &:hover {
         cursor: pointer;

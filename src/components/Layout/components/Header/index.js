@@ -10,7 +10,6 @@ import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalContext } from '~/components/ModalProvider';
 import { LoginContext } from '~/components/LoginProvider';
-
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import {
@@ -163,7 +162,7 @@ const MENU_ITEMS = [
     {
         icon: <FeedbackAndHelp />,
         title: 'Feedback and help',
-        to: '/feedback',
+        // to: '/feedback',
     },
 
     {
@@ -180,23 +179,23 @@ const userMenu = [
     {
         icon: <ViewProfile />,
         title: 'View Profile',
-        to: '/@nhs',
+        to: '/@thien632001',
     },
 
     {
         icon: <Favorites />,
         title: 'Favorites',
-        to: '/favorite',
+        // to: '/favorite',
     },
     {
         icon: <GetCoins />,
         title: 'Get Coins',
-        to: '/coin',
+        // to: '/coin',
     },
     {
         icon: <Settings />,
         title: 'Settings',
-        to: '/setting',
+        // to: '/setting',
     },
 
     ...MENU_ITEMS,

@@ -17,6 +17,7 @@ import {
     CopyLink,
     Embed,
     Send,
+    ShareIcon,
     SharetoFacebook,
     SharetoWatchsApp,
 } from '~/components/Icons';
@@ -106,13 +107,18 @@ function VideoContent({ data }) {
         <div className={cx('wrapper')}>
             <div className={cx('show-video')}>
                 <div className={cx('video-title')}>
-                    <img
-                        className={cx('avatar-account')}
-                        src={data.user.avatar}
-                        alt="none"
-                    />
+                    <Link to={`/@${data.user.nickname}`}>
+                        <img
+                            className={cx('avatar-account')}
+                            src={data.user.avatar}
+                            alt="none"
+                        />
+                    </Link>
                     <div className={cx('content-conainer')}>
-                        <div className={cx('video-author')}>
+                        <Link
+                            to={`/@${data.user.nickname}`}
+                            className={cx('video-author')}
+                        >
                             <h3 className={cx('nick-name')}>
                                 {data.user.nickname}
                             </h3>
@@ -127,7 +133,7 @@ function VideoContent({ data }) {
                                     ' ' +
                                     data.user.last_name}
                             </h4>
-                        </div>
+                        </Link>
 
                         <div className={cx('video-title')}>
                             {data.description}
@@ -219,10 +225,7 @@ function VideoContent({ data }) {
                         <Share items={share_Menu}>
                             <div className={cx('share-action')}>
                                 <span className={cx('spanIcon')}>
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className={cx('icon')}
-                                    />
+                                    <ShareIcon />
                                 </span>
                                 <strong className={cx('share-count')}>
                                     {data.shares_count}
