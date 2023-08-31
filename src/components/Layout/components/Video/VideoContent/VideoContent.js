@@ -7,60 +7,20 @@ import {
     faCommentDots,
     faHeart,
     faMusic,
-    faShare,
 } from '@fortawesome/free-solid-svg-icons';
+
+
 
 import Button from '~/components/Button';
 import { useRef, useState, useEffect } from 'react';
 import { useElementOnScreen } from '../Video';
-import {
-    CopyLink,
-    Embed,
-    Send,
-    ShareIcon,
-    SharetoFacebook,
-    SharetoWatchsApp,
-} from '~/components/Icons';
 import Share from '~/components/Popper/Share/share';
 import { Link } from 'react-router-dom';
+import { ShareIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 function VideoContent({ data }) {
-    const share_Menu = [
-        {
-            icon: <Embed />,
-            title: 'Embed',
-            to: '/embed',
-        },
-
-        {
-            icon: <Send />,
-            title: 'Send',
-            to: '/send',
-        },
-        {
-            icon: <SharetoFacebook />,
-            title: 'Share to Facebook',
-            to: '/coin',
-        },
-        {
-            icon: <SharetoWatchsApp />,
-            title: 'Share to WhatsApp',
-            to: '/setting',
-        },
-
-        {
-            icon: <CopyLink />,
-            title: 'Copy Link',
-            to: '/Copy',
-        },
-
-        // {
-        //     icon: <BottomIcon />,
-        //     to: '/Copy',
-        // },
-    ];
-
+    
     const videoRef = useRef();
     const [playing, setPlaying] = useState();
     const [activeFav, setActiveFav] = useState(false);
@@ -222,7 +182,7 @@ function VideoContent({ data }) {
                             </strong>
                         </div>
 
-                        <Share items={share_Menu}>
+                        <Share >
                             <div className={cx('share-action')}>
                                 <span className={cx('spanIcon')}>
                                     <ShareIcon />

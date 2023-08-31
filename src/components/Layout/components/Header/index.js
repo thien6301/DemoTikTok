@@ -37,7 +37,8 @@ const MENU_ITEMS = [
         children: {
             title: 'Language',
             data: [
-                {
+                {   
+                    type: 'language',
                     code: 'EN',
                     title: 'English',
                     children: {
@@ -55,6 +56,7 @@ const MENU_ITEMS = [
                     },
                 },
                 {
+                    type: 'language',
                     code: 'VI',
                     title: 'Tiếng Việt(Việt Nam)',
                     children: {
@@ -74,86 +76,6 @@ const MENU_ITEMS = [
                             },
                         ],
                     },
-                },
-                {
-                    code: 'VI',
-                    title: 'Nederlands(Nederland)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
-                },
-                {
-                    code: 'IN',
-                    title: 'বাঙ্গালি (ভারত)',
                 },
             ],
         },
@@ -205,6 +127,16 @@ const userMenu = [
         separate: true,
     },
 ];
+
+
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                // Handle change language
+                break;
+            default:
+        }
+    }
 
 function Header() {
     const contextModal = useContext(ModalContext);
@@ -262,7 +194,7 @@ function Header() {
                         </>
                     )}
                     {contextLogin.data && (
-                        <Menu items={userMenu}>
+                        <Menu items={userMenu} onChange = {handleMenuChange}>
                             <Image
                                 className={cx('user-avatar')}
                                 alt={contextLogin.data.nickname}
@@ -272,8 +204,8 @@ function Header() {
                     )}
 
                     {!contextLogin.data && (
-                        <Menu items={MENU_ITEMS}>
-                            <button button className={cx('more-btn')}>
+                        <Menu items={MENU_ITEMS} onChange = {handleMenuChange}>
+                            <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>
                         </Menu>

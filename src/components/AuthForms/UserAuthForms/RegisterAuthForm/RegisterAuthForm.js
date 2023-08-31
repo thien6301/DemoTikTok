@@ -86,7 +86,6 @@ function RegisterAuthForm() {
                     <Button
                         disabled={item.disabled}
                         key={index}
-                        white
                         className={cx('item-button')}
                     >
                         <span className={cx('icon')}>{item.icon}</span>
@@ -96,7 +95,7 @@ function RegisterAuthForm() {
                 {formType.showMore && (
                     <div
                         className={cx('more-btn')}
-                        onClick={() => setFormType(registerList[1])}
+                        onClick={() => setFormType([1])}
                     >
                         <DownExpandIcon />
                     </div>

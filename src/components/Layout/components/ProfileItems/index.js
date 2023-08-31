@@ -2,9 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './ProfileItems.module.scss';
 import Tippy from '@tippyjs/react';
 
-import Menu from '~/components/Popper/Menu';
 import Image from '~/components/Image/Image';
-import Button from '~/components/Button';
 import {
     BlockIcon,
     ContentIcon,
@@ -17,9 +15,13 @@ import {
 } from '~/components/Icons';
 import { useState } from 'react';
 
+import Button from '~/components/Button';
+import Menu from '~/components/Popper/Menu';
+import Share from '~/components/Popper/Share/share';
+
 const cx = classNames.bind(styles);
 
-const userMenu = [
+const menuItems = [
     {
         icon: <ReportIcon />,
         title: 'Report',
@@ -109,10 +111,12 @@ function ProfileItems({ data, result }) {
                     </div>
 
                     <div className={cx('more-btn')}>
-                        <span className={cx('share')}>
-                            <ShareDefault />
-                        </span>
-                        <Menu items={userMenu} className = {cx('menu-list')}>
+                        <Share>
+                            <span className={cx('share')}>
+                                <ShareDefault />
+                            </span>
+                        </Share>
+                        <Menu items={menuItems}>
                             <span>
                                 <MoreIcon />
                             </span>
@@ -125,7 +129,7 @@ function ProfileItems({ data, result }) {
                         <div
                             className={cx(
                                 'tab-item',
-                                activeVideo ? 'active' : '',
+                                 'active' 
                             )}
                             onClick={handleActiveVideos}
                         >

@@ -1,19 +1,27 @@
 .menu-list {
     height: auto;
-    width: auto;
+    min-width: 180px;
+}
+.arrow {
+    position: absolute;
+    left: 0;
+    transform: translate(160px, 0px);
+    height: 9px;
+    overflow-y: clip;
+    top: -9px;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
 .menu-body {
+    position: relative;
     padding: 8px 0;
-
+    overflow-y: auto;
 }
+
 .menu-item {
     overflow-y: hidden;
     width: 214px;
-}
-.menu-body {
-    overflow-y: auto ;
-}
-.menu-item {
     height: 42px;
     display: flex;
     width: 100%;

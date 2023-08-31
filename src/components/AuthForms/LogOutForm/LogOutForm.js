@@ -35,6 +35,7 @@ function LogOutForm() {
                     >
                         Cancel
                     </Button>
+                    
                     <Button
                         outline
                         className={cx('button-cancel')}

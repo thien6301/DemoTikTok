@@ -1,44 +1,55 @@
-.content {
-    width: 280px;
-}
-.share-body {
-    padding: 8px 0 ;
-
-}
-.share-item {
-    height: 42px;
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    font-weight: 540;
-    margin: 3px 0;
-    font-size: 1.7rem;
-
-   
-
-
-    &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
-    }
-    &.separate {
-        border-top: 1px solid rgba(22, 24, 35, 0.12);
-    }
-}
-
-
-.icon + .title,
-.title + .icon {
-    margin-left: 20px;
-}
-
-
-.share-more {
+.title-header {
+    color: rgb(22, 24, 35);
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 32px;
     display: flex;
     justify-content: center;
+    margin: 16px 0 16px 0;
 }
 
-
-.title {
-    margin-left: 12px;
+.list-button {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 280px;
+    max-height: 468px;
+    margin: auto;
+    padding: 8px 0;
+    
+    overflow-y: auto;
+    
 }
-//buttom share
+.item-button {
+    height: 44px;
+    display: inline;
+    margin-bottom: 4px;
+    padding: 11px 16px;
+    // border: 1px solid rgba(22, 24, 35, 0.12);
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+
+    .icon {
+        position: absolute;
+        left: 20px;
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+}
+.item-button .title {
+    margin-left: 42px;
+}
+
+.more-btn {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+}

@@ -94,7 +94,6 @@ function LoginAuthForm() {
                 {loginList.contents.map((item, index) => (
                     <Button
                         key={index}
-                        but
                         className={cx('item-button')}
                         disabled={item.disabled}
                         onClick={() => handleSwitchForm(item.id)}
