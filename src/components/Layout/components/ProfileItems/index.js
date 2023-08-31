@@ -2,19 +2,36 @@ import classNames from 'classnames/bind';
 import styles from './ProfileItems.module.scss';
 import Tippy from '@tippyjs/react';
 
+import Menu from '~/components/Popper/Menu';
 import Image from '~/components/Image/Image';
 import Button from '~/components/Button';
 import {
+    BlockIcon,
     ContentIcon,
     LockDefaultIcon,
     LockIcon,
     MoreIcon,
+    ReportIcon,
     ShareDefault,
     UnFollow,
 } from '~/components/Icons';
 import { useState } from 'react';
 
 const cx = classNames.bind(styles);
+
+const userMenu = [
+    {
+        icon: <ReportIcon />,
+        title: 'Report',
+        to: '/@thien632001',
+    },
+
+    {
+        icon: <BlockIcon />,
+        title: 'Block',
+        separate: true,
+    },
+];
 
 function ProfileItems({ data, result }) {
     const [activeVideo, setActiveVideo] = useState(true);
@@ -95,9 +112,11 @@ function ProfileItems({ data, result }) {
                         <span className={cx('share')}>
                             <ShareDefault />
                         </span>
-                        <span>
-                            <MoreIcon />
-                        </span>
+                        <Menu items={userMenu} className = {cx('menu-list')}>
+                            <span>
+                                <MoreIcon />
+                            </span>
+                        </Menu>
                     </div>
                 </div>
 
