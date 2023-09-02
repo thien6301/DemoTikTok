@@ -12,6 +12,15 @@
     z-index: 1;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+    width: 214px;
+}
+.menu-body {
+    padding: 8px 0;
+}
+.menu-item {
+    overflow-y: hidden;
+    width: 214px;
+
 }
 .menu-body {
     position: relative;

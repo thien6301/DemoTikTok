@@ -9,7 +9,6 @@ import * as followingVideoService from '~/services/followingVideoService';
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { LoginContext } from '~/components/LoginProvider';
-
 import FollowingDefault from '~/components/Following/followingDefault';
 
 const cx = classNames.bind(styles);
@@ -41,7 +40,6 @@ function Following() {
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
     return (
         <div className={cx('wrapper')}>
             <Video data={showVideo} />
