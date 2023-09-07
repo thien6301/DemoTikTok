@@ -3,23 +3,14 @@ import style from './followingDefault.module.scss';
 import FollowingItems from './followingItems';
 const cx = classNames.bind(style);
 
-function FollowingDefault({ data = [] }) {
+function FollowingDefault({ user = [] }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-poster')}>
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
-                <FollowingItems />
+                {user.map((account) => (
+                    <FollowingItems key={account.id} user={account} />
+                ))}
             </div>
-            
         </div>
     );
 }

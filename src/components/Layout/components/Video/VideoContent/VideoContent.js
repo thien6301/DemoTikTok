@@ -9,18 +9,16 @@ import {
     faMusic,
 } from '@fortawesome/free-solid-svg-icons';
 
-
-
 import Button from '~/components/Button';
 import { useRef, useState, useEffect } from 'react';
 import { useElementOnScreen } from '../Video';
 import Share from '~/components/Popper/Share/share';
 import { Link } from 'react-router-dom';
 import { ShareIcon } from '~/components/Icons';
+import { log } from 'util';
 
 const cx = classNames.bind(styles);
 function VideoContent({ data }) {
-    
     const videoRef = useRef();
     const [playing, setPlaying] = useState();
     const [activeFav, setActiveFav] = useState(false);
@@ -39,7 +37,7 @@ function VideoContent({ data }) {
         } else {
             videoRef.current.play();
             setPlaying(!playing);
-        }
+        }  
     };
     useEffect(() => {
         if (isVisibile) {
@@ -62,7 +60,6 @@ function VideoContent({ data }) {
     const handleTym = () => {
         setActiveTym((current) => !current);
     };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('show-video')}>
@@ -120,7 +117,7 @@ function VideoContent({ data }) {
                 </div>
 
                 <div className={cx('video-main')}>
-                    <div className={cx('video-content')}>
+                    <Link to={`/video/${data.id}`} className={cx('video-content')}>
                         <video
                             id={data.id}
                             ref={videoRef}
@@ -134,7 +131,7 @@ function VideoContent({ data }) {
                         >
                             <source src={data.file_url} type="video/ogg" />
                         </video>
-                    </div>
+                    </Link>
 
                     <div className={cx('action-item')}>
                         <div className={cx('tym-action')} onClick={handleTym}>
@@ -182,7 +179,7 @@ function VideoContent({ data }) {
                             </strong>
                         </div>
 
-                        <Share >
+                        <Share>
                             <div className={cx('share-action')}>
                                 <span className={cx('spanIcon')}>
                                     <ShareIcon />

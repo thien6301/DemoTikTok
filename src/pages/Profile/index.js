@@ -7,6 +7,7 @@ function Profile() {
     const [currentUser, setCurrentUser] = useState([]);
     const [resultVideos, setResultVideos] = useState([]);
     const { nickname } = useParams();
+
     const fetchUser = () => {
         fetch(`https://tiktok.fullstack.edu.vn/api/users/${nickname}`)
             .then((res) => res.json())
@@ -15,7 +16,6 @@ function Profile() {
                 setResultVideos(res.data.videos);
             });
     };
-
     useEffect(() => {
         fetchUser();
     }, [nickname]);

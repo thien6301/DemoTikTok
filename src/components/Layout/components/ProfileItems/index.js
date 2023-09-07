@@ -25,7 +25,6 @@ const menuItems = [
     {
         icon: <ReportIcon />,
         title: 'Report',
-        to: '/@thien632001',
     },
 
     {
@@ -127,10 +126,7 @@ function ProfileItems({ data, result }) {
                 <div>
                     <div className={cx('profile-tablist')}>
                         <div
-                            className={cx(
-                                'tab-item',
-                                 'active' 
-                            )}
+                            className={cx('tab-item', 'active')}
                             onClick={handleActiveVideos}
                         >
                             Videos
@@ -154,8 +150,7 @@ function ProfileItems({ data, result }) {
                             )}
                         ></div>
                     </div>
-
-                    {activeVideo && result.length > 0 ? (
+                    {activeVideo && result.length > 0 && (
                         <div className={cx('cover')}>
                             {result.map((account) => (
                                 <VideosItems
@@ -164,7 +159,8 @@ function ProfileItems({ data, result }) {
                                 />
                             ))}
                         </div>
-                    ) : (
+                    )}{' '}
+                    {activeVideo && result.length === 0 && (
                         <div className={cx('default-videos')}>
                             <span className={cx('icon')}>
                                 <ContentIcon />
@@ -175,7 +171,6 @@ function ProfileItems({ data, result }) {
                             </p>
                         </div>
                     )}
-
                     {activeLiked && (
                         <div className={cx('liked')}>
                             <span className={cx('icon')}>

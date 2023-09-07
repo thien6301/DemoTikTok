@@ -6,6 +6,8 @@ import { LoginContext } from '~/components/LoginProvider';
 
 // import * as videoService from '~/services/videoService';
 import * as followingVideoService from '~/services/followingVideoService';
+import * as userService from '~/services/userService';
+
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
@@ -13,18 +15,46 @@ import FollowingDefault from '~/components/Following/followingDefault';
 
 const cx = classNames.bind(styles);
 const INIT_PAGE = 1;
+const PER_PAGE = 10;
 function Following() {
     const contextLogin = useContext(LoginContext);
     const [showVideo, setShowVideo] = useState([]);
+    const [showUser, setShowUser] = useState([]);
+
+    const token = localStorage.getItem('token');
+
     const [page, setPage] = useState(INIT_PAGE);
-    useEffect(() => {
+
+
+    // console.log(token)
+    const fetchApi = () => { 
         followingVideoService
-            .getVideoFollowing(page)
-            .then((data) => {
-                setShowVideo((prev) => [...prev, ...data]);
-            })
-            .catch((error) => console.log(error));
+        .getVideoFollowing()
+        .then((data) => {
+            setShowVideo([...data]);
+        })
+        .catch((error) => console.log(error));
+    }
+
+
+    useEffect(() => {
+        if (token) {
+            fetchApi();
+        }
+        else if(!token){
+            callApi()
+        }
     }, [page]);
+
+    const callApi = () => {
+        userService
+        .getSuggested(page, PER_PAGE)
+        .then((user) => {
+            setShowUser((prev) => [...prev, ...user]);
+        })
+        .catch((error) => console.log(error));
+    }
+    
 
     const handleScroll = () => {
         if (
@@ -43,8 +73,11 @@ function Following() {
 
     return (
         <div className={cx('wrapper')}>
-            <Video data={showVideo} />
-            {/* {!contextLogin.data && <FollowingDefault/>} */}
+            {contextLogin.data ? (
+                <Video data={showVideo} />
+            ) : (
+                <FollowingDefault user={showUser} />
+            )}
         </div>
     );
 }

@@ -2,7 +2,7 @@ import * as httpRequest from '~/utils/httpRequest';
 
 export const logoutService = async () => {
     try {
-        const res = await httpRequest.get('auth/logout', {
+        const res = await httpRequest.post('auth/logout', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
