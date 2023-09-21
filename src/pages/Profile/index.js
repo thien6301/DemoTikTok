@@ -9,7 +9,11 @@ function Profile() {
     const { nickname } = useParams();
 
     const fetchUser = () => {
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/${nickname}`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/${nickname}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
             .then((res) => res.json())
             .then((res) => {
                 setCurrentUser(res.data);

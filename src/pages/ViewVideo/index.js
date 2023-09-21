@@ -7,8 +7,9 @@ import ViewVideoItems from '~/components/Layout/components/ViewVideo/ViewVideoIt
 const cx = classNames.bind(styles);
 function ViewVideo() {
     const [showComment, setShowComment] = useState([]);
+    const [showVideo, setShowVideo] = useState([]);
+    const [showUser, setShowUser] = useState([]);
     const { id } = useParams();
-    console.log(id);
 
     const fetchCmt = () => {
         fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}/comments`, {
@@ -21,14 +22,31 @@ function ViewVideo() {
                 setShowComment(res.data);
             });
     };
+    const fetchCurrentVideo = () => {
+        fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                setShowVideo(res.data);
+                setShowUser(res.data.user);
+            });
+    };
 
     useEffect(() => {
+        fetchCurrentVideo();
         fetchCmt();
     }, [id]);
 
     return (
         <div className={cx('wrapper')}>
-            <ViewVideoItems data={showComment} />
+            <ViewVideoItems
+                data={showComment}
+                curVideo={showVideo}
+                curUser={showUser}
+            />
         </div>
     );
 }

@@ -14,8 +14,13 @@ import { useRef, useState, useEffect } from 'react';
 import { useElementOnScreen } from '../Video';
 import Share from '~/components/Popper/Share/share';
 import { Link } from 'react-router-dom';
-import { ShareIcon } from '~/components/Icons';
-import { log } from 'util';
+import {
+    MuteIcon,
+    PauseIconMini,
+    PlayIcon,
+    ReportIcon,
+    ShareIcon,
+} from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 function VideoContent({ data }) {
@@ -37,7 +42,7 @@ function VideoContent({ data }) {
         } else {
             videoRef.current.play();
             setPlaying(!playing);
-        }  
+        }
     };
     useEffect(() => {
         if (isVisibile) {
@@ -60,6 +65,17 @@ function VideoContent({ data }) {
     const handleTym = () => {
         setActiveTym((current) => !current);
     };
+
+    const handlePauseVideo = () => {
+        if (playing) {
+            videoRef.current.pause();
+            setPlaying(!playing);
+        } else {
+            videoRef.current.play();
+            setPlaying(!playing);
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('show-video')}>
@@ -117,21 +133,42 @@ function VideoContent({ data }) {
                 </div>
 
                 <div className={cx('video-main')}>
-                    <Link to={`/video/${data.id}`} className={cx('video-content')}>
-                        <video
-                            id={data.id}
-                            ref={videoRef}
-                            className={cx('video')}
-                            height="100%"
-                            width="100%"
-                            loop
-                            // controls
-                            preload="auto"
-                            onClick={handlePlayVideo}
+                    <div className={cx('video-cover')}>
+                        <Link
+                            to={`/video/${data.id}`}
+                            className={cx('video-content')}
                         >
-                            <source src={data.file_url} type="video/ogg" />
-                        </video>
-                    </Link>
+                            <video
+                                id={data.id}
+                                ref={videoRef}
+                                className={cx('video')}
+                                height="100%"
+                                width="100%"
+                                loop
+                                // controls
+                                preload="auto"
+                                onClick={handlePlayVideo}
+                            >
+                                <source src={data.file_url} type="video/ogg" />
+                            </video>
+                        </Link>
+                        <div
+                            className={cx('pause-control', 'video-sub')}
+                            onClick={handlePauseVideo}
+                        >
+                            {playing ? <PlayIcon /> : <PauseIconMini />}
+                        </div>
+                        <div className={cx('volume-control', 'video-sub')}>
+                            <MuteIcon />
+                        </div>
+                        <div className={cx('report-control', 'video-sub')}>
+                            <span>
+                                {' '}
+                                <ReportIcon />
+                            </span>
+                            <p style={{ marginLeft: '5px' }}>Report</p>
+                        </div>
+                    </div>
 
                     <div className={cx('action-item')}>
                         <div className={cx('tym-action')} onClick={handleTym}>

@@ -6,7 +6,6 @@ import { TymIconMini } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 function VideoCmtItems({ result }) {
-    console.log(result);
     return (
         <div className={cx('main-cmt')}>
             <div className={cx('comment-item')}>

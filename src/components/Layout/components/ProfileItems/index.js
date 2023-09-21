@@ -75,19 +75,25 @@ function ProfileItems({ data, result }) {
                             <h2 className={cx('full-name')}>
                                 {data.first_name + ' ' + data.last_name}
                             </h2>
-                            <div className={cx('message-container')}>
-                                <Button outline className={cx('message')}>
-                                    Message
+                            {data.is_followed ? (
+                                <div className={cx('message-container')}>
+                                    <Button outline className={cx('message')}>
+                                        Message
+                                    </Button>
+                                    <Tippy
+                                        content="Unfollow"
+                                        placement="bottom"
+                                    >
+                                        <div className={cx('unfollow')}>
+                                            <UnFollow />
+                                        </div>
+                                    </Tippy>
+                                </div>
+                            ) : (
+                                <Button primary className={cx('follow-btn')}>
+                                    Follow
                                 </Button>
-                                <Tippy content="Unfollow" placement="bottom">
-                                    <div className={cx('unfollow')}>
-                                        <UnFollow />
-                                    </div>
-                                </Tippy>
-                            </div>
-                            {/* <Button primary className={cx('follow-btn')}>
-                                Follow
-                            </Button> */}
+                            )}
                         </div>
                     </div>
                     <h3 className={cx('count-info')}>
