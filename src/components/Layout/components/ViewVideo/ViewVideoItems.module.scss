@@ -82,7 +82,7 @@
 }
 .volume-control {
     position: absolute;
-    left: -107px;
+    left: -107px;  
     margin-right: 160px;
     background-color: rgba(84, 84, 84, 0.5);
     border-radius: 32px;
@@ -93,12 +93,12 @@
     transform: rotate(180deg);
     width: 100px;
 }
-.volume-cover {
-    width: 50%;
-    height: 4px;
-    background-color: #ffffff;
-    position: absolute;
-}
+// .volume-cover {
+//     width: 50%;
+//     height: 4px;
+//     background-color: #ffffff;
+//     position: absolute;
+// }
 .range-volume {
     accent-color: #ffffff;
     position: absolute;

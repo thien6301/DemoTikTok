@@ -77,7 +77,6 @@
 }
 .video-cover {
     position: relative;
-
 }
 .video-content {
     z-index: 1;
@@ -98,11 +97,59 @@
     bottom: 24px;
     left: 12px;
 }
-.volume-control {
-    bottom: 24px;
-    right: 12px;
-    // left: 300;
+.volume-btn {
 }
+.video-volume {
+    align-items: center;
+    bottom: 42px;
+    display: flex;
+    position: absolute;
+    right: 50px;
+    transform: rotate(0deg);
+    transform-origin: calc(100% - 20px);
+    z-index: 2;
+}
+.volume-control {
+    position: absolute;
+    left: -15px;
+    bottom: 25px;
+    margin-right: 160px;
+    background-color: rgba(84, 84, 84, 0.5);
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // padding: 0 10px;
+    transform: rotate(270deg);
+    height: 24px;
+    width: 64px;
+}
+.range-volume {
+    accent-color: #ffffff;
+    position: absolute;
+    width: 50px;
+    height: 2px;
+    top: 12px;
+    background-color: rgba(84, 84, 84, 0.5);
+    outline: none;
+    opacity: 1;
+}
+.range-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 2px 0 #555;
+    transition: #fff 0.3s ease-in-out;
+}
+.range-volume::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
 .report-control {
     color: #ffffff;
     top: 20px;
@@ -211,6 +258,7 @@
 
 .circle:nth-of-type(3) {
     animation-delay: 0.2s;
+    position: relative;
 }
 
 @keyframes loading {

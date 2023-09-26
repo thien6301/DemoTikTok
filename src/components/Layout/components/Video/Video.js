@@ -8,6 +8,7 @@ import styles from './Video.module.scss';
 const cx = classNames.bind(styles);
 
 function Video({ data = [] }) {
+    
     return (
         <div className={cx('wrapper')}>
             {data.map((video) => (

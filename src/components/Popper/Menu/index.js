@@ -60,14 +60,16 @@ function Menu({
     const handleReset = () => {
         setHistory((prev) => prev.slice(0, 1));
     };
-
+    
     return (
         <Tippy
+            interactive
+            delay={[0, 700]}
+            offset={[12,8]}
             hideOnClick={hideOnClick}
             placement="bottom-end"
             render={renderResult}
             onHide={handleReset}
-            delay={[0, 700]}
 
         >
             {children}
