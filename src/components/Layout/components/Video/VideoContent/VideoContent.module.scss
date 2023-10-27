@@ -7,10 +7,7 @@
     border-color: rgba(226, 226, 234, 0.75);
     padding: 20px 0;
 }
-.video-title {
-    display: flex;
-    width: 100%;
-}
+
 
 .avatar-account {
     width: 56px;
@@ -80,7 +77,11 @@
 }
 .video-content {
     z-index: 1;
+    position: relative;
+    cursor: pointer;
+}
 
+.wrapper-btn {
     position: relative;
 }
 .video-sub {

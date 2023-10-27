@@ -104,6 +104,10 @@ body {
         color: rgba(84, 84, 84, 0.92);
     }
 }
+.hidden {
+    overflow: hidden;
+}
+
 .tippy-content {
     padding: 8px 9px;
 }

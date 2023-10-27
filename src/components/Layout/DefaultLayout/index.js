@@ -10,13 +10,10 @@ import MenuModalItem from '~/components/MenuModalItem';
 
 import styles from './DefaultLayout.module.scss';
 import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
-    const ck = useParams('id');
-    console.log(ck);
     const contextModal = useContext(ModalContext);
     const contextLogin = useContext(LoginContext);
     const token = localStorage.getItem('token');

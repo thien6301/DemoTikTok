@@ -13,11 +13,13 @@ import {
     ShareDefault,
     UnFollow,
 } from '~/components/Icons';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import Share from '~/components/Popper/Share/share';
+import { ModalContext } from '~/components/ModalProvider';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -49,18 +51,24 @@ function ProfileItems({ data, result }) {
         setActiveLiked(true);
         setActiveLine(true);
     };
+    const contextModal = useContext(ModalContext)
 
     const VideosItems = ({ result }) => {
         return (
-            <div className={cx('profile-videolist')}>
-                <div className={cx('videos')}>
+            <Link
+                to={`/video/${data.id}`}
+                className={cx('profile-videolist')}
+            >
+                <div className={cx('videos')}
+                    onClick={contextModal.handleShowModalView}
+                >
                     <Image
                         className={cx('thumb-video')}
                         src={result.thumb_url}
                     />
                     <p className={cx('title-video')}>{result.description}</p>
                 </div>
-            </div>
+            </Link>
         );
     };
     return (

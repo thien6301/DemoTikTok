@@ -8,6 +8,7 @@ function Profile() {
     const [resultVideos, setResultVideos] = useState([]);
     const { nickname } = useParams();
 
+
     const fetchUser = () => {
         fetch(`https://tiktok.fullstack.edu.vn/api/users/${nickname}`, {
             headers: {
@@ -20,7 +21,7 @@ function Profile() {
                 setResultVideos(res.data.videos);
             });
     };
-    useEffect(() => {
+    useEffect(() => {  
         fetchUser();
     }, [nickname]);
 

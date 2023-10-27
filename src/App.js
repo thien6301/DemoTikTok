@@ -26,6 +26,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 function App() {
+
     return (
         <Router>
             <div className="App">

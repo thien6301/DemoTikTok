@@ -28,6 +28,9 @@ import VideoCmtItems from './VideoCmtItems';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
+import { useNavigate } from 'react-router-dom';
+import { post } from '~/utils/httpRequest';
+import { log } from 'util';
 
 const cx = classNames.bind(styles);
 
@@ -43,6 +46,9 @@ function ViewVideoItems({ data, curVideo, curUser }) {
     const [currentTime, setCurrentTime] = useState(0);
     const [isVolume, setIsVolume] = useState(100);
     const [muteVideo, setMuteVideo] = useState(false);
+
+    const [comments, setComments] = useState([]);
+    const history = useNavigate();
 
     const videoRef = useRef();
     const rangeRef = useRef();
@@ -105,7 +111,6 @@ function ViewVideoItems({ data, curVideo, curUser }) {
             return `${min}:${sec}`;
         }
     }
-
     const handlePauseVideo = () => {
         const video = videoRef.current;
         if (isPlaying) {
@@ -116,6 +121,24 @@ function ViewVideoItems({ data, curVideo, curUser }) {
             video.pause();
             setIsPlaying(true);
         }
+    };
+    const makeComment = (comments) => {
+        fetch(
+            `https://tiktok.fullstack.edu.vn/api/videos/${curVideo.id}/comments`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(comments),
+            },
+        )
+            .then((res) => res.json())
+            .then((result) => {});
+    };
+
+    const handlePostComment = (e) => {
+        e.preventDefault();
     };
 
     useEffect(() => {
@@ -156,7 +179,10 @@ function ViewVideoItems({ data, curVideo, curUser }) {
                             }}
                         ></video>
                     </div>
-                    <div className={cx('remove-video', 'subVideo')}>
+                    <div
+                        className={cx('remove-video', 'subVideo')}
+                        onClick={() => history(-1)}
+                    >
                         <XIcon />
                     </div>
                     <div className={cx('report-video', 'subVideo')}>
@@ -378,13 +404,15 @@ function ViewVideoItems({ data, curVideo, curUser }) {
                     </div>
                 </div>
                 <div className={cx('footer')}>
-                    <div className={cx('footer-container')}>
+                    <form className={cx('footer-container')}>
                         <div className={cx('creat-cmt')}>
                             <textarea
                                 className={cx('text-cmt')}
                                 rows={1}
                                 placeholder="Add comment..."
                                 style={{ height: '18px' }}
+                                value={comments}
+                                onChange={(e) => setComments(e.target.value)}
                                 spellCheck={false}
                             ></textarea>
                             <div className={cx('emojis')}>
@@ -394,8 +422,13 @@ function ViewVideoItems({ data, curVideo, curUser }) {
                                 />
                             </div>
                         </div>
-                        <div className={cx('post-cmt')}>Post</div>
-                    </div>
+                        <div
+                            className={cx('post-cmt')}
+                            onClick={handlePostComment}
+                        >
+                            Post
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

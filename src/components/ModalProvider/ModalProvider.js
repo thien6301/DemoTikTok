@@ -6,6 +6,8 @@ function ModalProvider({ children }) {
     const body = document.body;
 
     const [active, setActive] = useState(false);
+    
+
     const [activeLogOut, setActiveLogOut] = useState(false);
     const [typeForm, setTypeForm] = useState('login');
 
@@ -34,7 +36,7 @@ function ModalProvider({ children }) {
 
     const value = {
         active,
-        activeLogOut,
+        activeLogOut,  
         typeForm,
         handleShowModal,
         handleHideModal,

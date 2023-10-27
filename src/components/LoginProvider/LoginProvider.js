@@ -40,7 +40,6 @@ function LoginProvider({ children }) {
         handleSetData,
         handleDeleteData,
     };
-
     return (
         <LoginContext.Provider value={value} >{children}</LoginContext.Provider>
     );

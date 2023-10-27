@@ -2,14 +2,16 @@ import classNames from 'classnames/bind';
 import styles from './ViewVideo.module.scss';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ViewVideoItems from '~/components/Layout/components/ViewVideo/ViewVideoItems';
+import ViewVideoItems from './View/ViewVideoItems';
+
 
 const cx = classNames.bind(styles);
 function ViewVideo() {
+    const {id} = useParams()
+    
     const [showComment, setShowComment] = useState([]);
     const [showVideo, setShowVideo] = useState([]);
     const [showUser, setShowUser] = useState([]);
-    const { id } = useParams();
 
     const fetchCmt = () => {
         fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}/comments`, {
