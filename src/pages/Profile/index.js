@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileItems from '~/components/Layout/components/ProfileItems';
+import *as getUserService from '~/services/getUserService';
 
 // dùng arrow function đê
 function Profile() {
@@ -8,22 +9,15 @@ function Profile() {
     const [resultVideos, setResultVideos] = useState([]);
     const { nickname } = useParams();
 
+    const fetchUser = async () => {
+        const result = await getUserService.getUser(nickname)
+        setCurrentUser(result);
+        setResultVideos(result.videos);
+    }
 
-    const fetchUser = () => {
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/${nickname}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                setCurrentUser(res.data);
-                setResultVideos(res.data.videos);
-            });
-    };
-    useEffect(() => {  
-        fetchUser();
-    }, [nickname]);
+    useEffect(() => {
+        fetchUser()
+    },[nickname]);
 
     return <ProfileItems data={currentUser} result={resultVideos} />;
 }

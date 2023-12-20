@@ -1,8 +1,8 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getUser = async (nickname) => {
+export const getList = async (id) => {
     try {
-        const res = await httpRequest.get(`users/${nickname}`, {
+        const res = await httpRequest.get(`videos/${id}/comments`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

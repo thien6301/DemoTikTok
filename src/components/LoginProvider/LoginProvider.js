@@ -22,6 +22,7 @@ function LoginProvider({ children }) {
     const fetchApi = async (email, password) => {
         const result = await LoginService.loginService(email, password);
         setData(result.data);
+        console.log(result);
         if (result) {
             localStorage.setItem('token', result.meta.token);
             setIsNotify(true);

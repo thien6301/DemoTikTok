@@ -28,7 +28,6 @@ function VideoContent({ data }) {
     const [isVolume, setIsVolume] = useState(50);
     const [muteVideo, setMuteVideo] = useState(false);
 
-
     // play video inview
     const options = {
         root: null,

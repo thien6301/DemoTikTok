@@ -2,9 +2,15 @@ import classNames from 'classnames/bind';
 import style from './ActionItems.module.scss';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faCommentDots, faHeart } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBookmark,
+    faCommentDots,
+    faHeart,
+} from '@fortawesome/free-solid-svg-icons';
 import Share from '~/components/Popper/Share/share';
 import { ShareIcon } from '~/components/Icons';
+import { useEffect } from 'react';
+import { ActionLike } from '~/services/handleLike';
 
 const cx = classNames.bind(style);
 
@@ -14,7 +20,6 @@ function ActionItems({ data }) {
     const [like, setLike] = useState(data.likes_count);
     const [activeLike, setActiveLike] = useState(data.is_liked);
     const [activeFav, setActiveFav] = useState(false);
-
 
     const fetchApiLike = () => {
         fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}/like`, {
@@ -28,6 +33,12 @@ function ActionItems({ data }) {
                 console.log(res);
             });
     };
+
+    // const fetchApi = async () => {
+    //     const result = await ActionLike(id)
+    //     console.log(result);
+    // }
+
     const fetchApiUnlike = () => {
         fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}/unlike`, {
             method: 'POST',

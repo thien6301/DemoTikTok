@@ -15,12 +15,9 @@ function LoginContent({items}) {
     };
 
     return ( 
-        
             <div className={cx('login-body')}>
                     {renderItems()}
             </div>
-
-       
      );
 }
 

@@ -1,10 +1,17 @@
 import classNames from 'classnames/bind';
-import styles from './ViewVideoItems.module.scss';
+import styles from './Comment.module.scss';
 import Image from '~/components/Image/Image';
-import { TymIconMini } from '~/components/Icons';
+import { TymIconMini, DotDotDotIcon, TrashCanIcon } from '~/components/Icons';
+import Menu from '~/components/Popper/Menu';
 
 const cx = classNames.bind(styles);
 
+const menuItems = [
+    {
+        icon: <TrashCanIcon />,
+        title: 'Delete',
+    },
+];
 function VideoCmtItems({ result }) {
     return (
         <div className={cx('main-cmt')}>
@@ -12,7 +19,7 @@ function VideoCmtItems({ result }) {
                 <Image src={result.user.avatar} className={cx('avatar')} />
                 <div className={cx('body-cmt')}>
                     <h4 className={cx('fullname')}>
-                        {result.user.first_name + ' ' + result.user.first_name}
+                        {result.user.first_name + ' ' + result.user.last_name}
                     </h4>
                     <p className={cx('cmt-text')}>{result.comment}</p>
                     <p className={cx('sub-cmt')}>
@@ -23,8 +30,19 @@ function VideoCmtItems({ result }) {
                     </p>
                 </div>
                 <div className={cx('action-container')}>
-                    <TymIconMini />
-                    <span className={cx('tym-cmt')}>{result.likes_count}</span>
+                    <div className={cx('btn-delete')}>
+                        <Menu items={menuItems}>
+                            <span>
+                                <DotDotDotIcon />
+                            </span>
+                        </Menu>
+                    </div>
+                    <div className={cx('like-container')}>
+                        <TymIconMini />
+                        <span className={cx('tym-cmt')}>
+                            {result.likes_count}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

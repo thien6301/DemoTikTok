@@ -1,0 +1,150 @@
+//comment
+
+.main-cmt {
+    padding: 24px 32px;
+}
+
+.comment-item {
+    display: flex;
+    position: relative;
+    &:hover {
+        .btn-delete{
+            display: flex;
+        }
+    }
+}
+.body-cmt {
+    flex: 1 1 auto;
+}
+.body-cmt .fullname {
+    font-weight: 600;
+}
+.cmt-text {
+    margin: 6px 0;
+}
+.sub-cmt {
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.093px;
+}
+.reply-cmt {
+    margin-left: 35px;
+}
+.action-container {
+    margin-left: 18px;
+    padding-right: 2px;
+    width: 24px;
+    flex: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // padding-top: 24px;
+
+}
+.like-container {
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 12px;
+    line-height: 16px;
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+.btn-delete {
+    display: none;
+    position: relative;
+    cursor: pointer;
+
+}
+.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+.name {
+    flex: 1 1 auto;
+    margin-right: 12px;
+}
+.nickname {
+    font-size: 18px;
+    font-weight: 700;
+}
+.fullname {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+
+// commentForm
+
+
+.footer-container {
+    align-items: flex-end;
+    display: flex;
+    font-size: 1.4rem;
+}
+.creat-cmt {
+    background-color: rgb(25 28 42 / 6%);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    flex-grow: 1;
+    padding: 10px 9px;
+    position: relative;
+
+    &:focus-within {
+        border-color: rgba(22, 24, 35, 0.2);
+    }
+}
+.text-cmt {
+    background-color: transparent;
+    caret-color: var(--primary);
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    resize: none;
+    width: calc(100% - 40px);
+}
+textarea {
+    border: none;
+
+    width: 100%;
+    outline: none;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+}
+.emojis {
+    align-items: center;
+    border-radius: 8px;
+    bottom: 0;
+    cursor: pointer;
+    display: flex;
+    font-size: 22px;
+    height: 32px;
+    justify-content: center;
+    margin: 3px;
+    position: absolute;
+    right: 9px;
+    width: 32px;
+}
+.emojis .icon {
+    width: 20px;
+    height: 20px;
+}
+.post-cmt {
+    color: rgba(22, 24, 35, 0.34);
+    font-weight: 600;
+    letter-spacing: 0.093px;
+    cursor: default;
+    flex: 0 0 48px;
+    font-size: 14px;
+    line-height: 39px;
+    text-align: right;
+    margin-right: 4px;
+}
+

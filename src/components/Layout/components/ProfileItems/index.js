@@ -37,6 +37,9 @@ const menuItems = [
 ];
 
 function ProfileItems({ data, result }) {
+
+    console.log(data);
+
     const [activeVideo, setActiveVideo] = useState(true);
     const [activeLiked, setActiveLiked] = useState(false);
     const [activeLine, setActiveLine] = useState(false);
