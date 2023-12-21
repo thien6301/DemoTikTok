@@ -1,17 +1,107 @@
+// delete comment
+.wrapper-delete {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+}
+
+.loading {
+    position: absolute;
+    right: calc(var(--search-button-width) + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    right: 45%;
+    color: black;
+    width: 10%;
+    height: 10%;
+}
+.loading {
+    animation: spinner 0.8s linear infinite;
+}
+@keyframes spinner {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+.container-delete {
+    width: 410px;
+    height: 194px;
+    padding: 32px;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    border: 1px solid rgba(22, 24, 35, 0.03);
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
+    animation: showDeleteForm ease 0.3s;
+}
+
+.title-delete {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    padding: 0px 32px;
+    width: 100%;
+    text-align: center;
+    color: rgb(22, 24, 35);
+    // word-wrap: break-word;
+    // max-width: 18ch;
+}
+
+.button-wrapper-delete {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+.button-cancel {
+    width: 164px;
+    height: 48px;
+    margin: 16px 4px;
+    font-size: 1.6rem;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+@keyframes showDeleteForm {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 //comment
 
 .main-cmt {
     padding: 24px 32px;
+    overflow: auto;
 }
 
 .comment-item {
     display: flex;
     position: relative;
     &:hover {
-        .btn-delete{
+        .btn-delete {
             display: flex;
         }
     }
+}
+.btn-delete {
+    position: absolute;
 }
 .body-cmt {
     flex: 1 1 auto;
@@ -31,6 +121,36 @@
 .reply-cmt {
     margin-left: 35px;
 }
+
+// menu wrapper
+.menu-list {
+    display: flex;
+    width: 200px;
+    height: 60px;
+}
+
+.menu-popper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.line-1 {
+    display: flex;
+    font-size: 1.8rem;
+    padding-top: 15px;
+    align-items: center;
+    &:hover {
+        cursor: pointer;
+        color: var(--primary);
+    }
+}
+.trashIcon {
+    padding: 0 20px 0 20px;
+}
+.reportIcon {
+    padding: 0 20px 0 20px;
+}
+
 .action-container {
     margin-left: 18px;
     padding-right: 2px;
@@ -40,7 +160,6 @@
     flex-direction: column;
     align-items: center;
     // padding-top: 24px;
-
 }
 .like-container {
     color: rgba(22, 24, 35, 0.5);
@@ -51,12 +170,12 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    justify-content: center;
 }
 .btn-delete {
     display: none;
     position: relative;
     cursor: pointer;
-
 }
 .avatar {
     height: 40px;
@@ -77,16 +196,28 @@
     font-weight: 400;
 }
 
-
-
 // commentForm
+.cmt-wrapper {
+    min-height: 570px;
+    overflow: auto;
+    flex-grow: 1;
+    width: 100%;
+    background-color: rgb(248, 248, 248);
+}
 
+.footer {
+    flex: 0 0 auto;
+    background-color: rgb(255, 255, 255);
+    padding: 21px 30px;
+    border-top: 1px solid rgba(194, 194, 205, 0.6);
+}
 
 .footer-container {
     align-items: flex-end;
     display: flex;
     font-size: 1.4rem;
 }
+
 .creat-cmt {
     background-color: rgb(25 28 42 / 6%);
     border: 1px solid transparent;
@@ -108,16 +239,7 @@
     resize: none;
     width: calc(100% - 40px);
 }
-textarea {
-    border: none;
 
-    width: 100%;
-    outline: none;
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-}
 .emojis {
     align-items: center;
     border-radius: 8px;
@@ -147,4 +269,6 @@ textarea {
     text-align: right;
     margin-right: 4px;
 }
-
+.active-cmt {
+    color: red;
+}

@@ -9,7 +9,7 @@ import {
     LockDefaultIcon,
     LockIcon,
     MoreIcon,
-    ReportIcon,
+    ReportMiniIcon,
     ShareDefault,
     UnFollow,
 } from '~/components/Icons';
@@ -25,7 +25,7 @@ const cx = classNames.bind(styles);
 
 const menuItems = [
     {
-        icon: <ReportIcon />,
+        icon: <ReportMiniIcon />,
         title: 'Report',
     },
 

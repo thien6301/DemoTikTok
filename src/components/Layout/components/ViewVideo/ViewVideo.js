@@ -15,7 +15,7 @@ import {
     Embed,
     MuteIcon,
     PauseIcon,
-    ReportIcon,
+    ReportLargeIcon,
     SendtoFriend,
     ShareIconMini,
     SharetoFacebook,
@@ -24,14 +24,11 @@ import {
     UnMuteIcon,
     XIcon,
 } from '~/components/Icons';
-import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { useNavigate, useParams } from 'react-router-dom';
-import { PostCommentService } from '~/services/PostCommentService';
-import { getList } from '~/services/getCommentList';
-import VideoCmtItems from './comments/Comment';
 import { getCurrentVideo } from '~/services/getCurrentVideo';
+import VideoCmtItems from './comments/Comment';
 
 const cx = classNames.bind(styles);
 
@@ -51,10 +48,8 @@ function ViewVideo() {
 
     const [showVideo, setShowVideo] = useState([]);
     const [curUser, setCurUser] = useState([]);
-    const [newComment, setNewComment] = useState('');
-    const [listComment, setListComment] = useState([]);
+    
 
-    const [activeComment, setActiveComment] = useState(false);
 
     
 
@@ -66,20 +61,14 @@ function ViewVideo() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getCurrentVideo(id, newComment);
+            const result = await getCurrentVideo(id);
             setShowVideo(result);
             setCurUser(result.user);
         };
         fetchApi();
     }, []);
 
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getList(id);
-            setListComment(result);
-        };
-        fetchApi();
-    }, []);
+    
 
     useEffect(() => {
         const rangeWidth = rangeRef.current.getBoundingClientRect().width;
@@ -161,25 +150,9 @@ function ViewVideo() {
     const handleMuteVideo = () => {
         setMuteVideo((prev) => !prev);
     };
-    const handleChange = (e) => {
-        setActiveComment(true)
-        if(e.target.value === '') {
-            setActiveComment(false)
-        }
-        setNewComment(e.target.value)
-                                    
-    }
-    const fetchApi = async () => {
-        const result = await PostCommentService(id, newComment);
-        console.log('postComment: ', result);
-        setNewComment('');
-        const result1 = await getList(id);
-        setListComment(result1);
-    };
-
-    const handleSubmit = () => {
-        fetchApi();
-    };
+    
+   
+   
     return (
         <div className={cx('wrapper')}>
             <div className={cx('video-wrapper')}>
@@ -216,7 +189,7 @@ function ViewVideo() {
                         <XIcon />
                     </div>
                     <div className={cx('report-video', 'subVideo')}>
-                        <ReportIcon />
+                        <ReportLargeIcon />
                         <p style={{ marginLeft: '5px' }}>Report</p>
                     </div>
                     <div className={cx('back-video', 'subVideo')}>
@@ -424,7 +397,8 @@ function ViewVideo() {
                         </div>
                     </div>
                 </div>
-                <div className={cx('cmt-wrapper')}>
+                <VideoCmtItems />
+                {/* <div className={cx('cmt-wrapper')}>
                     <div className={cx('cmt-container')}>
                         {listComment &&
                             listComment.length !== 0 &&
@@ -457,7 +431,7 @@ function ViewVideo() {
                             Post
                         </div>
                     </form>
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -14,7 +14,7 @@ import {
     MuteIcon,
     PauseIconMini,
     PlayIcon,
-    ReportIcon,
+    ReportMiniIcon,
     UnMuteIcon,
 } from '~/components/Icons';
 import Tippy from '@tippyjs/react/headless';
@@ -159,7 +159,7 @@ function VideoContent({ data }) {
                         <div className={cx('report-control', 'video-sub')}>
                             <span>
                                 {' '}
-                                <ReportIcon />
+                                <ReportMiniIcon />
                             </span>
                             <p style={{ marginLeft: '5px' }}>Report</p>
                         </div>

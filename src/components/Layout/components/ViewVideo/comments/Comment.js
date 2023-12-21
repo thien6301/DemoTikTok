@@ -1,49 +1,206 @@
 import classNames from 'classnames/bind';
 import styles from './Comment.module.scss';
 import Image from '~/components/Image/Image';
-import { TymIconMini, DotDotDotIcon, TrashCanIcon } from '~/components/Icons';
-import Menu from '~/components/Popper/Menu';
+import {
+    TymIconMini,
+    DotDotDotIcon,
+    TrashCanIcon,
+    ReportLargeIcon,
+} from '~/components/Icons';
+import { Wrapper as PopperWrapper } from '~/components/Popper';
+
+import { PostCommentService } from '~/services/PostCommentService';
+import { getList } from '~/services/getCommentList';
+
+import Tippy from '@tippyjs/react';
+import { useEffect, useRef, useState } from 'react';
+import Button from '~/components/Button';
+import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFaceSmileBeam } from '@fortawesome/free-regular-svg-icons';
+import { deleteCommentService } from '~/services/deleteCommentService';
 
 const cx = classNames.bind(styles);
 
-const menuItems = [
-    {
-        icon: <TrashCanIcon />,
-        title: 'Delete',
-    },
-];
-function VideoCmtItems({ result }) {
+function VideoCmtItems() {
+    const { id } = useParams();
+
+    const [isPressDelete, setIsPressDelete] = useState(false);
+    const [listComment, setListComment] = useState([]);
+    const [newComment, setNewComment] = useState('');
+    const [activeComment, setActiveComment] = useState(false);
+    const [idComment, setIdComment] = useState();
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getList(id);
+            setListComment(result);
+            
+        };
+        fetchApi();
+    }, []);
+
+    //post cmt
+    const fetchApi = async () => {
+        const result = await PostCommentService(id, newComment);
+        console.log('postComment: ', result);
+        setNewComment('');
+        const result1 = await getList(id);
+        setListComment(result1);
+    };
+    const handleSubmit = () => {
+        fetchApi();
+    };
+
+    const handleDeleteComment = async () => {
+        const result = await deleteCommentService(idComment);
+        console.log(result);
+        const result1 = await getList(id);
+        setListComment(result1);
+        setIsPressDelete(false);
+    };
+    
+    const handleChange = (e) => {
+        setActiveComment(true);
+        if (e.target.value === '') {
+            setActiveComment(false);
+        }
+        setNewComment(e.target.value);
+    };
+
+    const renderDeleteCmt = (attrs) => (
+        <div className={cx('menu-list')} tabIndex="-1" {...attrs} >
+            <PopperWrapper classNames={cx('menu-popper')}>
+                <span
+                    className={cx('line-1')}
+                    onClick={() => {
+                        setIdComment(attrs);
+                        setIsPressDelete(true);
+                    }}
+                >
+                    <span className={cx('trashIcon')}>
+                        <TrashCanIcon />
+                    </span>
+                    Delete
+                </span>
+            </PopperWrapper>
+        </div>
+    );
     return (
-        <div className={cx('main-cmt')}>
-            <div className={cx('comment-item')}>
-                <Image src={result.user.avatar} className={cx('avatar')} />
-                <div className={cx('body-cmt')}>
-                    <h4 className={cx('fullname')}>
-                        {result.user.first_name + ' ' + result.user.last_name}
-                    </h4>
-                    <p className={cx('cmt-text')}>{result.comment}</p>
-                    <p className={cx('sub-cmt')}>
-                        <span className={cx('time-cmt')}>
-                            {result.created_at}
-                        </span>
-                        <span className={cx('reply-cmt')}>Reply</span>
-                    </p>
-                </div>
-                <div className={cx('action-container')}>
-                    <div className={cx('btn-delete')}>
-                        <Menu items={menuItems}>
+        <div>
+            {/* {loaded && <span className={cx('notify')}>Deleted</span>} */}
+            {/* {posted && <span className={cx('notify')}>Posted Comment!</span>} */}
+            {isPressDelete && (
+                <div className={cx('wrapper-delete')}>
+                    {/* {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />} */}
+                    <div className={cx('container-delete')}>
+                        <div className={cx('title-delete')}>
                             <span>
-                                <DotDotDotIcon />
+                                Are you sure you want to delete this comment?
                             </span>
-                        </Menu>
-                    </div>
-                    <div className={cx('like-container')}>
-                        <TymIconMini />
-                        <span className={cx('tym-cmt')}>
-                            {result.likes_count}
-                        </span>
+                        </div>
+                        <div className={cx('button-wrapper-delete')}>
+                            <Button
+                                up
+                                className={cx('button-cancel')}
+                                onClick={() => setIsPressDelete(false)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                outline
+                                className={cx('button-cancel')}
+                                onClick={handleDeleteComment}
+                            >
+                                Delete
+                            </Button>
+                        </div>
                     </div>
                 </div>
+            )}
+
+            <div className={cx('cmt-wrapper')}>
+                <div className={cx('cmt-container')}>
+                    {listComment &&
+                        listComment.length !== 0 &&
+                        listComment.map((result) => (
+                            <div key={result.id} className={cx('main-cmt')} >
+                                <div className={cx('comment-item')}>
+                                    <Image
+                                        src={result.user.avatar}
+                                        className={cx('avatar')}
+                                    />
+                                    <div className={cx('body-cmt')}>
+                                        <h4 className={cx('fullname')}>
+                                            {result.user.first_name +
+                                                ' ' +
+                                                result.user.last_name}
+                                        </h4>
+                                        <p className={cx('cmt-text')}>
+                                            {result.comment}
+                                        </p>
+                                        <p className={cx('sub-cmt')}>
+                                            <span className={cx('time-cmt')}>
+                                                {result.created_at}
+                                            </span>
+                                            <span className={cx('reply-cmt')}>
+                                                Reply
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className={cx('action-container')}>
+                                        <div className={cx('btn-delete')}>
+                                            <Tippy
+                                                delay={[0, 300]}
+                                                interactive
+                                                placement="bottom-start"
+                                                animation={false}
+                                                render={() => renderDeleteCmt()}
+                                            >
+                                                <div>
+                                                    <DotDotDotIcon />
+                                                </div>
+                                            </Tippy>
+                                        </div>
+                                        <div className={cx('like-container')}>
+                                            <TymIconMini />
+                                            <span className={cx('tym-cmt')}>
+                                                {result.likes_count}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                </div>
+            </div>
+            <div className={cx('footer')}>
+                <form className={cx('footer-container')}>
+                    <div className={cx('creat-cmt')}>
+                        <input
+                            className={cx('text-cmt')}
+                            placeholder="Add comment..."
+                            style={{ height: '18px' }}
+                            value={newComment}
+                            onChange={handleChange}
+                        />
+                        <div className={cx('emojis')}>
+                            <FontAwesomeIcon
+                                icon={faFaceSmileBeam}
+                                className={cx('icon')}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        className={cx(
+                            'post-cmt',
+                            activeComment ? 'active-cmt' : '',
+                        )}
+                        onClick={handleSubmit}
+                    >
+                        Post
+                    </div>
+                </form>
             </div>
         </div>
     );
