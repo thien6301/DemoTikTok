@@ -1,3 +1,4 @@
+import { useOnKeyPress } from '~/hooks/useOnKeyPress';
 import classNames from 'classnames/bind';
 import styles from './Comment.module.scss';
 import Image from '~/components/Image/Image';
@@ -13,7 +14,7 @@ import { PostCommentService } from '~/services/PostCommentService';
 import { getList } from '~/services/getCommentList';
 
 import Tippy from '@tippyjs/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +25,6 @@ const cx = classNames.bind(styles);
 
 function VideoCmtItems() {
     const { id } = useParams();
-
     const [isPressDelete, setIsPressDelete] = useState(false);
     const [listComment, setListComment] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -35,7 +35,6 @@ function VideoCmtItems() {
         const fetchApi = async () => {
             const result = await getList(id);
             setListComment(result);
-            
         };
         fetchApi();
     }, []);
@@ -50,7 +49,10 @@ function VideoCmtItems() {
     };
     const handleSubmit = () => {
         fetchApi();
+        setActiveComment(false)
     };
+    useOnKeyPress(handleSubmit, 'Enter');
+    // useOnKeyPress(() => setNewComment(''), 'Delete');
 
     const handleDeleteComment = async () => {
         const result = await deleteCommentService(idComment);
@@ -59,7 +61,7 @@ function VideoCmtItems() {
         setListComment(result1);
         setIsPressDelete(false);
     };
-    
+
     const handleChange = (e) => {
         setActiveComment(true);
         if (e.target.value === '') {
@@ -69,7 +71,7 @@ function VideoCmtItems() {
     };
 
     const renderDeleteCmt = (attrs) => (
-        <div className={cx('menu-list')} tabIndex="-1" {...attrs} >
+        <div className={cx('menu-list')} {...attrs}>
             <PopperWrapper classNames={cx('menu-popper')}>
                 <span
                     className={cx('line-1')}
@@ -124,7 +126,7 @@ function VideoCmtItems() {
                     {listComment &&
                         listComment.length !== 0 &&
                         listComment.map((result) => (
-                            <div key={result.id} className={cx('main-cmt')} >
+                            <div key={result.id} className={cx('main-cmt')}>
                                 <div className={cx('comment-item')}>
                                     <Image
                                         src={result.user.avatar}
@@ -152,10 +154,13 @@ function VideoCmtItems() {
                                         <div className={cx('btn-delete')}>
                                             <Tippy
                                                 delay={[0, 300]}
+                                                offset={[10, 5]}
                                                 interactive
-                                                placement="bottom-start"
+                                                placement="bottom-end"
                                                 animation={false}
-                                                render={() => renderDeleteCmt()}
+                                                render={() =>
+                                                    renderDeleteCmt(result.id)
+                                                }
                                             >
                                                 <div>
                                                     <DotDotDotIcon />
