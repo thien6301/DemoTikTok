@@ -1,4 +1,4 @@
-import * as httpRequest from '~/utils/httpRequest';
+import * as httpRequest from '~/utils';
 
 export const ActionLike = async (id) => {
     try {
@@ -7,21 +7,8 @@ export const ActionLike = async (id) => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        return res.data;
+        return res;
     } catch (error) {
-        console.log(error);
-    }
-};
-
-export const unlike = async (id) => {
-    try {
-        const res = await httpRequest.post(`videos/${id}/unlike`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        });
-        return res.data;
-    } catch (error) {
-        console.log(error);
+        console.log('errorLikePost: ', error);
     }
 };

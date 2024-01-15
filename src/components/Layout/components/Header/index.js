@@ -10,6 +10,7 @@ import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalContext } from '~/components/ModalProvider';
 import { LoginContext } from '~/components/LoginProvider';
+import { ThemeContext } from '~/components/ThemeProvider';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import {
@@ -37,7 +38,7 @@ const MENU_ITEMS = [
         children: {
             title: 'Language',
             data: [
-                {   
+                {
                     type: 'language',
                     code: 'EN',
                     title: 'English',
@@ -94,7 +95,8 @@ const MENU_ITEMS = [
 
     {
         icon: <DarkMode />,
-        title: 'Moon mode ',
+        title: 'Dark mode',
+        button_mode: 'Dark',
     },
 ];
 const userMenu = [
@@ -128,26 +130,31 @@ const userMenu = [
     },
 ];
 
-
-    const handleMenuChange = (menuItem) => {
-        switch (menuItem.type) {
-            case 'language':
-                // Handle change language
-                break;
-            default:
-        }
+const handleMenuChange = (menuItem) => {
+    switch (menuItem.type) {
+        case 'language':
+            // Handle change language
+            break;
+        default:
     }
+};
 
 function Header() {
     const contextModal = useContext(ModalContext);
     const contextLogin = useContext(LoginContext);
+    const contextTheme = useContext(ThemeContext);
 
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
                     <Link to="/" className={cx('logo-link')}>
-                        <img src={image.logo} alt="Tiktok" />
+                        {!contextTheme.isDark && (
+                            <img src={image.logo} alt="Tiktok" />
+                        )}
+                        {contextTheme.isDark && (
+                            <img src={image.logoWebBlack} alt="TiktokB" />
+                        )}
                     </Link>
                 </div>
 
@@ -194,7 +201,7 @@ function Header() {
                         </>
                     )}
                     {contextLogin.data && (
-                        <Menu items={userMenu} onChange = {handleMenuChange}>
+                        <Menu items={userMenu} onChange={handleMenuChange}>
                             <Image
                                 className={cx('user-avatar')}
                                 alt={contextLogin.data.nickname}
@@ -204,7 +211,7 @@ function Header() {
                     )}
 
                     {!contextLogin.data && (
-                        <Menu items={MENU_ITEMS} onChange = {handleMenuChange}>
+                        <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>

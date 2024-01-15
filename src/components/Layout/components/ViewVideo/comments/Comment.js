@@ -20,6 +20,7 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmileBeam } from '@fortawesome/free-regular-svg-icons';
 import { deleteCommentService } from '~/services/deleteCommentService';
+import { getCurrentUserService } from '~/services/getCurrentUserService';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,16 @@ function VideoCmtItems() {
     const [newComment, setNewComment] = useState('');
     const [activeComment, setActiveComment] = useState(false);
     const [idComment, setIdComment] = useState();
+    const [currUser, setCurrUser] = useState([]);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getCurrentUserService(id);
+            setCurrUser(result.id);
+        };
+        fetchApi();
+    }, []);
+    // console.log(currUser);
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -49,7 +60,7 @@ function VideoCmtItems() {
     };
     const handleSubmit = () => {
         fetchApi();
-        setActiveComment(false)
+        setActiveComment(false);
     };
     useOnKeyPress(handleSubmit, 'Enter');
     // useOnKeyPress(() => setNewComment(''), 'Delete');
@@ -59,6 +70,7 @@ function VideoCmtItems() {
         console.log(result);
         const result1 = await getList(id);
         setListComment(result1);
+        console.log(result1);
         setIsPressDelete(false);
     };
 
@@ -70,21 +82,31 @@ function VideoCmtItems() {
         setNewComment(e.target.value);
     };
 
+    
     const renderDeleteCmt = (attrs) => (
         <div className={cx('menu-list')} {...attrs}>
             <PopperWrapper classNames={cx('menu-popper')}>
-                <span
-                    className={cx('line-1')}
-                    onClick={() => {
-                        setIdComment(attrs);
-                        setIsPressDelete(true);
-                    }}
-                >
-                    <span className={cx('trashIcon')}>
-                        <TrashCanIcon />
+                {attrs.user.id === currUser ? (
+                    <span
+                        className={cx('line-1')}
+                        onClick={() => {
+                            setIdComment(attrs.id);
+                            setIsPressDelete(true);
+                        }}
+                    >
+                        <span className={cx('trashIcon')}>
+                            <TrashCanIcon />
+                        </span>
+                        Delete
                     </span>
-                    Delete
-                </span>
+                ) : (
+                    <span className={cx('line-1')}>
+                        <span className={cx('trashIcon')}>
+                            <ReportLargeIcon />
+                        </span>
+                        Report
+                    </span>
+                )}
             </PopperWrapper>
         </div>
     );
@@ -159,7 +181,7 @@ function VideoCmtItems() {
                                                 placement="bottom-end"
                                                 animation={false}
                                                 render={() =>
-                                                    renderDeleteCmt(result.id)
+                                                    renderDeleteCmt(result)
                                                 }
                                             >
                                                 <div>

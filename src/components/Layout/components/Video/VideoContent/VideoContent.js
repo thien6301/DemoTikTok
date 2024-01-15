@@ -7,7 +7,7 @@ import Button from '~/components/Button';
 
 // import * as LikeService from '~/services/LikeService';
 
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useElementOnScreen } from '../Video';
 import { Link } from 'react-router-dom';
 import {
@@ -64,7 +64,7 @@ function VideoContent({ data }) {
                 setPlaying(false);
             }
         }
-    }, [isVisibile]);
+    }, [isVisibile,playing]);
 
     useEffect(() => {
         if (videoRef) {

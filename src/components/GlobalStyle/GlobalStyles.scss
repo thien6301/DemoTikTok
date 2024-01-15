@@ -3,7 +3,7 @@
 :root {
     --primary: #fe2c55;
     --black: #000;
-    --text-color: #161823;
+    --text-color-default: #161823;
     --while: #fff;
     --grey: rgba(22, 24, 35, 0.5);
 
@@ -12,6 +12,18 @@
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
     --default-layout-horizontal-spacer: 24px;
+
+    --body-background: #fff;
+    --search-background: rgba(22, 24, 35, 0.06);
+    --placehoder-search: #000;
+}
+[data-theme='dark'] {
+    --text-color-default: #fff;
+    --text-color-gray: rgba(255, 255, 255, 0.75);
+    --body-background: rgba(18, 18, 18, 1);
+    --white-logo: #fff;
+    --search-background: rgba(255, 255, 255, 0.12);
+    --placehoder-search: #fff;
 }
 * {
     padding: 0;
@@ -23,10 +35,9 @@ html {
     font-size: 62.5%;
 }
 
-body {
-    font-family: sans-serif;
-    font-size: 1.6rem;
-}
+// * {
+//     transition: all 0.1s ease-in-out;
+// }
 
 // scroll body
 
@@ -50,7 +61,7 @@ input,
     border: none;
 }
 a[href] {
-    color: var(--text-color);
+    color: var(--text-color-default);
     text-decoration: none;
 }
 
@@ -93,7 +104,9 @@ a[href] {
 
 // custom tippy
 body {
-    // overflow: hidden;
+    background-color: var(--body-background);
+    font-family: sans-serif;
+    font-size: 1.6rem;
     .tippy-box {
         border-radius: 8px;
         font-size: 1.6rem;
@@ -104,6 +117,7 @@ body {
         color: rgba(84, 84, 84, 0.92);
     }
 }
+
 .hidden {
     overflow: hidden;
 }

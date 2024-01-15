@@ -6,7 +6,7 @@
     min-width: 100px;
     border-radius: 4px;
     cursor: pointer;
-    background-color: var(--while);
+    background-color: var(--body-background);
     border: 1px solid transparent;
 
     // + .wrapper {
@@ -74,12 +74,14 @@
 }
 
 .up {
+    color: var(--text-color-default);
+    background-color: var(--text-color-gray);
     border: 1px solid rgba(22, 24, 35, 0.12);
 
     &:hover {
         background-color: rgba(22, 24, 35, 0.03);
     }
 }
-.forLogin  {
+.forLogin {
     text-align: center;
 }

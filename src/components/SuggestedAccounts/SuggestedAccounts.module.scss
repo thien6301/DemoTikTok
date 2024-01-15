@@ -11,7 +11,7 @@
 
     &:hover {
         cursor: pointer;
-        background-color:rgba(22, 24, 35, 0.03);
+        background-color: rgba(22, 24, 35, 0.03);
     }
 }
 .lable {
@@ -21,7 +21,7 @@
     line-height: 20px;
     font-weight: 600;
     padding: 0 8px;
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-gray);
 }
 .item-info {
     line-height: 15px;
@@ -48,7 +48,7 @@
     font-family: var(--font-family);
     font-size: 1.2rem;
     font-weight: 400;
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-gray);
     opacity: #161823bf;
 }
 .more-btn {

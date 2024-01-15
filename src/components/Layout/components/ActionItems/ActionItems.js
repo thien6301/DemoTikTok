@@ -9,8 +9,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Share from '~/components/Popper/Share/share';
 import { ShareIcon } from '~/components/Icons';
-import { useEffect } from 'react';
-import { ActionLike } from '~/services/handleLike';
+// import { ActionLike } from '~/services/handleLike';
+
 
 const cx = classNames.bind(style);
 
@@ -18,7 +18,7 @@ function ActionItems({ data }) {
     const id = data.id;
 
     const [like, setLike] = useState(data.likes_count);
-    const [activeLike, setActiveLike] = useState(data.is_liked);
+    const [activeLike, setActiveLike] = useState(false);
     const [activeFav, setActiveFav] = useState(false);
 
     const fetchApiLike = () => {
@@ -33,6 +33,10 @@ function ActionItems({ data }) {
                 console.log(res);
             });
     };
+    // const fetchApiLike = async () => {
+    //     const result = await ActionLike(id);
+    //     console.log('Liked result: ', result);
+    // };
 
     // const fetchApi = async () => {
     //     const result = await ActionLike(id)
@@ -51,6 +55,10 @@ function ActionItems({ data }) {
                 console.log(res);
             });
     };
+    // fetchApiLike = async() => {
+    //     const result = await ActionLike(id)
+    //     console.log(result);
+    // }
 
     const handleTym = () => {
         setLike(like + (activeLike ? -1 : +1));

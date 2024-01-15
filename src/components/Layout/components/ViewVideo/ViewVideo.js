@@ -398,40 +398,6 @@ function ViewVideo() {
                     </div>
                 </div>
                 <VideoCmtItems />
-                {/* <div className={cx('cmt-wrapper')}>
-                    <div className={cx('cmt-container')}>
-                        {listComment &&
-                            listComment.length !== 0 &&
-                            listComment.map((account) => (
-                                <VideoCmtItems
-                                    key={account.id}
-                                    result={account}
-                                />
-                            ))}
-                    </div>
-                </div>
-                <div className={cx('footer')}>
-                    <form className={cx('footer-container')}>
-                        <div className={cx('creat-cmt')}>
-                            <input 
-                                className={cx('text-cmt')}
-                                placeholder="Add comment..."
-                                style={{ height: '18px' }}
-                                value={newComment}
-                                onChange={handleChange}
-                            />
-                            <div className={cx('emojis')}>
-                                <FontAwesomeIcon
-                                    icon={faFaceSmile}
-                                    className={cx('icon')}
-                                />
-                            </div>
-                        </div>
-                        <div className={cx('post-cmt', activeComment ? 'active-cmt': '')}  onClick={handleSubmit} >
-                            Post
-                        </div>
-                    </form>
-                </div> */}
             </div>
         </div>
     );
