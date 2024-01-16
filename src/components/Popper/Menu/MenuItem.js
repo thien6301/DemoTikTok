@@ -15,6 +15,7 @@ function MenuItem({ data, onClick }) {
 
     const classes = cx('menu-item', {
         separate: data.separate,
+        style: data.style, 
     });
 
     const handleOnClick = () => {

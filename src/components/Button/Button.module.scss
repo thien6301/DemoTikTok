@@ -6,12 +6,8 @@
     min-width: 100px;
     border-radius: 4px;
     cursor: pointer;
-    background-color: var(--body-background);
+    background-color: var(--background-tippy-color);
     border: 1px solid transparent;
-
-    // + .wrapper {
-    //     margin-left: 16px;
-    // }
 
     &.disabaled {
         pointer-events: none;
@@ -27,6 +23,7 @@
 .icon {
     display: inline-block;
     width: 20px;
+    color: var(--text-color-default);
 }
 
 // Button style
@@ -75,11 +72,11 @@
 
 .up {
     color: var(--text-color-default);
-    background-color: var(--text-color-gray);
+    background-color: var(--button-color);
     border: 1px solid rgba(22, 24, 35, 0.12);
 
     &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: rgba(186, 178, 178, 0.25);
     }
 }
 .forLogin {

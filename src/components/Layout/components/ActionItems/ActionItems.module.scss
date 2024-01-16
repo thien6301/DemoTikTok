@@ -7,7 +7,9 @@
     background-color: initial;
 }
 .spanIcon {
-    background-color: rgba(22, 24, 35, 0.06);
+    color: var(--text-color-default);
+    background-color: var(--search-background);
+    // background-color: rgba(22, 24, 35, 0.06);
     width: 48px;
     height: 48px;
     display: flex;
@@ -33,28 +35,28 @@
 .like-count {
     display: flex;
     font-size: 1.2rem;
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-default);
     line-height: 1.6rem;
     letter-spacing: 0.161px;
 }
 .cmt-count {
     display: flex;
     font-size: 1.2rem;
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-default);
     line-height: 1.6rem;
     letter-spacing: 0.161px;
 }
 .underfind-count {
     display: flex;
     font-size: 1.2rem;
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-default);
     line-height: 1.6rem;
     letter-spacing: 0.161px;
 }
 .share-count {
     display: flex;
     font-size: 1.2rem;
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-default);
     line-height: 1.6rem;
     letter-spacing: 0.161px;
 }

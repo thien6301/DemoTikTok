@@ -26,7 +26,8 @@
     padding: 11px 16px;
     // border: 1px solid rgba(22, 24, 35, 0.12);
     &:hover {
-        background: rgba(22, 24, 35, 0.03);
+        // background: rgba(22, 24, 35, 0.03);
+        background: rgba(203, 191, 191, 0.1);
     }
 
     .icon {
@@ -43,6 +44,9 @@
 }
 .item-button .title {
     margin-left: 42px;
+}
+.title {
+    color: var(--text-color-default);
 }
 
 .more-btn {

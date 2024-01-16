@@ -1,6 +1,8 @@
+
 .menu-list {
     height: auto;
     min-width: 180px;
+    color: #090909;
 }
 .arrow {
     position: absolute;
@@ -10,7 +12,7 @@
     overflow-y: clip;
     top: -9px;
     z-index: 1;
-    background-color: #fff;
+    background-color: #000000;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
     width: 214px;
 }
@@ -37,10 +39,15 @@
     font-weight: 540;
 
     &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+        // background-color: rgba(22, 24, 35, 0.03);
+        background-color: rgba(203, 191, 191, 0.1);
+
     }
     &.separate {
-        border-top: 1px solid rgba(22, 24, 35, 0.12);
+        border-top: 1px solid rgba(103, 98, 98, 0.25);
+    }
+    &.style {
+        color: var(--text-color-default);
     }
 }
 
@@ -66,8 +73,12 @@
 }
 .cover {
     position: relative;
+    // background-color: rgb(0, 0, 0);
 }
-//
+// .button {
+//     color: #fff;
+// }
+// button dark mode
 
 .container {
     position: absolute;

@@ -80,23 +80,27 @@ const MENU_ITEMS = [
                 },
             ],
         },
+        style:true,
     },
 
     {
         icon: <FeedbackAndHelp />,
         title: 'Feedback and help',
         // to: '/feedback',
+        style: true,
     },
 
     {
         icon: <KeyboardShotcuts />,
         title: 'Keyboard shortcuts',
+        style: true,
     },
 
     {
         icon: <DarkMode />,
         title: 'Dark mode',
         button_mode: 'Dark',
+        style: true,
     },
 ];
 const userMenu = [
@@ -104,28 +108,33 @@ const userMenu = [
         icon: <ViewProfile />,
         title: 'View Profile',
         to: '/@thien632001',
+        style: true,
     },
 
     {
         icon: <Favorites />,
         title: 'Favorites',
         // to: '/favorite',
+        style: true,
     },
     {
         icon: <GetCoins />,
         title: 'Get Coins',
         // to: '/coin',
+        style: true,
     },
     {
         icon: <Settings />,
         title: 'Settings',
         // to: '/setting',
+        style: true,
     },
 
     ...MENU_ITEMS,
     {
         icon: <Logout />,
         title: 'Log out',
+        style: true,
         separate: true,
     },
 ];

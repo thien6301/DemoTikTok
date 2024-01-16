@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import HeadLessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AccountItem from '~/components/AccountItem';
-// import * as searchServices from '~/services/searchService';
 import * as searchService from '~/services/searchService';
 
 import { SearchIcon } from '~/components/Icons';
