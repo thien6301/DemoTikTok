@@ -27,7 +27,6 @@ function Share({ children }) {
         () => [
             {
                 showMore: true,
-                // type: less,
                 contents: [
                     {
                         icon: <Embed />,

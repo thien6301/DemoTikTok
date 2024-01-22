@@ -4,6 +4,7 @@ import styles from './Home.module.scss';
 import Video from '~/components/Layout/components/Video/Video';
 import * as videoService from '~/services/videoService';
 import { useEffect, useState } from 'react';
+import ActionsApp from '~/components/ActionsApp';
 
 const cx = classNames.bind(styles);
 const INIT_PAGE = 1;
@@ -40,6 +41,7 @@ function Home() {
     return (
         <div className={cx('wrapper')}>
             <Video data={showVideo} />
+            <ActionsApp />
         </div>
     );
 }

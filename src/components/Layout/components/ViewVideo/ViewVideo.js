@@ -49,10 +49,6 @@ function ViewVideo() {
     const [showVideo, setShowVideo] = useState([]);
     const [curUser, setCurUser] = useState([]);
     
-
-
-    
-
     const history = useNavigate();
 
     const videoRef = useRef();

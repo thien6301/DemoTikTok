@@ -19,6 +19,6 @@ function Profile() {
         fetchUser()
     },[nickname]);
 
-    return <ProfileItems data={currentUser} result={resultVideos} />;
+    return (<ProfileItems data={currentUser} result={resultVideos} />);
 }
 export default Profile;

@@ -162,7 +162,7 @@
     display: flex;
     flex-direction: column;
     padding: 24px 0 0;
-    background-color: #fff;
+    background-color: var(--body-background);
 }
 
 .description-container {
@@ -191,10 +191,12 @@
 .nickname {
     font-size: 18px;
     font-weight: 700;
+    color: var(--text-color-default);
 }
 .fullname {
     font-size: 14px;
     font-weight: 400;
+    color: var(--text-color-default);
 }
 .main-container {
 }
@@ -208,6 +210,7 @@
 .title {
     font-size: 18px;
     font-weight: 400;
+    color: var(--text-color-default);
 }
 .hastag {
     color: rgba(43, 93, 185, 1);
@@ -219,10 +222,12 @@
     height: 14px;
 }
 .icon-music .icon {
+    color: var(--text-color-default);
     font-size: 1.4rem;
 }
 .title-music {
     font-size: 1.4rem;
+    color: var(--text-color-default);
     margin-left: 8px;
 }
 .main-content {
@@ -242,6 +247,7 @@
 .cmt {
     display: flex;
     flex-direction: row;
+    color: var(--text-color-default);
     align-items: center;
 
     &:hover {
@@ -249,7 +255,8 @@
     }
 }
 .spanIcon {
-    background-color: rgba(22, 24, 35, 0.06);
+    // background-color: rgba(22, 24, 35, 0.06);
+    background-color: var(--search-background);
     width: 32px;
     height: 32px;
     display: flex;
@@ -277,7 +284,7 @@
 }
 
 .copy-link {
-    color: rgba(22, 24, 35, 0.75);
+    color: var(--text-color-default);
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.093px;
@@ -285,7 +292,7 @@
     flex-direction: row;
     margin: 16px 0;
     box-sizing: border-box;
-    border: 1px solid rgba(22, 24, 35, 0.12);
+    border: 1px solid rgba(103, 103, 106, 0.12);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -295,14 +302,14 @@
     white-space: nowrap;
     flex: 1 1 auto;
     padding: 7px 0px 5px 12px;
-    background-color: rgba(22, 24, 35, 0.06);
+    background-color: rgba(181, 182, 184, 0.06);
 }
 .copy-btn {
     font-size: 1.5rem;
     border: none;
-    background: none rgba(22, 24, 35, 0.06);
+    background: none rgba(158, 158, 158, 0.06);
     outline: none;
-    color: rgb(22, 24, 35);
+    color: var(--text-color-default);
     font-weight: 700;
     flex: 0 0 auto;
     cursor: pointer;
@@ -320,12 +327,12 @@
     height: 100%;
 }
 .tab-container .cmt-tab {
-    color: rgb(22, 24, 35);
-    border-bottom: 2px solid rgb(22, 24, 35);
+    color: var(--text-color-default);
+    border-bottom: 2px solid var(--text-color-default);
 }
 .cmt-tab,
 .creator-tab {
-    color: rgba(22, 24, 35, 0.6);
+    color: var(--text-color-default);
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.093px;
@@ -431,74 +438,6 @@
 
 // footer
 
-.footer-container {
-    align-items: flex-end;
-    display: flex;
-    font-size: 1.4rem;
-}
-.creat-cmt {
-    background-color: rgb(25 28 42 / 6%);
-    border: 1px solid transparent;
-    border-radius: 8px;
-    flex-grow: 1;
-    padding: 10px 9px;
-    position: relative;
-
-    &:focus-within {
-        border-color: rgba(22, 24, 35, 0.2);
-    }
-}
-.text-cmt {
-    background-color: transparent;
-    caret-color: var(--primary);
-    display: flex;
-    align-items: center;
-    overflow-y: hidden;
-    resize: none;
-    width: calc(100% - 40px);
-}
-textarea {
-    border: none;
-
-    width: 100%;
-    outline: none;
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-}
-.emojis {
-    align-items: center;
-    border-radius: 8px;
-    bottom: 0;
-    cursor: pointer;
-    display: flex;
-    font-size: 22px;
-    height: 32px;
-    justify-content: center;
-    margin: 3px;
-    position: absolute;
-    right: 9px;
-    width: 32px;
-}
-.emojis .icon {
-    width: 20px;
-    height: 20px;
-}
-.post-cmt {
-    color: rgba(22, 24, 35, 0.34);
-    font-weight: 600;
-    letter-spacing: 0.093px;
-    cursor: default;
-    flex: 0 0 48px;
-    font-size: 14px;
-    line-height: 39px;
-    text-align: right;
-    margin-right: 4px;
-}
-
-
-
 // main comment
 // delete comment
 .wrapper-delete {
@@ -555,7 +494,7 @@ textarea {
     padding: 0px 32px;
     width: 100%;
     text-align: center;
-    color: rgb(22, 24, 35);
+    color: #44ff00;
     // word-wrap: break-word;
     // max-width: 18ch;
 }
@@ -666,6 +605,10 @@ textarea {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+}
+.gg {
+    // color: rgb(248, 240, 240);
+    display: none;
 }
 .btn-delete {
     display: none;

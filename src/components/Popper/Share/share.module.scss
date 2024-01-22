@@ -50,10 +50,11 @@
 }
 
 .more-btn {
+    color: var(--text-color-default);
     display: flex;
     justify-content: center;
     cursor: pointer;
     &:hover {
-        background: rgba(22, 24, 35, 0.03);
+        background: rgba(203, 191, 191, 0.1);
     }
 }

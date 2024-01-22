@@ -82,7 +82,6 @@ function VideoCmtItems() {
         setNewComment(e.target.value);
     };
 
-    
     const renderDeleteCmt = (attrs) => (
         <div className={cx('menu-list')} {...attrs}>
             <PopperWrapper classNames={cx('menu-popper')}>
@@ -184,13 +183,15 @@ function VideoCmtItems() {
                                                     renderDeleteCmt(result)
                                                 }
                                             >
-                                                <div>
-                                                    <DotDotDotIcon />
-                                                </div>
+                                                <span>
+                                                    <DotDotDotIcon
+                                                        className={cx('icon')}
+                                                    />
+                                                </span>
                                             </Tippy>
                                         </div>
                                         <div className={cx('like-container')}>
-                                            <TymIconMini />
+                                            <TymIconMini className={cx('gg')} />
                                             <span className={cx('tym-cmt')}>
                                                 {result.likes_count}
                                             </span>

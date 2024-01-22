@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import style from './ActionItems.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBookmark,
@@ -9,8 +9,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Share from '~/components/Popper/Share/share';
 import { ShareIcon } from '~/components/Icons';
+import { ActionLike, ActionUnLike } from '~/services/PostHandleVideo';
 // import { ActionLike } from '~/services/handleLike';
-
 
 const cx = classNames.bind(style);
 
@@ -18,67 +18,36 @@ function ActionItems({ data }) {
     const id = data.id;
 
     const [like, setLike] = useState(data.likes_count);
-    const [activeLike, setActiveLike] = useState(false);
+    const [isLiked, setIsLiked] = useState(data.is_liked);
     const [activeFav, setActiveFav] = useState(false);
 
-    const fetchApiLike = () => {
-        fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}/like`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-            });
-    };
-    // const fetchApiLike = async () => {
-    //     const result = await ActionLike(id);
-    //     console.log('Liked result: ', result);
-    // };
-
-    // const fetchApi = async () => {
-    //     const result = await ActionLike(id)
-    //     console.log(result);
-    // }
-
-    const fetchApiUnlike = () => {
-        fetch(`https://tiktok.fullstack.edu.vn/api/videos/${id}/unlike`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-            });
-    };
-    // fetchApiLike = async() => {
-    //     const result = await ActionLike(id)
-    //     console.log(result);
-    // }
-
-    const handleTym = () => {
-        setLike(like + (activeLike ? -1 : +1));
-        setActiveLike(!activeLike);
-        if (!activeLike) {
-            fetchApiLike();
+    const handleLikeStateChange = async (newState) => {
+        if (newState) {
+            const isSuccess = await ActionLike(id);
+            if (isSuccess) {
+                setLike((prev) => prev + 1);
+                setIsLiked(true);
+            } else {
+                setIsLiked(false);
+            }
         } else {
-            fetchApiUnlike();
+            const isSuccess = await ActionUnLike(id);
+            if (!isSuccess) {
+                setIsLiked(true);
+            } else {
+                setLike((prev) => prev - 1);
+                setIsLiked(false);
+            }
         }
     };
-
-    const handleFavorite = () => {
-        setActiveFav((current) => !current);
-    };
-
     return (
         <div className={cx('action-item')}>
-            <div className={cx('tym-action')} onClick={handleTym}>
+            <div
+                className={cx('tym-action')}
+                onClick={() => handleLikeStateChange(!isLiked)}
+            >
                 <span className={cx('spanIcon')}>
-                    {activeLike ? (
+                    {isLiked ? (
                         <FontAwesomeIcon
                             className={cx('icon')}
                             icon={faHeart}
@@ -104,7 +73,7 @@ function ActionItems({ data }) {
                     {data.comments_count}
                 </strong>
             </div>
-            <div className={cx('favorites-action')} onClick={handleFavorite}>
+            <div className={cx('favorites-action')} >
                 <span className={cx('spanIcon')}>
                     <FontAwesomeIcon
                         className={cx('icon')}

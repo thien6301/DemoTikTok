@@ -19,7 +19,6 @@ export const logout = async (path, options = {}) => {
     return response.data;
 };
 
-
 export const curuser = async (path, options = {}) => {
     const response = await httpRequest.get(path, options);
     return response.data;
@@ -28,6 +27,5 @@ export const DELETE = async (path, options = {}) => {
     const response = await httpRequest.delete(path, options);
     return response.data;
 };
-
 
 export default httpRequest;

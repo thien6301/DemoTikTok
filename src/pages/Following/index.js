@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
 import FollowingDefault from '~/components/Following/followingDefault';
+import ActionsApp from '~/components/ActionsApp';
 
 const cx = classNames.bind(styles);
 const INIT_PAGE = 1;
@@ -74,7 +75,10 @@ function Following() {
     return (
         <div className={cx('wrapper')}>
             {contextLogin.data ? (
-                <Video data={showVideo} />
+                <div>
+                    <Video data={showVideo} />
+                    <ActionsApp/>
+                </div>
             ) : (
                 <FollowingDefault user={showUser} />
             )}
