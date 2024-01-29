@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import style from './ActionItems.module.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBookmark,
@@ -10,16 +10,16 @@ import {
 import Share from '~/components/Popper/Share/share';
 import { ShareIcon } from '~/components/Icons';
 import { ActionLike, ActionUnLike } from '~/services/PostHandleVideo';
-// import { ActionLike } from '~/services/handleLike';
 
 const cx = classNames.bind(style);
 
 function ActionItems({ data }) {
     const id = data.id;
+    
+    const [activeFav, setActiveFav] = useState(false);
 
     const [like, setLike] = useState(data.likes_count);
     const [isLiked, setIsLiked] = useState(data.is_liked);
-    const [activeFav, setActiveFav] = useState(false);
 
     const handleLikeStateChange = async (newState) => {
         if (newState) {

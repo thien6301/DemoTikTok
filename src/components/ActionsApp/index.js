@@ -49,7 +49,6 @@ function ActionsApp() {
                     className={cx('btn-getApp', {
                         'close-animate': !isExpand,
                     })}
-                    medium
                 >
                     Get App
                 </Button>

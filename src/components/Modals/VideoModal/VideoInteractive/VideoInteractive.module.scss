@@ -1,0 +1,36 @@
+.count-list {
+    display: flex;
+    flex-direction: row;
+}
+.cmt,
+.favorite {
+    margin-left: 20px;
+}
+.tym,
+.favorite,
+.cmt {
+    display: flex;
+    flex-direction: row;
+    color: var(--text-color-default);
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+.spanIcon {
+    // background-color: rgba(22, 24, 35, 0.06);
+    background-color: var(--search-background);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1.7rem;
+}
+.count {
+    margin-left: 6px;
+    font-size: 1.2rem;
+    line-height: 16px;
+}

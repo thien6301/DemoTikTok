@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Following.module.scss';
 
-import Video from '~/components/Layout/components/Video/Video';
+import Video from '~/components/Video/Video';
 import { LoginContext } from '~/components/LoginProvider';
 
 // import * as videoService from '~/services/videoService';
@@ -26,36 +26,32 @@ function Following() {
 
     const [page, setPage] = useState(INIT_PAGE);
 
-
     // console.log(token)
-    const fetchApi = () => { 
+    const fetchApi = () => {
         followingVideoService
-        .getVideoFollowing()
-        .then((data) => {
-            setShowVideo([...data]);
-        })
-        .catch((error) => console.log(error));
-    }
-
+            .getVideoFollowing()
+            .then((data) => {
+                setShowVideo([...data]);
+            })
+            .catch((error) => console.log(error));
+    };
 
     useEffect(() => {
         if (token) {
             fetchApi();
-        }
-        else if(!token){
-            callApi()
+        } else if (!token) {
+            callApi();
         }
     }, [page]);
 
     const callApi = () => {
         userService
-        .getSuggested(page, PER_PAGE)
-        .then((user) => {
-            setShowUser((prev) => [...prev, ...user]);
-        })
-        .catch((error) => console.log(error));
-    }
-    
+            .getSuggested(page, PER_PAGE)
+            .then((user) => {
+                setShowUser((prev) => [...prev, ...user]);
+            })
+            .catch((error) => console.log(error));
+    };
 
     const handleScroll = () => {
         if (
@@ -77,7 +73,7 @@ function Following() {
             {contextLogin.data ? (
                 <div>
                     <Video data={showVideo} />
-                    <ActionsApp/>
+                    <ActionsApp />
                 </div>
             ) : (
                 <FollowingDefault user={showUser} />

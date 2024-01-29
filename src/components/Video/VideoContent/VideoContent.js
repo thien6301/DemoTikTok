@@ -18,12 +18,15 @@ import {
     UnMuteIcon,
 } from '~/components/Icons';
 import Tippy from '@tippyjs/react/headless';
-import ActionItems from '../../ActionItems/ActionItems';
+// import ActionItems from '../../ActionItems/ActionItems';
+import ActionItems from '../ActionItems/ActionItems'
+import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
 
 const cx = classNames.bind(styles);
 function VideoContent({ data }) {
     const videoRef = useRef();
 
+    const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
     const [playing, setPlaying] = useState();
     const [isVolume, setIsVolume] = useState(50);
     const [muteVideo, setMuteVideo] = useState(false);
@@ -64,7 +67,7 @@ function VideoContent({ data }) {
                 setPlaying(false);
             }
         }
-    }, [isVisibile,playing]);
+    }, [isVisibile, playing]);
 
     useEffect(() => {
         if (videoRef) {
@@ -76,6 +79,17 @@ function VideoContent({ data }) {
         setMuteVideo((prev) => !prev);
     };
 
+    const handleFollowStateChange = async () => {
+        if (!isFollowed) {
+            const isSuccess = await ActionFollow(data.id);
+            setIsFollowed(true);
+            console.log(isSuccess);
+        } else if (isFollowed) {
+            const isSuccess = await ActionUnFollow(data.id);
+            setIsFollowed(false);
+            console.log(isSuccess);
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('show-video')}>
@@ -116,16 +130,16 @@ function VideoContent({ data }) {
                             <span className={cx('music')}>{data.music}</span>
                         </div>
                     </div>
-                    {data.user.is_followed && (
-                        <div className={cx('follow')}>
+                    <div
+                        className={cx('follow')}
+                        onClick={handleFollowStateChange}
+                    >
+                        {isFollowed ? (
                             <Button up>Following</Button>
-                        </div>
-                    )}
-                    {!data.user.is_followed && (
-                        <div className={cx('follow')}>
+                        ) : (
                             <Button outline>Follow</Button>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
 
                 <div className={cx('video-main')}>

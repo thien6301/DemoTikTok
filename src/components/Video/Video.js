@@ -1,9 +1,9 @@
-import VideoContent from './VideoContent/VideoContent';
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Video.module.scss';
+import VideoContent from './VideoContent/VideoContent';
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +11,8 @@ function Video({ data = [] }) {
     return (
         <div className={cx('wrapper')}>
             {data.map((video) => (
-                <VideoContent key={video.id} data={video} />
+                // <VideoContent key={video.id} data={video} />
+                <VideoContent key={video.id} data={video}/>
             ))}
         </div>
     );

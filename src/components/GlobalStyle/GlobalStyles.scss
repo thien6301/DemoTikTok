@@ -19,6 +19,9 @@
     --button-color: #fff;
     --search-input-default: rgba(22, 24, 35, 0.06);
     --background-tippy-color:#fff;
+
+    --test-color: #fff;
+
 }
 [data-theme='dark'] {
     --search-input-default: rgba(255, 255, 255, 0.12);
@@ -30,6 +33,8 @@
     --search-background: rgba(255, 255, 255, 0.12);
     --placehoder-search: #fff;
     --background-tippy-color:rgb(38, 38, 38);
+
+    --test-color: #fff;    
 
 }
 * {

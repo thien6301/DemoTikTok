@@ -31,6 +31,11 @@ function MenuItem({ data, onClick }) {
             contextTheme.LightMode();
         }
     };
+    const selectedTheme = localStorage.getItem('selectedTheme')
+    if (selectedTheme === 'dark'){
+        contextTheme.DarkMode()
+    }
+    
     return (
         <div className={cx('cover')}>
             <Button
@@ -46,6 +51,7 @@ function MenuItem({ data, onClick }) {
                             type="checkbox"
                             id={styles.check}
                             onChange={toggleTheme}
+                            defaultChecked = {selectedTheme === 'dark'}
                         />
                         <label
                             htmlFor={styles.check}

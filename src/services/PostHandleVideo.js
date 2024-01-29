@@ -33,3 +33,35 @@ export const ActionUnLike = async (id) => {
         console.log('errorLikePost: ', error);
     }
 };
+export const ActionFollow = async (id) => {
+    try {
+        const res = await httpRequest.post(
+            `users/${id}/follow`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            },
+        );
+        return res;
+    } catch (error) {
+        console.log('errorFollowPost: ', error);
+    }
+};
+export const ActionUnFollow = async (id) => {
+    try {
+        const res = await httpRequest.post(
+            `users/${id}/unfollow`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            },
+        );
+        return res;
+    } catch (error) {
+        console.log('errorUnFollowPost: ', error);
+    }
+};
