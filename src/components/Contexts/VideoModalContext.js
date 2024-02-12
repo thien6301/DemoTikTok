@@ -1,13 +1,20 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 export const CommentContext = createContext();
 
+export function UserVideo() {
+    return useContext(CommentContext);
+}
 function CommentProvider({ children }) {
     const [isShow, setIsShow] = useState(false);
     const [currentLink, setCurrentLink] = useState();
     const [idVideoCurrent, setIdVideoCurrent] = useState();
+    const [indexCurrent, setIndexCurrent] = useState();
     const [isWatch, setIsWatch] = useState(false);
     const [uuidVideo, setUiidVideo] = useState();
+    const [positionVideo, setPositionVideo] = useState(null);
+    const [listVideos, setListVideos] = useState();
+
 
     const body = document.body;
 
@@ -40,14 +47,20 @@ function CommentProvider({ children }) {
         handleHideComment,
         handleSetLink,
         setIdVideoCurrent,
+        setIndexCurrent,
         handleShowWatchComment,
         handleHideWatchComment,
         setUiidVideo,
+        setPositionVideo,
+        setListVideos,
         idVideoCurrent,
+        indexCurrent,
         currentLink,
         isShow,
         isWatch,
         uuidVideo,
+        positionVideo,
+        listVideos,
     };
 
     return (

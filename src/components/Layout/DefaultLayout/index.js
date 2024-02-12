@@ -3,19 +3,22 @@ import classNames from 'classnames/bind';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { ModalContext } from '~/components/ModalProvider';
-import { LoginContext } from '~/components/LoginProvider';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { getCurrentUserService } from '~/services/getCurrentUserService';
 import LogOutForm from '~/components/AuthForms/LogOutForm';
 import MenuModalItem from '~/components/MenuModalItem';
 
 import styles from './DefaultLayout.module.scss';
 import { useContext, useEffect } from 'react';
+import { CommentContext } from '~/components/Contexts/VideoModalContext';
+import VideoModal from '~/components/Modals/VideoModal/VideoModal';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     const contextModal = useContext(ModalContext);
     const contextLogin = useContext(LoginContext);
+    const contextComment = useContext(CommentContext);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -45,6 +48,9 @@ function DefaultLayout({ children }) {
             </div>
             {contextModal.activeLogOut && <LogOutForm />}
             {contextModal.active && <MenuModalItem />}
+            {contextComment.isShow && (
+                <VideoModal idVideo={contextComment.idVideoCurrent} />
+            )}
         </div>
     );
 }

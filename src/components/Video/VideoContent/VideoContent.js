@@ -7,7 +7,7 @@ import Button from '~/components/Button';
 
 // import * as LikeService from '~/services/LikeService';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { useElementOnScreen } from '../Video';
 import { Link } from 'react-router-dom';
 import {
@@ -19,17 +19,34 @@ import {
 } from '~/components/Icons';
 import Tippy from '@tippyjs/react/headless';
 // import ActionItems from '../../ActionItems/ActionItems';
-import ActionItems from '../ActionItems/ActionItems'
+import ActionItems from '../ActionItems/ActionItems';
 import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
+import { CommentContext } from '~/components/Contexts/VideoModalContext';
 
 const cx = classNames.bind(styles);
-function VideoContent({ data }) {
+function VideoContent({ children, idVideo, uuidVideo, item, index }) {
     const videoRef = useRef();
 
-    const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
-    const [playing, setPlaying] = useState();
+    const contextComment = useContext(CommentContext);
+    const [isFollowed, setIsFollowed] = useState(item.user.is_followed);
+    const [isplaying, setIsPlaying] = useState(false);
     const [isVolume, setIsVolume] = useState(50);
     const [muteVideo, setMuteVideo] = useState(false);
+
+    const handleVideo = () => {
+        if (isplaying) {
+            videoRef.current.pause();
+            setIsPlaying(false);
+        } else {
+            videoRef.current.play();
+            setIsPlaying(true);
+        }
+    };
+
+    const handlePauseVideo = () => {
+        videoRef.current.pause();
+        setIsPlaying(false);
+    };
 
     // play video inview
     const options = {
@@ -38,36 +55,19 @@ function VideoContent({ data }) {
         threshold: 1,
     };
     const isVisibile = useElementOnScreen(options, videoRef);
-    const handleVideo = () => {
-        if (playing) {
-            videoRef.current.pause();
-            setPlaying(!playing);
-        } else {
-            videoRef.current.play();
-            setPlaying(!playing);
-        }
-    };
-
-    const handlePauseVideo = () => {
-        const id = data.id;
-        console.log(id);
-
-        videoRef.current.pause();
-        setPlaying(false);
-    };
     useEffect(() => {
         if (isVisibile) {
-            if (!playing) {
+            if (!isplaying) {
                 videoRef.current.play();
-                setPlaying(true);
+                setIsPlaying(true);
             }
         } else {
-            if (playing) {
+            if (isplaying) {
                 videoRef.current.pause();
-                setPlaying(false);
+                setIsPlaying(false);
             }
         }
-    }, [isVisibile, playing]);
+    }, [isVisibile]);
 
     useEffect(() => {
         if (videoRef) {
@@ -81,53 +81,62 @@ function VideoContent({ data }) {
 
     const handleFollowStateChange = async () => {
         if (!isFollowed) {
-            const isSuccess = await ActionFollow(data.id);
+            const isSuccess = await ActionFollow(idVideo);
             setIsFollowed(true);
             console.log(isSuccess);
         } else if (isFollowed) {
-            const isSuccess = await ActionUnFollow(data.id);
+            const isSuccess = await ActionUnFollow(idVideo);
             setIsFollowed(false);
             console.log(isSuccess);
         }
+    };
+    const handleViewVideo = () => {
+        handlePauseVideo();
+
+        contextComment.handleShowComment();
+        contextComment.handleSetLink(children);
+        contextComment.setIdVideoCurrent(idVideo);
+        contextComment.setIndexCurrent(index);
+        contextComment.setUiidVideo(uuidVideo);
     };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('show-video')}>
                 <div className={cx('video-title')}>
-                    <Link to={`/@${data.user.nickname}`}>
+                    <Link to={`/@${item.user.nickname}`}>
                         <img
                             className={cx('avatar-account')}
-                            src={data.user.avatar}
+                            src={item.user.avatar}
                             alt="none"
                         />
                     </Link>
                     <div className={cx('content-conainer')}>
                         <Link
-                            to={`/@${data.user.nickname}`}
+                            to={`/@${item.user.nickname}`}
                             className={cx('video-author')}
                         >
                             <h3 className={cx('nick-name')}>
-                                {data.user.nickname}
+                                {item.user.nickname}
                             </h3>
-                            {data.user.tick && (
+                            {item.user.tick && (
                                 <FontAwesomeIcon
                                     className={cx('check')}
                                     icon={faCheckCircle}
                                 />
                             )}
                             <h4 className={cx('full-name')}>
-                                {data.user.first_name +
+                                {item.user.first_name +
                                     ' ' +
-                                    data.user.last_name}
+                                    item.user.last_name}
                             </h4>
                         </Link>
 
                         <div className={cx('video-title')}>
-                            {data.description}
+                            {item.description}
                         </div>
                         <div className={cx('video-audio')}>
                             <FontAwesomeIcon icon={faMusic} />
-                            <span className={cx('music')}>{data.music}</span>
+                            <span className={cx('music')}>{item.music}</span>
                         </div>
                     </div>
                     <div
@@ -144,13 +153,14 @@ function VideoContent({ data }) {
 
                 <div className={cx('video-main')}>
                     <div className={cx('video-cover')}>
-                        <Link
-                            to={`/video/${data.id}`}
+                        <div
                             className={cx('video-content')}
-                            onClick={handlePauseVideo}
+                            onClick={() => {
+                                handleViewVideo();
+                            }}
                         >
                             <video
-                                id={data.id}
+                                id={idVideo}
                                 ref={videoRef}
                                 className={cx('video')}
                                 height="100%"
@@ -159,15 +169,15 @@ function VideoContent({ data }) {
                                 loop
                                 preload="auto"
                             >
-                                <source src={data.file_url} type="video/ogg" />
+                                <source src={item.file_url} type="video/ogg" />
                             </video>
-                        </Link>
+                        </div>
 
                         <div
                             className={cx('pause-control', 'video-sub')}
                             onClick={handleVideo}
                         >
-                            {playing ? <PlayIcon /> : <PauseIconMini />}
+                            {isplaying ? <PlayIcon /> : <PauseIconMini />}
                         </div>
 
                         <div className={cx('report-control', 'video-sub')}>
@@ -213,7 +223,10 @@ function VideoContent({ data }) {
                             </Tippy>
                         </div>
                     </div>
-                    <ActionItems data={data} />
+                    <ActionItems
+                        item={item}
+                        handleOpenModal={handleViewVideo}
+                    />
                 </div>
             </div>
 

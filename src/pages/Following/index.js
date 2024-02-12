@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Following.module.scss';
 
 import Video from '~/components/Video/Video';
-import { LoginContext } from '~/components/LoginProvider';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
 
 // import * as videoService from '~/services/videoService';
 import * as followingVideoService from '~/services/followingVideoService';

@@ -13,13 +13,13 @@ import { ActionLike, ActionUnLike } from '~/services/PostHandleVideo';
 
 const cx = classNames.bind(style);
 
-function ActionItems({ data }) {
-    const id = data.id;
-    
+function ActionItems({ item, handleOpenModal }) {
+    const id = item.id;
+
     const [activeFav, setActiveFav] = useState(false);
 
-    const [like, setLike] = useState(data.likes_count);
-    const [isLiked, setIsLiked] = useState(data.is_liked);
+    const [like, setLike] = useState(item.likes_count);
+    const [isLiked, setIsLiked] = useState(item.is_liked);
 
     const handleLikeStateChange = async (newState) => {
         if (newState) {
@@ -47,22 +47,15 @@ function ActionItems({ data }) {
                 onClick={() => handleLikeStateChange(!isLiked)}
             >
                 <span className={cx('spanIcon')}>
-                    {isLiked ? (
-                        <FontAwesomeIcon
-                            className={cx('icon')}
-                            icon={faHeart}
-                            style={{ color: '#e2223f' }}
-                        />
-                    ) : (
-                        <FontAwesomeIcon
-                            className={cx('icon')}
-                            icon={faHeart}
-                        />
-                    )}
+                    <FontAwesomeIcon
+                        className={cx('icon')}
+                        icon={faHeart}
+                        style={isLiked ? { color: 'red' } : ''}
+                    />
                 </span>
                 <strong className={cx('like-count')}>{like}</strong>
             </div>
-            <div className={cx('cmt-action')}>
+            <div className={cx('cmt-action')} onClick={handleOpenModal}>
                 <span className={cx('spanIcon')}>
                     <FontAwesomeIcon
                         className={cx('icon')}
@@ -70,10 +63,10 @@ function ActionItems({ data }) {
                     />
                 </span>
                 <strong className={cx('cmt-count')}>
-                    {data.comments_count}
+                    {item.comments_count}
                 </strong>
             </div>
-            <div className={cx('favorites-action')} >
+            <div className={cx('favorites-action')}>
                 <span className={cx('spanIcon')}>
                     <FontAwesomeIcon
                         className={cx('icon')}
@@ -83,7 +76,7 @@ function ActionItems({ data }) {
                 </span>
 
                 <strong className={cx('underfind-count')}>
-                    {data.views_count}
+                    {item.views_count}
                 </strong>
             </div>
 
@@ -93,7 +86,7 @@ function ActionItems({ data }) {
                         <ShareIcon />
                     </span>
                     <strong className={cx('share-count')}>
-                        {data.shares_count}
+                        {item.shares_count}
                     </strong>
                 </div>
             </Share>

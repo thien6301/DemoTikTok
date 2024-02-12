@@ -4,8 +4,9 @@ import App from './App';
 import GlobalStyles from './components/GlobalStyle';
 
 import ModalProvider from './components/ModalProvider/ModalProvider';
-import LoginProvider from './components/LoginProvider/LoginProvider';
+import LoginProvider from './components/Contexts/LoginModalContext';
 import ThemProvider from './components/ThemeProvider';
+import CommentProvider from './components/Contexts/VideoModalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,9 @@ root.render(
         <ThemProvider>
             <ModalProvider>
                 <LoginProvider>
-                    <App />
+                    <CommentProvider>
+                        <App />
+                    </CommentProvider>
                 </LoginProvider>
             </ModalProvider>
         </ThemProvider>

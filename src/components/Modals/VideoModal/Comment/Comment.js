@@ -1,4 +1,3 @@
-import { useOnKeyPress } from '~/hooks/useOnKeyPress';
 import classNames from 'classnames/bind';
 import styles from './Comment.module.scss';
 import Image from '~/components/Image/Image';
@@ -14,18 +13,18 @@ import { PostCommentService } from '~/services/PostCommentService';
 import { getList } from '~/services/getCommentList';
 
 import Tippy from '@tippyjs/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmileBeam } from '@fortawesome/free-regular-svg-icons';
 import { deleteCommentService } from '~/services/deleteCommentService';
 import { getCurrentUserService } from '~/services/getCurrentUserService';
+import { CommentContext } from '~/components/Contexts/VideoModalContext';
 
 const cx = classNames.bind(styles);
 
-function Comment() {
-    const { id } = useParams();
+function Comment({ idVideo }) {
     const [isPressDelete, setIsPressDelete] = useState(false);
     const [listComment, setListComment] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -35,7 +34,7 @@ function Comment() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getCurrentUserService(id);
+            const result = await getCurrentUserService();
             setCurrUser(result.id);
         };
         fetchApi();
@@ -44,19 +43,37 @@ function Comment() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getList(id);
+            const result = await getList(idVideo);
             setListComment(result);
         };
         fetchApi();
     }, []);
 
-    
-    
+    //post cmt
+    const fetchApi = async () => {
+        const result = await PostCommentService(idVideo, newComment);
+        console.log('postComment: ', result);
+        setNewComment('');
+        const result1 = await getList(idVideo);
+        setListComment(result1);
+    };
+    const handleSubmit = () => {
+        fetchApi();
+        setActiveComment(false);
+    };
+
+    const handleChange = (e) => {
+        setActiveComment(true);
+        if (e.target.value === '') {
+            setActiveComment(false);
+        }
+        setNewComment(e.target.value);
+    };
 
     const handleDeleteComment = async () => {
         const result = await deleteCommentService(idComment);
         console.log(result);
-        const result1 = await getList(id);
+        const result1 = await getList(idVideo);
         setListComment(result1);
         console.log(result1);
         setIsPressDelete(false);
@@ -112,7 +129,7 @@ function Comment() {
                             </Button>
                             <Button
                                 outline
-                                className={cx('button-cancel')}
+                                className={cx('button-delete')}
                                 onClick={handleDeleteComment}
                             >
                                 Delete
@@ -179,6 +196,34 @@ function Comment() {
                             </div>
                         ))}
                 </div>
+            </div>
+            <div className={cx('footer')}>
+                <form className={cx('footer-container')}>
+                    <div className={cx('creat-cmt')}>
+                        <input
+                            className={cx('text-cmt')}
+                            placeholder="Add comment..."
+                            style={{ height: '18px' }}
+                            value={newComment}
+                            onChange={handleChange}
+                        />
+                        <div className={cx('emojis')}>
+                            <FontAwesomeIcon
+                                icon={faFaceSmileBeam}
+                                className={cx('icon')}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        className={cx(
+                            'post-cmt',
+                            activeComment ? 'active-cmt' : '',
+                        )}
+                        onClick={handleSubmit}
+                    >
+                        Post
+                    </div>
+                </form>
             </div>
         </div>
     );

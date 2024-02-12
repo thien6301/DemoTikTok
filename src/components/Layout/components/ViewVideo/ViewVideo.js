@@ -28,24 +28,29 @@ import { useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCurrentVideo } from '~/services/getCurrentVideo';
-import { ActionFollow, ActionLike, ActionUnFollow, ActionUnLike } from '~/services/PostHandleVideo';
+import {
+    ActionFollow,
+    ActionLike,
+    ActionUnFollow,
+    ActionUnLike,
+} from '~/services/PostHandleVideo';
 import Comment from './comments/Comment';
 
 const cx = classNames.bind(styles);
 
 function ViewVideo() {
     const { id } = useParams();
-    const [isPlaying, setIsPlaying] = useState(false);
+        const [isPlaying, setIsPlaying] = useState(false);
 
-    const [position, setPosition] = useState(0);
-    const [marginLeft, setMarginLeft] = useState(0);
-    const [progressBarWidth, setProgressBarWidth] = useState(0);
+        const [position, setPosition] = useState(0);
+        const [marginLeft, setMarginLeft] = useState(0);
+        const [progressBarWidth, setProgressBarWidth] = useState(0);
 
-    const [duration, setDuration] = useState(0);
-    const [percentage, setPercentage] = useState(0);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [isVolume, setIsVolume] = useState(100);
-    const [muteVideo, setMuteVideo] = useState(false);
+        const [duration, setDuration] = useState(0);
+        const [percentage, setPercentage] = useState(0);
+        const [currentTime, setCurrentTime] = useState(0);
+        const [isVolume, setIsVolume] = useState(100);
+        const [muteVideo, setMuteVideo] = useState(false);
 
     const [showVideo, setShowVideo] = useState([]);
     const [curUser, setCurUser] = useState([]);
@@ -55,7 +60,6 @@ function ViewVideo() {
 
     const [isFollowed, setIsFollowed] = useState();
 
-
     // console.log(isLiked);
 
     const history = useNavigate();
@@ -63,22 +67,18 @@ function ViewVideo() {
     const videoRef = useRef();
     const rangeRef = useRef();
     const thumbRef = useRef();
-    
-    
-    
-    
+
     useEffect(() => {
         const fetchApi = async () => {
             const result = await getCurrentVideo(id);
             setShowVideo(result);
             setCurUser(result.user);
-            setLikesCount(result.likes_count)
-            setIsLiked(result.is_liked)
-            setIsFollowed(result.user.is_followed)
+            setLikesCount(result.likes_count);
+            setIsLiked(result.is_liked);
+            setIsFollowed(result.user.is_followed);
         };
         fetchApi();
-    }, []);  
-
+    }, []);
 
     useEffect(() => {
         const rangeWidth = rangeRef.current.getBoundingClientRect().width;
@@ -314,10 +314,9 @@ function ViewVideo() {
                     )}
                 </div>
             </div>
-            
 
-
-            {/* {} */}
+        {/* mm */}
+        
             <div className={cx('content')}>
                 <div className={cx('description-container')}>
                     <div className={cx('info-container')}>
@@ -332,7 +331,10 @@ function ViewVideo() {
                                 <span>{showVideo.published_at}</span>
                             </h4>
                         </div>
-                        <div className={cx('follow')} onClick={handleFollowStateChange}>
+                        <div
+                            className={cx('follow')}
+                            onClick={handleFollowStateChange}
+                        >
                             {isFollowed ? (
                                 <Button up>Following</Button>
                             ) : (
@@ -360,7 +362,7 @@ function ViewVideo() {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className={cx('main-content')}>
                     <div
                         style={{
@@ -433,9 +435,7 @@ function ViewVideo() {
                         </div>
                     </div>
                     <div className={cx('copy-link')}>
-                        <p className={cx('link')}>
-                            {window.location.href}
-                        </p>
+                        <p className={cx('link')}>{window.location.href}</p>
                         <button className={cx('copy-btn')}>Copy link</button>
                     </div>
                     <div className={cx('tab-menu')}>

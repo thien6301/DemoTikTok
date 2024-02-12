@@ -10,9 +10,15 @@ const cx = classNames.bind(styles);
 function Video({ data = [] }) {
     return (
         <div className={cx('wrapper')}>
-            {data.map((video) => (
-                // <VideoContent key={video.id} data={video} />
-                <VideoContent key={video.id} data={video}/>
+            {data.map((item, index) => (
+                <div key={index}>
+                    <VideoContent
+                        index={index}
+                        idVideo={item.id}
+                        uuidVideo={item.uuid}
+                        item={item}
+                    />
+                </div>
             ))}
         </div>
     );

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { ModalContext } from '~/components/ModalProvider';
-import { LoginContext } from '~/components/LoginProvider';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { ThemeContext } from '~/components/ThemeProvider';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
@@ -28,6 +28,7 @@ import {
 } from '~/components/Icons';
 import Search from '../Search';
 import { Link } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -80,7 +81,7 @@ const MENU_ITEMS = [
                 },
             ],
         },
-        style:true,
+        style: true,
     },
 
     {
@@ -172,13 +173,14 @@ function Header() {
                 <div className={cx('action')}>
                     {contextLogin.data ? (
                         <>
-                            <Button up>
+                            <Button up to={config.routes.upload}>
                                 <FontAwesomeIcon
                                     icon={faPlus}
                                     className={cx('upload')}
                                 />
                                 Upload
                             </Button>
+
                             <Tippy content="Message">
                                 <button className={cx('action-btn')}>
                                     <UploadIcon />

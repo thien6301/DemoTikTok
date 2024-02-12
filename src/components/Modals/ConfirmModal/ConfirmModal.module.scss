@@ -1,0 +1,23 @@
+.wrapper {
+    width: fit-content;
+    min-width: 310px;
+}
+
+.content {
+    text-align: center;
+}
+
+.apply,
+.cancel {
+    min-height: 48px;
+    border-top: 1px solid var(--background-gray-color-12);
+    cursor: pointer;
+
+    & > * {
+        min-height: inherit;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

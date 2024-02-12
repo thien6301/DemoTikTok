@@ -13,13 +13,13 @@ import {
     ShareDefault,
     UnFollow,
 } from '~/components/Icons';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import Share from '~/components/Popper/Share/share';
-import { ModalContext } from '~/components/ModalProvider';
-import { Link } from 'react-router-dom';
+import { CommentContext } from '../Contexts/VideoModalContext';
+import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
 
 const cx = classNames.bind(styles);
 
@@ -27,22 +27,23 @@ const menuItems = [
     {
         icon: <ReportMiniIcon />,
         title: 'Report',
+        style: true,
     },
 
     {
         icon: <BlockIcon />,
         title: 'Block',
         separate: true,
+        style: true,
     },
 ];
 
-function ProfileItems({ data, result }) {
-
-    console.log(data);
-
+function ProfileItems({ children, data, result }) {
     const [activeVideo, setActiveVideo] = useState(true);
     const [activeLiked, setActiveLiked] = useState(false);
     const [activeLine, setActiveLine] = useState(false);
+    const [isFollowed, setIsFollowed] = useState(data?.is_followed);
+    console.log(data.is_followed);
 
     const handleActiveVideos = () => {
         setActiveVideo(true);
@@ -54,24 +55,41 @@ function ProfileItems({ data, result }) {
         setActiveLiked(true);
         setActiveLine(true);
     };
-    const contextModal = useContext(ModalContext)
 
-    const VideosItems = ({ result }) => {
+    // Follow
+
+    useEffect(() => {
+        setIsFollowed(data?.is_followed);
+    }, [data]);
+    
+    const handleFollow = async () => {
+        const isSuccess = await ActionFollow(data.id);
+        setIsFollowed(true);
+        console.log(isSuccess);
+    };
+    const handleUnFollow = async () => {
+        const isSuccess = await ActionUnFollow(data.id);
+        setIsFollowed(false);
+        console.log(isSuccess);
+    };
+
+    const VideosItems = ({ item, idVideo, uuidVideo }) => {
+        const contextComment = useContext(CommentContext);
         return (
-            <Link
-                to={`/video/${data.id}`}
-                className={cx('profile-videolist')}
-            >
-                <div className={cx('videos')}
-                    onClick={contextModal.handleShowModalView}
+            <div className={cx('profile-videolist')}>
+                <div
+                    className={cx('videos')}
+                    onClick={() => {
+                        contextComment.handleShowComment();
+                        contextComment.handleSetLink(children);
+                        contextComment.setIdVideoCurrent(idVideo);
+                        contextComment.setUiidVideo(uuidVideo);
+                    }}
                 >
-                    <Image
-                        className={cx('thumb-video')}
-                        src={result.thumb_url}
-                    />
-                    <p className={cx('title-video')}>{result.description}</p>
+                    <Image className={cx('thumb-video')} src={item.thumb_url} />
+                    <p className={cx('title-video')}>{item.description}</p>
                 </div>
-            </Link>
+            </div>
         );
     };
     return (
@@ -82,11 +100,10 @@ function ProfileItems({ data, result }) {
                         <Image className={cx('avatar')} src={data.avatar} />
                         <div className={cx('title-info')}>
                             <h1 className={cx('nick-name')}>{data.nickname}</h1>
-                            {/* <FontAwesomeIcon icon={}/> */}
                             <h2 className={cx('full-name')}>
                                 {data.first_name + ' ' + data.last_name}
                             </h2>
-                            {data.is_followed ? (
+                            {isFollowed ? (
                                 <div className={cx('message-container')}>
                                     <Button outline className={cx('message')}>
                                         Message
@@ -95,13 +112,20 @@ function ProfileItems({ data, result }) {
                                         content="Unfollow"
                                         placement="bottom"
                                     >
-                                        <div className={cx('unfollow')}>
+                                        <div
+                                            className={cx('unfollow')}
+                                            onClick={handleUnFollow}
+                                        >
                                             <UnFollow />
                                         </div>
                                     </Tippy>
                                 </div>
                             ) : (
-                                <Button primary className={cx('follow-btn')}>
+                                <Button
+                                    primary
+                                    className={cx('follow-btn')}
+                                    onClick={handleFollow}
+                                >
                                     Follow
                                 </Button>
                             )}
@@ -133,7 +157,7 @@ function ProfileItems({ data, result }) {
                             </span>
                         </Share>
                         <Menu items={menuItems}>
-                            <span>
+                            <span className={cx('more')}>
                                 <MoreIcon />
                             </span>
                         </Menu>
@@ -143,7 +167,10 @@ function ProfileItems({ data, result }) {
                 <div>
                     <div className={cx('profile-tablist')}>
                         <div
-                            className={cx('tab-item', 'active')}
+                            className={cx(
+                                'tab-item',
+                                activeVideo ? 'active' : '',
+                            )}
                             onClick={handleActiveVideos}
                         >
                             Videos
@@ -169,11 +196,14 @@ function ProfileItems({ data, result }) {
                     </div>
                     {activeVideo && result.length > 0 && (
                         <div className={cx('cover')}>
-                            {result.map((account) => (
-                                <VideosItems
-                                    key={account.id}
-                                    result={account}
-                                />
+                            {result.map((item, index) => (
+                                <div key={index}>
+                                    <VideosItems
+                                        idVideo={item.id}
+                                        uuidVideo={item.uuid}
+                                        item={item}
+                                    />
+                                </div>
                             ))}
                         </div>
                     )}{' '}

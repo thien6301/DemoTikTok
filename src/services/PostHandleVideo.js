@@ -43,7 +43,7 @@ export const ActionFollow = async (id) => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             },
-        );
+        );     
         return res;
     } catch (error) {
         console.log('errorFollowPost: ', error);

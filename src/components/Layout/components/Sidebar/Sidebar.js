@@ -13,17 +13,16 @@ import {
     LiveIcon,
 } from '~/components/Icons';
 
-import * as userService from '~/services/userService';
+import * as followService from '~/services/followService';
 import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 import SidebarDefault from './SidebarDefault';
 import { useContext, useEffect, useState } from 'react';
 import Footer from '~/components/Footer/Footer';
-import { LoginContext } from '~/components/LoginProvider';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
 
 const cx = classNames.bind(styles);
 
-const INIT_PAGE = 1;
-const PER_PAGE = 10;
+const INIT_PAGE = 2;
 
 function Sidebar() {
     const contextLogin = useContext(LoginContext);
@@ -31,8 +30,8 @@ function Sidebar() {
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
-        userService
-            .getSuggested(page, PER_PAGE)
+        followService
+            .getFollower(page)
             .then((data) => {
                 setSuggestedUser((prevUsers) => [...prevUsers, ...data]);
             })
@@ -89,4 +88,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
