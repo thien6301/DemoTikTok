@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Button from '~/components/Button';
 import styles from '../UserAuthForm.module.scss';
 
-import { ModalContext } from '~/components/ModalProvider';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 import {
     AppleIcon,
     FacebookIcon,

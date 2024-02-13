@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
 import FollowingDefault from '~/components/Following/followingDefault';
-import ActionsApp from '~/components/ActionsApp';
+import ActionsApp from '~/components/ScrollTop';
 
 const cx = classNames.bind(styles);
 const INIT_PAGE = 1;

@@ -3,7 +3,7 @@ import styles from './SidebarDefaule.module.scss';
 import Button from '~/components/Button';
 import { useContext } from 'react';
 
-import { ModalContext } from '~/components/ModalProvider';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 
 const cx = classNames.bind(styles);
 

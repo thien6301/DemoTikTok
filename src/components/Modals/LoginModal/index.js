@@ -10,10 +10,10 @@ import {
     QrIcon,
     TwitterIcon,
     ViewProfile,
-} from '../Icons';
+} from '../../Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faApple } from '@fortawesome/free-brands-svg-icons';
-import LoginContent from '../Popper/LoginContent';
+import LoginContent from '../../Popper/LoginContent';
 
 const cx = classNames.bind(style);
 

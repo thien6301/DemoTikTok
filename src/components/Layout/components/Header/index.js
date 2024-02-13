@@ -8,7 +8,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { ModalContext } from '~/components/ModalProvider';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { ThemeContext } from '~/components/ThemeProvider';
 import Button from '~/components/Button';

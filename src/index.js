@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import GlobalStyles from './components/GlobalStyle';
 
-import ModalProvider from './components/ModalProvider/ModalProvider';
+import ModalProvider from './components/Contexts/ModalProvider';
 import LoginProvider from './components/Contexts/LoginModalContext';
 import ThemProvider from './components/ThemeProvider';
 import CommentProvider from './components/Contexts/VideoModalContext';

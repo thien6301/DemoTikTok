@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { ModalContext } from '~/components/ModalProvider';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { getCurrentUserService } from '~/services/getCurrentUserService';
-import LogOutForm from '~/components/AuthForms/LogOutForm';
-import MenuModalItem from '~/components/MenuModalItem';
+import LogOutForm from '~/components/Modals/AuthModal/LogOutForm';
+import MenuModalItem from '~/components/Modals/MenuModalItem';
 
 import styles from './DefaultLayout.module.scss';
 import { useContext, useEffect } from 'react';

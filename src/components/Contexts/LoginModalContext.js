@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
 import * as LoginService from '~/services/LoginService';
-import { ModalContext } from '../ModalProvider';
+import { ModalContext } from './ModalProvider';
 
 export const LoginContext = createContext();
 

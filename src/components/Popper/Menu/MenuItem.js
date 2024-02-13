@@ -4,7 +4,7 @@ import styles from './Menu.module.scss';
 import { useContext } from 'react';
 
 import Button from '~/components/Button';
-import { ModalContext } from '~/components/ModalProvider';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 import { ThemeContext } from '~/components/ThemeProvider';
 
 const cx = classNames.bind(styles);
@@ -15,7 +15,7 @@ function MenuItem({ data, onClick }) {
 
     const classes = cx('menu-item', {
         separate: data.separate,
-        style: data.style, 
+        style: data.style,
     });
 
     const handleOnClick = () => {
@@ -31,11 +31,11 @@ function MenuItem({ data, onClick }) {
             contextTheme.LightMode();
         }
     };
-    const selectedTheme = localStorage.getItem('selectedTheme')
-    if (selectedTheme === 'dark'){
-        contextTheme.DarkMode()
+    const selectedTheme = localStorage.getItem('selectedTheme');
+    if (selectedTheme === 'dark') {
+        contextTheme.DarkMode();
     }
-    
+
     return (
         <div className={cx('cover')}>
             <Button
@@ -51,7 +51,7 @@ function MenuItem({ data, onClick }) {
                             type="checkbox"
                             id={styles.check}
                             onChange={toggleTheme}
-                            defaultChecked = {selectedTheme === 'dark'}
+                            defaultChecked={selectedTheme === 'dark'}
                         />
                         <label
                             htmlFor={styles.check}

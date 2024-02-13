@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import styles from './LoginForm.module.scss';
 
-import { LoginContext } from '~/components/LoginProvider';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { HidePassWordIcon, ShowPassWordIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);

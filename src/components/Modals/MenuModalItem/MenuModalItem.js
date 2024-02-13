@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './MenuModalItem.module.scss';
-import LoginForm from '~/components/AuthForms/LoginForm/';
+import LoginForm from '~/components/Modals/AuthModal/LoginForm';
 import { XIcon } from '~/components/Icons';
-import LoginAuthForm from '~/components/AuthForms/UserAuthForms/LoginAuthForm';
-import RegisterAuthForm from '~/components/AuthForms/UserAuthForms/RegisterAuthForm';
-import { ModalContext } from '../ModalProvider';
+import LoginAuthForm from '~/components/Modals/AuthModal/UserAuthForms/LoginAuthForm';
+import RegisterAuthForm from '~/components/Modals/AuthModal/UserAuthForms/RegisterAuthForm';
+import { ModalContext } from '../../Contexts/ModalProvider';
 
 const cx = classNames.bind(styles);
 

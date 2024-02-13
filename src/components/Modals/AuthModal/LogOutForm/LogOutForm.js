@@ -2,9 +2,9 @@ import styles from './LogOutForm.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import { useContext } from 'react';
-import { ModalContext } from '~/components/ModalProvider';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 import { logoutService } from '~/services/LogOutService';
-import { LoginContext } from '~/components/LoginProvider';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +35,7 @@ function LogOutForm() {
                     >
                         Cancel
                     </Button>
-                    
+
                     <Button
                         outline
                         className={cx('button-cancel')}
