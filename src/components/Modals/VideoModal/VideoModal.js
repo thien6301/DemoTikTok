@@ -31,6 +31,8 @@ import Comment from './Comment/Comment';
 import { CommentContext } from '~/components/Contexts/VideoModalContext';
 import VideoInteractive from './VideoInteractive/VideoInteractive';
 import * as videoService from '~/services/videoService';
+import config from '~/config';
+import { Link } from 'react-router-dom';
 const INIT_PAGE = 1;
 
 const cx = classNames.bind(styles);
@@ -57,11 +59,8 @@ function VideoModal({ idVideo }) {
     const [listVideos, setListVideos] = useState([]);
     const [curUser, setCurUser] = useState([]);
 
-    const [isFollowed, setIsFollowed] = useState();
-//comment
-
-
-const idVideoPrev = ContextComment.indexCurrent 
+    const [isFollowed, setIsFollowed] = useState(curUser?.is_followed);
+    //comment
 
     // console.log(isLiked);
 
@@ -181,17 +180,6 @@ const idVideoPrev = ContextComment.indexCurrent
 
     /// ActionVideo
 
-    const handleFollowStateChange = async () => {
-        if (!isFollowed) {
-            const isSuccess = await ActionFollow(idVideo);
-            setIsFollowed(true);
-            console.log(isSuccess);
-        } else if (isFollowed) {
-            const isSuccess = await ActionUnFollow(idVideo);
-            setIsFollowed(false);
-            console.log(isSuccess);
-        }
-    };
     const handleNextVideo = () => {
         setIndexVideo((prev) => prev + 1);
         if (indexVideo) {
@@ -204,8 +192,7 @@ const idVideoPrev = ContextComment.indexCurrent
             fetchApiNextVideo();
         }
     };
-    console.log(indexVideo);
-    console.log(listVideos[indexVideo]?.id);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('video-wrapper')}>
@@ -336,8 +323,20 @@ const idVideoPrev = ContextComment.indexCurrent
             <div className={cx('content')}>
                 <div className={cx('description-container')}>
                     <div className={cx('info-container')}>
-                        <Image src={curUser.avatar} className={cx('avatar')} />
-                        <div className={cx('name')}>
+                        <Link
+                            to={`/@${curUser.nickname}`}
+                            onClick={ContextComment.handleHideComment}
+                        >
+                            <Image
+                                src={curUser.avatar}
+                                className={cx('avatar')}
+                            />
+                        </Link>
+                        <Link
+                            to={`/@${curUser.nickname}`}
+                            className={cx('name')}
+                            onClick={ContextComment.handleHideComment}
+                        >
                             <h2 className={cx('nickname')}>
                                 {curUser.nickname}
                             </h2>
@@ -346,12 +345,12 @@ const idVideoPrev = ContextComment.indexCurrent
                                 <span style={{ margin: '0px 4px ' }}>.</span>
                                 <span>{showVideo.published_at}</span>
                             </h4>
-                        </div>
+                        </Link>
                         <div
                             className={cx('follow')}
-                            onClick={() => handleFollowStateChange(!isFollowed)}
+                            // onClick={() => handleFollowStateChange(!isFollowed)}
                         >
-                            {isFollowed ? (
+                            {curUser.is_followed ? (
                                 <Button up>Following</Button>
                             ) : (
                                 <Button primary>Follow</Button>
@@ -435,10 +434,7 @@ const idVideoPrev = ContextComment.indexCurrent
                         </div>
                     </div>
                 </div>
-                <Comment
-                    listVideos={listVideos}
-                    idVideo={idVideo}
-                />
+                <Comment listVideos={listVideos} idVideo={idVideo} />
             </div>
         </div>
     );

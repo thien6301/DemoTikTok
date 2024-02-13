@@ -43,6 +43,7 @@ function ProfileItems({ children, data, result }) {
     const [activeLiked, setActiveLiked] = useState(false);
     const [activeLine, setActiveLine] = useState(false);
     const [isFollowed, setIsFollowed] = useState(data?.is_followed);
+    console.log(data);
     console.log(data.is_followed);
 
     const handleActiveVideos = () => {
@@ -61,7 +62,7 @@ function ProfileItems({ children, data, result }) {
     useEffect(() => {
         setIsFollowed(data?.is_followed);
     }, [data]);
-    
+
     const handleFollow = async () => {
         const isSuccess = await ActionFollow(data.id);
         setIsFollowed(true);

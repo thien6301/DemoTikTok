@@ -2,10 +2,7 @@ import * as httpRequest from '~/utils/httpRequest';
 
 export const getFollower = async (page) => {
     try {
-        const res = await httpRequest.get('me/followings', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const res = await httpRequest.get('users/suggested', {
             params: {
                 page,
             },

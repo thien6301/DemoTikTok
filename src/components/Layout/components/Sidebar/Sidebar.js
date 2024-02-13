@@ -14,15 +14,16 @@ import {
 } from '~/components/Icons';
 
 import * as followService from '~/services/followService';
-import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 import SidebarDefault from './SidebarDefault';
 import { useContext, useEffect, useState } from 'react';
 import Footer from '~/components/Footer/Footer';
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
+import FollowingAccounts from '~/components/SuggestedAccounts/FollowingAccounts';
 
 const cx = classNames.bind(styles);
 
-const INIT_PAGE = 2;
+const INIT_PAGE = 1;
+const per_page = 10;
 
 function Sidebar() {
     const contextLogin = useContext(LoginContext);
@@ -31,7 +32,7 @@ function Sidebar() {
 
     useEffect(() => {
         followService
-            .getFollower(page)
+            .getFollower(page, per_page)
             .then((data) => {
                 setSuggestedUser((prevUsers) => [...prevUsers, ...data]);
             })
@@ -71,17 +72,16 @@ function Sidebar() {
                     activeIcon={<LiveActiveIcon />}
                 />
             </Menu>
-            {contextLogin.data ? (
-                <SuggestedAccounts
+            {!contextLogin.data ? (
+                <SidebarDefault />
+            ) : (
+                <FollowingAccounts
                     lable="Following accounts"
                     data={suggestedUser}
                     onSeeMore={handSeeMore}
                 />
-            ) : (
-                <SidebarDefault />
             )}
 
-            {/* <SuggestedAccounts lable="Following accounts" /> */}
             <Footer />
         </aside>
     );

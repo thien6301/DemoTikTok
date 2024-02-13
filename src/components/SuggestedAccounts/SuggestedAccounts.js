@@ -13,7 +13,9 @@ function SuggestedAccounts({ data = [], lable, onSeeMore }) {
                 <AccountItems key={account.id} data={account} />
             ))}
 
-            <p className={cx('more-btn')} onClick={onSeeMore}>See more</p>
+            <p className={cx('more-btn')} onClick={onSeeMore}>
+                See more
+            </p>
         </div>
     );
 }

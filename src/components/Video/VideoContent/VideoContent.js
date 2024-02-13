@@ -28,7 +28,7 @@ function VideoContent({ children, idVideo, uuidVideo, item, index }) {
     const videoRef = useRef();
 
     const contextComment = useContext(CommentContext);
-    const [isFollowed, setIsFollowed] = useState(item.user.is_followed);
+    const [isFollowed, setIsFollowed] = useState(item.user?.is_followed);
     const [isplaying, setIsPlaying] = useState(false);
     const [isVolume, setIsVolume] = useState(50);
     const [muteVideo, setMuteVideo] = useState(false);
@@ -81,11 +81,11 @@ function VideoContent({ children, idVideo, uuidVideo, item, index }) {
 
     const handleFollowStateChange = async () => {
         if (!isFollowed) {
-            const isSuccess = await ActionFollow(idVideo);
+            const isSuccess = await ActionFollow(item.user.id);
             setIsFollowed(true);
             console.log(isSuccess);
         } else if (isFollowed) {
-            const isSuccess = await ActionUnFollow(idVideo);
+            const isSuccess = await ActionUnFollow(item.user.id);
             setIsFollowed(false);
             console.log(isSuccess);
         }
