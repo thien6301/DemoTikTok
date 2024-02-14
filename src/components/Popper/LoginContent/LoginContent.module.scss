@@ -6,6 +6,9 @@
     text-decoration: none;
     border: 1px solid rgba(22, 24, 35, 0.12);
     margin-bottom: 16px;
+    &.style {
+        color: var(--text-color-default);
+    }
 }
 .title {
     display: flex;

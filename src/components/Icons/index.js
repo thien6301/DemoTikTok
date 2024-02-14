@@ -1321,10 +1321,10 @@ export const UploadVideoIcon = ({ width = '4.8rem', height = '4.8rem' }) => (
         <path d="M25.84 37h8.66a9.5 9.5 0 0 0 1.35-18.9A12 12 0 0 0 12 20v.01A8.5 8.5 0 0 0 12.5 37h10.34V25.6l-1.72 1.74a1 1 0 0 1-1.42 0l-.7-.7a1 1 0 0 1 0-1.41l4.4-4.4c.68-.76 1.22-.77 2 .08l4.28 4.32a1 1 0 0 1 0 1.4l-.7.72a1 1 0 0 1-1.42 0l-1.72-1.75V37Z"></path>
     </svg>
 );
-export const iconMusic = ({ width = '4.8rem', height = '4.8rem' }) => (
+export const IconMusic = ({ width = '4.8rem', height = '4.8rem' }) => (
     <svg
-        width="1em"
-        height="1em"
+        width={width}
+        height={height}
         viewBox="0 0 48 48"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -1336,10 +1336,10 @@ export const iconMusic = ({ width = '4.8rem', height = '4.8rem' }) => (
         ></path>
     </svg>
 );
-export const iconSmallArrow = ({ width = '4.8rem', height = '4.8rem' }) => (
+export const IconSmallArrow = ({ width = '4.8rem', height = '4.8rem' }) => (
     <svg
-        width="1em"
-        height="1em"
+        width={width}
+        height={height}
         viewBox="0 0 48 48"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -1351,10 +1351,67 @@ export const iconSmallArrow = ({ width = '4.8rem', height = '4.8rem' }) => (
         ></path>
     </svg>
 );
-export const iconTickBox = ({ width = '4.8rem', height = '4.8rem' }) => (
+
+export const IconTextWarning = ({ width = '1.5rem', height = '1.5rem' }) => (
     <svg
-        width="1em"
-        height="1em"
+        width={width}
+        height={height}
+        viewBox="0 0 48 48"
+        fill="rgba(254, 44, 85, 1.0)"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M20.5522 6.91656C22.0988 4.28733 25.9011 4.28734 27.4477 6.91656L43.9509 34.9719C45.5194 37.6385 43.5968 41 40.5031 41H7.49679C4.40313 41 2.48051 37.6385 4.04906 34.9719L20.5522 6.91656ZM24 8.94464L7.49679 37H40.5031L24 8.94464ZM22 18C22 17.4477 22.4477 17 23 17H25C25.5522 17 26 17.4477 26 18V27C26 27.5523 25.5522 28 25 28H23C22.4477 28 22 27.5523 22 27V18ZM24 35C25.3807 35 26.5 33.8807 26.5 32.5C26.5 31.1193 25.3807 30 24 30C22.6192 30 21.5 31.1193 21.5 32.5C21.5 33.8807 22.6192 35 24 35Z"
+        ></path>
+    </svg>
+);
+export const IconEyeShow = ({ width = '1.5rem', height = '1.5rem' }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 20"
+        width={width}
+        height={height}
+    >
+        <g
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeMiterlimit="10"
+            strokeWidth="1.5"
+            opacity="0.5"
+        >
+            <path d="M9.8 4.8c3 0 5.3 1.7 7 5-1.7 3.3-4 5-7 5s-5.3-1.7-7-5c1.6-3.4 4-5 7-5z"></path>
+            <path d="M9.8 11.8a2 2 0 100-4 2 2 0 000 4z"></path>
+        </g>
+    </svg>
+);
+export const IconEyeHide = ({ width = '1.5rem', height = '1.5rem' }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 20"
+        width={width}
+        height={height}
+    >
+        <g
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeMiterlimit="10"
+            strokeWidth="1.5"
+            opacity="0.5"
+        >
+            <path d="M2.8 7.8c2.1 1 4.5 1.6 7 1.6s4.9-.6 7-1.6M9.8 9.8v3M5.1 9.2l-1.5 2.6M14.6 9.2l1.5 2.6"></path>
+        </g>
+    </svg>
+);
+export const IconTickBox = ({ width = '1.5rem', height = '1.5rem' }) => (
+    <svg
+        width={width}
+        height={height}
         viewBox="0 0 16 12"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -1366,18 +1423,18 @@ export const iconTickBox = ({ width = '4.8rem', height = '4.8rem' }) => (
         ></path>
     </svg>
 );
-export const iconTextWarning = ({ width = '4.8rem', height = '4.8rem' }) => (
+export const IconNote = ({ width = '1.5rem', height = '1.5rem' }) => (
     <svg
-        width="1em"
-        height="1em"
-        viewBox="0 0 48 48"
-        fill="red"
         xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        fill="currentColor"
     >
         <path
+            fill="currentColor"
             fillRule="evenodd"
+            d="M15.393 2.226a.842.842 0 0 0-1.17.02L8.142 8.33a.842.842 0 0 0-.247.595v2.34c0 .464.377.841.842.841h2.183a.842.842 0 0 0 .596-.246l6.237-6.238a.843.843 0 0 0-.02-1.211l-2.34-2.184ZM9.58 9.273l5.26-5.26 1.107 1.033-5.374 5.375H9.58V9.273ZM9.58 2a.42.42 0 0 1 .42.421v.842a.421.421 0 0 1-.42.421H4.526a.842.842 0 0 0-.842.842v10.948c0 .465.377.842.842.842h10.947a.842.842 0 0 0 .842-.842V10.42c0-.232.189-.421.421-.421h.842c.233 0 .422.188.422.421v5.053A2.526 2.526 0 0 1 15.473 18H4.526A2.526 2.526 0 0 1 2 15.474V4.526A2.526 2.526 0 0 1 4.526 2H9.58Z"
             clipRule="evenodd"
-            d="M24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42C33.9411 42 42 33.9411 42 24C42 14.0589 33.9411 6 24 6ZM2 24C2 11.8497 11.8497 2 24 2C36.1503 2 46 11.8497 46 24C46 36.1503 36.1503 46 24 46C11.8497 46 2 36.1503 2 24ZM27 16C27 17.6569 25.6569 19 24 19C22.3431 19 21 17.6569 21 16C21 14.3431 22.3431 13 24 13C25.6569 13 27 14.3431 27 16ZM23 22C22.4477 22 22 22.4477 22 23V34C22 34.5523 22.4477 35 23 35H25C25.5523 35 26 34.5523 26 34V23C26 22.4477 25.5523 22 25 22H23Z"
         ></path>
     </svg>
 );

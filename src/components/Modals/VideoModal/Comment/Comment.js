@@ -19,12 +19,14 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmileBeam } from '@fortawesome/free-regular-svg-icons';
 import { deleteCommentService } from '~/services/deleteCommentService';
-import { getCurrentUserService } from '~/services/getCurrentUserService';
-import { CommentContext } from '~/components/Contexts/VideoModalContext';
+import { getCurrentUser } from '~/services/getCurrentUserService';
+import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
 
 const cx = classNames.bind(styles);
 
 function Comment({ idVideo }) {
+    const showNotify = useContext(NotifyContextKey);
+
     const [isPressDelete, setIsPressDelete] = useState(false);
     const [listComment, setListComment] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -34,7 +36,7 @@ function Comment({ idVideo }) {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getCurrentUserService();
+            const result = await getCurrentUser();
             setCurrUser(result.id);
         };
         fetchApi();
@@ -59,6 +61,7 @@ function Comment({ idVideo }) {
     };
     const handleSubmit = () => {
         fetchApi();
+        showNotify('Comment posted');
         setActiveComment(false);
     };
 
@@ -77,6 +80,7 @@ function Comment({ idVideo }) {
         setListComment(result1);
         console.log(result1);
         setIsPressDelete(false);
+        showNotify('Deleted');
     };
 
     const renderDeleteCmt = (attrs) => (

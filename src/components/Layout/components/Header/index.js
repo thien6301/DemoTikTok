@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 import Tippy from '@tippyjs/react';
 import Image from '~/components/Image';
@@ -13,6 +13,9 @@ import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { ThemeContext } from '~/components/ThemeProvider';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+
+import * as getCurrentUserService from '~/services/getCurrentUserService';
+
 import {
     DarkMode,
     English,
@@ -32,6 +35,14 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 
+const handleMenuChange = (menuItem) => {
+    switch (menuItem.type) {
+        case 'language':
+            // Handle change language
+            break;
+        default:
+    }
+};
 const MENU_ITEMS = [
     {
         icon: <English />,
@@ -104,52 +115,44 @@ const MENU_ITEMS = [
         style: true,
     },
 ];
-const userMenu = [
-    {
-        icon: <ViewProfile />,
-        title: 'View Profile',
-        to: '/@thien632001',
-        style: true,
-    },
-
-    {
-        icon: <Favorites />,
-        title: 'Favorites',
-        // to: '/favorite',
-        style: true,
-    },
-    {
-        icon: <GetCoins />,
-        title: 'Get Coins',
-        // to: '/coin',
-        style: true,
-    },
-    {
-        icon: <Settings />,
-        title: 'Settings',
-        // to: '/setting',
-        style: true,
-    },
-
-    ...MENU_ITEMS,
-    {
-        icon: <Logout />,
-        title: 'Log out',
-        style: true,
-        separate: true,
-    },
-];
-
-const handleMenuChange = (menuItem) => {
-    switch (menuItem.type) {
-        case 'language':
-            // Handle change language
-            break;
-        default:
-    }
-};
 
 function Header() {
+    const userMenu = [
+        {
+            icon: <ViewProfile />,
+            title: 'View Profile',
+            // to: `/@${curUser.nickname}`,
+            style: true,
+        },
+
+        {
+            icon: <Favorites />,
+            title: 'Favorites',
+            // to: '/favorite',
+            style: true,
+        },
+        {
+            icon: <GetCoins />,
+            title: 'Get Coins',
+            // to: '/coin',
+            style: true,
+        },
+        {
+            icon: <Settings />,
+            title: 'Settings',
+            // to: '/setting',
+            style: true,
+        },
+
+        ...MENU_ITEMS,
+        {
+            icon: <Logout />,
+            title: 'Log out',
+            style: true,
+            separate: true,
+        },
+    ];
+
     const contextModal = useContext(ModalContext);
     const contextLogin = useContext(LoginContext);
     const contextTheme = useContext(ThemeContext);

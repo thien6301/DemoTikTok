@@ -13,12 +13,13 @@ import {
     LiveIcon,
 } from '~/components/Icons';
 
-import * as followService from '~/services/followService';
+import * as userService from '~/services/userService';
 import SidebarDefault from './SidebarDefault';
 import { useContext, useEffect, useState } from 'react';
 import Footer from '~/components/Footer/Footer';
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import FollowingAccounts from '~/components/SuggestedAccounts/FollowingAccounts';
+import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 
 const cx = classNames.bind(styles);
 
@@ -31,8 +32,8 @@ function Sidebar() {
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
-        followService
-            .getFollower(page, per_page)
+        userService
+            .getSuggested(page, per_page)
             .then((data) => {
                 setSuggestedUser((prevUsers) => [...prevUsers, ...data]);
             })
@@ -75,8 +76,8 @@ function Sidebar() {
             {!contextLogin.data ? (
                 <SidebarDefault />
             ) : (
-                <FollowingAccounts
-                    lable="Following accounts"
+                <SuggestedAccounts
+                    lable="Suggest accounts"
                     data={suggestedUser}
                     onSeeMore={handSeeMore}
                 />

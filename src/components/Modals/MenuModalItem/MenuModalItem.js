@@ -9,6 +9,7 @@ import { XIcon } from '~/components/Icons';
 import LoginAuthForm from '~/components/Modals/AuthModal/UserAuthForms/LoginAuthForm';
 import RegisterAuthForm from '~/components/Modals/AuthModal/UserAuthForms/RegisterAuthForm';
 import { ModalContext } from '../../Contexts/ModalProvider';
+import RegisterFrom from '../AuthModal/RegisterFrom';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,10 @@ function MenuModalItem() {
                     <div className={cx('inner')}>
                         {context.typeForm === 'loginform' && <LoginForm />}
                         {context.typeForm === 'login' && <LoginAuthForm />}
+                        {context.typeForm === 'registerform' && (
+                            <RegisterFrom />
+                        )}
+
                         {context.typeForm === 'register' && (
                             <RegisterAuthForm />
                         )}

@@ -23,6 +23,8 @@ function Login() {
             icon: <QrIcon />,
             title: 'Use QR code',
             to: '/feedback',
+            style: true,
+            separate: true,
         },
         {
             icon: <ViewProfile />,

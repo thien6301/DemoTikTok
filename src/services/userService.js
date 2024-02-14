@@ -1,13 +1,11 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getSuggested = async (page, perPage) => {
+export const getSuggested = async (page, per_page) => {
     try {
-        const res = await httpRequest.get('me/following', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        const res = await httpRequest.get('users/suggested', {
             params: {
                 page,
+                per_page,
             },
         });
         return res.data;

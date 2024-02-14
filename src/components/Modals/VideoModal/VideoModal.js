@@ -5,8 +5,7 @@ import Image from '~/components/Image/Image';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faBookmark,
-    faHeart,
+  
     faMusic,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -26,19 +25,21 @@ import {
 import { useContext, useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { getCurrentVideo } from '~/services/getCurrentVideo';
-import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
+
 import Comment from './Comment/Comment';
 import { CommentContext } from '~/components/Contexts/VideoModalContext';
 import VideoInteractive from './VideoInteractive/VideoInteractive';
 import * as videoService from '~/services/videoService';
-import config from '~/config';
+
 import { Link } from 'react-router-dom';
+
 const INIT_PAGE = 1;
 
 const cx = classNames.bind(styles);
 
 function VideoModal({ idVideo }) {
     const ContextComment = useContext(CommentContext);
+
 
     const [indexVideo, setIndexVideo] = useState(
         ContextComment.indexCurrent + 1,

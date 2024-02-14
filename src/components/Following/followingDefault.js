@@ -4,6 +4,7 @@ import FollowingItems from './followingItems';
 const cx = classNames.bind(style);
 
 function FollowingDefault({ user = [] }) {
+    console.log(user);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-poster')}>

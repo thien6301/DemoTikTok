@@ -50,7 +50,6 @@ function LoginForm() {
         } else {
             setDisabled(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [emailTemp, password]);
 
     return (

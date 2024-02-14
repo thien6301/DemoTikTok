@@ -26,7 +26,6 @@ const loginList = {
             id: 1,
             icon: <QrIcon />,
             title: 'Use QR code',
-            // disabled: true,
         },
         {
             id: 2,
@@ -65,7 +64,7 @@ const loginList = {
         },
         {
             id: 8,
-            icon: <AppleIcon/>,
+            icon: <AppleIcon />,
             title: 'Continue with Apple',
             disabled: true,
         },

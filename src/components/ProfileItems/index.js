@@ -6,6 +6,7 @@ import Image from '~/components/Image/Image';
 import {
     BlockIcon,
     ContentIcon,
+    IconNote,
     LockDefaultIcon,
     LockIcon,
     MoreIcon,
@@ -20,6 +21,8 @@ import Menu from '~/components/Popper/Menu';
 import Share from '~/components/Popper/Share/share';
 import { CommentContext } from '../Contexts/VideoModalContext';
 import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
+import { LoginContext } from '../Contexts/LoginModalContext';
+import { ModalContext } from '../Contexts/ModalProvider';
 
 const cx = classNames.bind(styles);
 
@@ -39,6 +42,8 @@ const menuItems = [
 ];
 
 function ProfileItems({ children, data, result }) {
+    const contextLogin = useContext(LoginContext);
+    const contextModal = useContext(ModalContext);
     const [activeVideo, setActiveVideo] = useState(true);
     const [activeLiked, setActiveLiked] = useState(false);
     const [activeLine, setActiveLine] = useState(false);
@@ -64,9 +69,13 @@ function ProfileItems({ children, data, result }) {
     }, [data]);
 
     const handleFollow = async () => {
-        const isSuccess = await ActionFollow(data.id);
-        setIsFollowed(true);
-        console.log(isSuccess);
+        if (contextLogin.data) {
+            const isSuccess = await ActionFollow(data.id);
+            setIsFollowed(true);
+            console.log(isSuccess);
+        } else {
+            contextModal.handleShowModal();
+        }
     };
     const handleUnFollow = async () => {
         const isSuccess = await ActionUnFollow(data.id);
@@ -104,6 +113,15 @@ function ProfileItems({ children, data, result }) {
                             <h2 className={cx('full-name')}>
                                 {data.first_name + ' ' + data.last_name}
                             </h2>
+                            {
+                                <Button up>
+                                    <span className={'editIcon'}>
+                                        {' '}
+                                        <IconNote />
+                                    </span>{' '}
+                                    Edit Profile
+                                </Button>
+                            }
                             {isFollowed ? (
                                 <div className={cx('message-container')}>
                                     <Button outline className={cx('message')}>

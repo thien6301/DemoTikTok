@@ -1,6 +1,6 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getCurrentUserService = async () => {
+export const getCurrentUser = async () => {
     try {
         const res = await httpRequest.get('auth/me', {
             headers: {

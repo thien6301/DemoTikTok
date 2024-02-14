@@ -16,42 +16,36 @@ import ActionsApp from '~/components/ScrollTop';
 
 const cx = classNames.bind(styles);
 const INIT_PAGE = 1;
-const PER_PAGE = 10;
 function Following() {
     const contextLogin = useContext(LoginContext);
     const [showVideo, setShowVideo] = useState([]);
     const [showUser, setShowUser] = useState([]);
 
-    const token = localStorage.getItem('token');
-
     const [page, setPage] = useState(INIT_PAGE);
 
-    // console.log(token)
+    // follow
     const fetchApi = () => {
         followingVideoService
             .getVideoFollowing()
             .then((data) => {
                 setShowVideo([...data]);
+                console.log(showVideo);
             })
             .catch((error) => console.log(error));
     };
-
-    useEffect(() => {
-        if (token) {
-            fetchApi();
-        } else if (!token) {
-            callApi();
-        }
-    }, [page]);
-
+    // suggest
     const callApi = () => {
         userService
-            .getSuggested(page, PER_PAGE)
-            .then((user) => {
-                setShowUser((prev) => [...prev, ...user]);
+            .getSuggested(page)
+            .then((data) => {
+                setShowUser((prev) => [...prev, ...data]);
             })
             .catch((error) => console.log(error));
     };
+    useEffect(() => {
+        fetchApi();
+        callApi();
+    }, [page]);
 
     const handleScroll = () => {
         if (
@@ -70,13 +64,13 @@ function Following() {
 
     return (
         <div className={cx('wrapper')}>
-            {contextLogin.data ? (
+            {!contextLogin.data && showVideo.length < 5 ? (
+                <FollowingDefault user={showUser} />
+            ) : (
                 <div>
                     <Video data={showVideo} />
                     <ActionsApp />
                 </div>
-            ) : (
-                <FollowingDefault user={showUser} />
             )}
         </div>
     );
