@@ -64,7 +64,7 @@ function Following() {
 
     return (
         <div className={cx('wrapper')}>
-            {!contextLogin.data && showVideo.length < 5 ? (
+            {showVideo.length < 5 ? (
                 <FollowingDefault user={showUser} />
             ) : (
                 <div>

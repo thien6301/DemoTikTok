@@ -113,7 +113,7 @@ function ProfileItems({ children, data, result }) {
                             <h2 className={cx('full-name')}>
                                 {data.first_name + ' ' + data.last_name}
                             </h2>
-                            {
+                            {/* {
                                 <Button up>
                                     <span className={'editIcon'}>
                                         {' '}
@@ -121,7 +121,7 @@ function ProfileItems({ children, data, result }) {
                                     </span>{' '}
                                     Edit Profile
                                 </Button>
-                            }
+                            } */}
                             {isFollowed ? (
                                 <div className={cx('message-container')}>
                                     <Button outline className={cx('message')}>
