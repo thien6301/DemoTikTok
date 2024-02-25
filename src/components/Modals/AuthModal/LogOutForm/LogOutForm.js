@@ -5,10 +5,12 @@ import { useContext } from 'react';
 import { ModalContext } from '~/components/Contexts/ModalProvider';
 import { logoutService } from '~/services/LogOutService';
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
+import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
 
 const cx = classNames.bind(styles);
 
 function LogOutForm() {
+    const showNotify = useContext(NotifyContextKey);
     const contextModal = useContext(ModalContext);
     const contextLogin = useContext(LoginContext);
 
@@ -16,13 +18,11 @@ function LogOutForm() {
         await logoutService();
         localStorage.removeItem('token');
         contextLogin.handleDeleteData();
+        showNotify('Logout Success');
     };
 
     return (
-        <div
-            className={cx('wrapper')}
-            onClick={contextModal.handleHideModalLogOut}
-        >
+        <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('title')}>
                     <span>Are you sure you want to log out?</span>

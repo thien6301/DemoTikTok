@@ -6,10 +6,12 @@ import styles from './LoginForm.module.scss';
 
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
 import { HidePassWordIcon, ShowPassWordIcon } from '~/components/Icons';
+import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
 
 const cx = classNames.bind(styles);
 
 function LoginForm() {
+    const showNotify = useContext(NotifyContextKey);
     const [emailTemp, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(false);
@@ -22,6 +24,7 @@ function LoginForm() {
 
     const handleSubmit = () => {
         contextLogin.fetchApi(emailTemp, password);
+        showNotify('Login Success');
     };
 
     const handleKeyPress = (e) => {
@@ -83,14 +86,14 @@ function LoginForm() {
                                 onClick={() => setIsShow(true)}
                                 className={cx('show-password')}
                             >
-                                <HidePassWordIcon/>
+                                <HidePassWordIcon />
                             </span>
                         ) : (
                             <span
                                 onClick={() => setIsShow(false)}
                                 className={cx('show-password')}
                             >
-                                <ShowPassWordIcon/>
+                                <ShowPassWordIcon />
                             </span>
                         )}
                     </div>
@@ -108,7 +111,7 @@ function LoginForm() {
                         Forgot password?
                     </span>
                     <Button
-                        disabled={disabled} 
+                        disabled={disabled}
                         primary
                         className={cx('button-login')}
                         onClick={handleSubmit}

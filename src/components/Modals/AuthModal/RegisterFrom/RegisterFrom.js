@@ -175,15 +175,16 @@ function RegisterWithEmail() {
         const action = await register(dataRegister);
         setLoading(false);
 
-        contextLogin.fetchApi(email, password);
-
-        // showNotify(
-        //     'Đăng ký thành công! Tài khoản của bạn hiện đã được đăng nhập!',
-        // );
-        // reload to reset videos data
-        setTimeout(() => {
-            window.location.reload();
-        }, 2000);
+        if (!action) {
+            setEmailErrorMessage('Email này hiện không khả dụng!');
+        } else {
+            contextLogin.fetchApi(email, password);
+            showNotify('Login Success')
+            // reload to reset videos data
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
     };
 
     const disableSubmitBtn = !email || !password || isEmailError || isPassError;

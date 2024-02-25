@@ -20,11 +20,8 @@ function Home() {
             .catch((error) => console.log(error));
     }, [page]);
 
+    console.log(showVideo);
     const handleScroll = () => {
-        // console.log('Height:', document.documentElement.scrollHeight);
-        // console.log('Top:', document.documentElement.scrollTop);
-        // console.log('Window:', window.innerHeight);
-
         if (
             window.innerHeight + document.documentElement.scrollTop + 1 >=
             document.documentElement.scrollHeight

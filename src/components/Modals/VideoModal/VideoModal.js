@@ -4,10 +4,7 @@ import Image from '~/components/Image/Image';
 
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  
-    faMusic,
-} from '@fortawesome/free-solid-svg-icons';
+import { faFaceSmileBeam, faMusic } from '@fortawesome/free-solid-svg-icons';
 import {
     DownIcon,
     Embed,
@@ -32,18 +29,22 @@ import VideoInteractive from './VideoInteractive/VideoInteractive';
 import * as videoService from '~/services/videoService';
 
 import { Link } from 'react-router-dom';
+import { getList } from '~/services/getCommentList';
+import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
+import { PostCommentService } from '~/services/PostCommentService';
 
 const INIT_PAGE = 1;
 
 const cx = classNames.bind(styles);
 
 function VideoModal({ idVideo }) {
+    const videoRef = useRef();
+    const rangeRef = useRef();
+    const thumbRef = useRef();
+
     const ContextComment = useContext(CommentContext);
-
-
-    const [indexVideo, setIndexVideo] = useState(
-        ContextComment.indexCurrent + 1,
-    );
+    const indexCurrent = ContextComment.indexCurrent + 1;
+    const [indexVideo, setIndexVideo] = useState(indexCurrent);
     const [isPlaying, setIsPlaying] = useState(false);
     const [position, setPosition] = useState(0);
     const [marginLeft, setMarginLeft] = useState(0);
@@ -56,26 +57,68 @@ function VideoModal({ idVideo }) {
     const [muteVideo, setMuteVideo] = useState(false);
 
     const [showVideo, setShowVideo] = useState([]);
+    const [listComment, setListComment] = useState([]);
     const [page, setPage] = useState(INIT_PAGE);
     const [listVideos, setListVideos] = useState([]);
     const [curUser, setCurUser] = useState([]);
+    const [isId, setIsId] = useState(idVideo);
 
-    const [isFollowed, setIsFollowed] = useState(curUser?.is_followed);
+    //post comment
+
+    const showNotify = useContext(NotifyContextKey);
+
+    const [newComment, setNewComment] = useState('');
+    const [activeComment, setActiveComment] = useState(false);
+
+    const fetchApiPostComment = async () => {
+        const result = await PostCommentService(isId, newComment);
+        console.log('postComment: ', result);
+        const result1 = await getList(isId);
+
+        setListComment(result1);
+        setNewComment('');
+    };
+    const handleSubmit = () => {
+        fetchApiPostComment();
+        showNotify('Comment posted');
+        setActiveComment(false);
+    };
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+
+            fetchApiPostComment();
+        }
+    };
+    const handleChange = (e) => {
+        setActiveComment(true);
+        if (e.target.value === '') {
+            setActiveComment(false);
+        }
+        setNewComment(e.target.value);
+    };
+
     //comment
-
-    // console.log(isLiked);
-
-    const videoRef = useRef();
-    const rangeRef = useRef();
-    const thumbRef = useRef();
-
+    const fetchApiComment = async () => {
+        const result = await getList(isId);
+        setListComment(result);
+    };
+    // list comment
     useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getCurrentVideo(idVideo);
-            setShowVideo(result);
-            setCurUser(result.user);
-        };
-        fetchApi();
+        fetchApiComment();
+        setIsId(listVideos[indexVideo]?.id);
+    }, [indexVideo]);
+
+    // xử lí id
+    // useEffect(() => {
+    // }, [indexVideo]);
+    const fetchApiVideo = async () => {
+        const result = await getCurrentVideo(isId);
+        setShowVideo(result);
+        setCurUser(result.user);
+    };
+    useEffect(() => {
+        fetchApiVideo();
     }, []);
 
     const fetchApiNextVideo = async () => {
@@ -97,6 +140,7 @@ function VideoModal({ idVideo }) {
         setProgressBarWidth(centerProgressBar);
     }, [percentage]);
 
+    // next page
     useEffect(() => {
         videoService
             .getVideo(page)
@@ -180,7 +224,6 @@ function VideoModal({ idVideo }) {
     };
 
     /// ActionVideo
-
     const handleNextVideo = () => {
         setIndexVideo((prev) => prev + 1);
         if (indexVideo) {
@@ -188,12 +231,11 @@ function VideoModal({ idVideo }) {
         }
     };
     const handlePrevVideo = () => {
-        setIndexVideo((prev) => prev - 1);
         if (indexVideo && indexVideo >= 0) {
+            setIndexVideo((prev) => prev - 1);
             fetchApiNextVideo();
         }
     };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('video-wrapper')}>
@@ -322,120 +364,164 @@ function VideoModal({ idVideo }) {
             {/* mm */}
 
             <div className={cx('content')}>
-                <div className={cx('description-container')}>
-                    <div className={cx('info-container')}>
-                        <Link
-                            to={`/@${curUser.nickname}`}
-                            onClick={ContextComment.handleHideComment}
-                        >
-                            <Image
-                                src={curUser.avatar}
-                                className={cx('avatar')}
-                            />
-                        </Link>
-                        <Link
-                            to={`/@${curUser.nickname}`}
-                            className={cx('name')}
-                            onClick={ContextComment.handleHideComment}
-                        >
-                            <h2 className={cx('nickname')}>
-                                {curUser.nickname}
-                            </h2>
-                            <h4 className={cx('fullname')}>
-                                {curUser.first_name + ' ' + curUser.last_name}
-                                <span style={{ margin: '0px 4px ' }}>.</span>
-                                <span>{showVideo.published_at}</span>
-                            </h4>
-                        </Link>
-                        <div
-                            className={cx('follow')}
-                            // onClick={() => handleFollowStateChange(!isFollowed)}
-                        >
-                            {curUser.is_followed ? (
-                                <Button up>Following</Button>
-                            ) : (
-                                <Button primary>Follow</Button>
-                            )}
+                <div className={cx('content-wrapper')}>
+                    <div className={cx('description-container')}>
+                        <div className={cx('info-container')}>
+                            <Link
+                                to={`/@${curUser.nickname}`}
+                                onClick={ContextComment.handleHideComment}
+                            >
+                                <Image
+                                    src={curUser.avatar}
+                                    className={cx('avatar')}
+                                />
+                            </Link>
+                            <Link
+                                to={`/@${curUser.nickname}`}
+                                className={cx('name')}
+                                onClick={ContextComment.handleHideComment}
+                            >
+                                <h2 className={cx('nickname')}>
+                                    {curUser.nickname}
+                                </h2>
+                                <h4 className={cx('fullname')}>
+                                    {curUser.first_name +
+                                        ' ' +
+                                        curUser.last_name}
+                                    <span style={{ margin: '0px 4px ' }}>
+                                        .
+                                    </span>
+                                    <span>{showVideo.published_at}</span>
+                                </h4>
+                            </Link>
+                            <div
+                                className={cx('follow')}
+                                // onClick={() => handleFollowStateChange(!isFollowed)}
+                            >
+                                {curUser.is_followed ? (
+                                    <Button up>Following</Button>
+                                ) : (
+                                    <Button primary>Follow</Button>
+                                )}
+                            </div>
+                        </div>
+                        <div className={cx('main-container')}>
+                            <div className={cx('title-content')}>
+                                <h1 className={cx('title')}>
+                                    {showVideo.description}
+                                </h1>
+                            </div>
+
+                            <div className={cx('brower-music')}>
+                                <span className={cx('icon-music')}>
+                                    <FontAwesomeIcon
+                                        icon={faMusic}
+                                        className={cx('icon')}
+                                    />
+                                </span>
+                                <p className={cx('title-music')}>
+                                    {showVideo.music}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div className={cx('main-container')}>
-                        <div className={cx('title-content')}>
-                            <h1 className={cx('title')}>
-                                {showVideo.description}
-                            </h1>
-                        </div>
 
-                        <div className={cx('brower-music')}>
-                            <span className={cx('icon-music')}>
+                    <div className={cx('main-content')}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <VideoInteractive data={showVideo} />
+                            <div className={cx('share-list')}>
+                                <div className={cx('share-item')}>
+                                    <span className={cx('icon')}>
+                                        <Embed />
+                                    </span>
+                                </div>
+                                <div className={cx('share-item')}>
+                                    <span className={cx('icon')}>
+                                        <SendtoFriend />
+                                    </span>
+                                </div>
+                                <div className={cx('share-item')}>
+                                    <span className={cx('icon')}>
+                                        <SharetoFacebook />
+                                    </span>
+                                </div>
+                                <div className={cx('share-item')}>
+                                    <span className={cx('icon')}>
+                                        <SharetoWatchsApp />
+                                    </span>
+                                </div>
+                                <div className={cx('share-item')}>
+                                    <span className={cx('icon')}>
+                                        <TwitterIcon />
+                                    </span>
+                                </div>
+                                <div className={cx('share-item')}>
+                                    <span className={cx('icon')}>
+                                        <ShareIconMini />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={cx('copy-link')}>
+                            <p className={cx('link')}>{window.location.href}</p>
+                            <button className={cx('copy-btn')}>
+                                Copy link
+                            </button>
+                        </div>
+                        <div className={cx('tab-menu')}>
+                            <div className={cx('tab-container')}>
+                                <div className={cx('cmt-tab')}>Commnents</div>
+                            </div>
+                            <div className={cx('tab-container')}>
+                                <div className={cx('creator-tab')}>
+                                    Creator Videos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Comment
+                        idVideo={isId}
+                        listVideos={listVideos}
+                        indexVideo={indexVideo}
+                        commentState={[listComment, setListComment]}
+                    />
+                </div>
+
+                {/* footer */}
+                <div className={cx('footer')}>
+                    <form className={cx('footer-container')}>
+                        <div className={cx('creat-cmt')}>
+                            <input
+                                className={cx('text-cmt')}
+                                placeholder="Add comment..."
+                                style={{ height: '18px' }}
+                                value={newComment}
+                                onChange={handleChange}
+                                onKeyDown={handleKeyDown}
+                            />
+                            <div className={cx('emojis')}>
                                 <FontAwesomeIcon
-                                    icon={faMusic}
+                                    icon={faFaceSmileBeam}
                                     className={cx('icon')}
                                 />
-                            </span>
-                            <p className={cx('title-music')}>
-                                {showVideo.music}
-                            </p>
+                            </div>
                         </div>
-                    </div>
+                        <div
+                            className={cx(
+                                'post-cmt',
+                                activeComment ? 'active-cmt' : '',
+                            )}
+                            onClick={handleSubmit}
+                        >
+                            Post
+                        </div>
+                    </form>
                 </div>
-
-                <div className={cx('main-content')}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                        }}
-                    >
-                        <VideoInteractive data={showVideo} />
-                        <div className={cx('share-list')}>
-                            <div className={cx('share-item')}>
-                                <span className={cx('icon')}>
-                                    <Embed />
-                                </span>
-                            </div>
-                            <div className={cx('share-item')}>
-                                <span className={cx('icon')}>
-                                    <SendtoFriend />
-                                </span>
-                            </div>
-                            <div className={cx('share-item')}>
-                                <span className={cx('icon')}>
-                                    <SharetoFacebook />
-                                </span>
-                            </div>
-                            <div className={cx('share-item')}>
-                                <span className={cx('icon')}>
-                                    <SharetoWatchsApp />
-                                </span>
-                            </div>
-                            <div className={cx('share-item')}>
-                                <span className={cx('icon')}>
-                                    <TwitterIcon />
-                                </span>
-                            </div>
-                            <div className={cx('share-item')}>
-                                <span className={cx('icon')}>
-                                    <ShareIconMini />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx('copy-link')}>
-                        <p className={cx('link')}>{window.location.href}</p>
-                        <button className={cx('copy-btn')}>Copy link</button>
-                    </div>
-                    <div className={cx('tab-menu')}>
-                        <div className={cx('tab-container')}>
-                            <div className={cx('cmt-tab')}>Commnents</div>
-                        </div>
-                        <div className={cx('tab-container')}>
-                            <div className={cx('creator-tab')}>
-                                Creator Videos
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <Comment listVideos={listVideos} idVideo={idVideo} />
             </div>
         </div>
     );

@@ -22,6 +22,7 @@ import Tippy from '@tippyjs/react/headless';
 import ActionItems from '../ActionItems/ActionItems';
 import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
 import { CommentContext } from '~/components/Contexts/VideoModalContext';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 function VideoContent({ children, idVideo, uuidVideo, item, index }) {
@@ -104,7 +105,7 @@ function VideoContent({ children, idVideo, uuidVideo, item, index }) {
             <div className={cx('show-video')}>
                 <div className={cx('video-title')}>
                     <Link to={`/@${item.user.nickname}`}>
-                        <img
+                        <Image
                             className={cx('avatar-account')}
                             src={item.user.avatar}
                             alt="none"

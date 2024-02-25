@@ -9,28 +9,23 @@ import {
 } from '~/components/Icons';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 
-import { PostCommentService } from '~/services/PostCommentService';
 import { getList } from '~/services/getCommentList';
 
 import Tippy from '@tippyjs/react';
 import { useContext, useEffect, useState } from 'react';
 import Button from '~/components/Button';
-import { useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceSmileBeam } from '@fortawesome/free-regular-svg-icons';
+
 import { deleteCommentService } from '~/services/deleteCommentService';
 import { getCurrentUser } from '~/services/getCurrentUserService';
 import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
 
 const cx = classNames.bind(styles);
 
-function Comment({ idVideo }) {
+function Comment({ idVideo, commentState }) {
     const showNotify = useContext(NotifyContextKey);
 
     const [isPressDelete, setIsPressDelete] = useState(false);
-    const [listComment, setListComment] = useState([]);
-    const [newComment, setNewComment] = useState('');
-    const [activeComment, setActiveComment] = useState(false);
+    const [listComment, setListComment] = commentState;
     const [idComment, setIdComment] = useState();
     const [currUser, setCurrUser] = useState([]);
 
@@ -41,44 +36,13 @@ function Comment({ idVideo }) {
         };
         fetchApi();
     }, []);
-    // console.log(currUser);
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getList(idVideo);
-            setListComment(result);
-        };
-        fetchApi();
-    }, []);
-
-    //post cmt
-    const fetchApi = async () => {
-        const result = await PostCommentService(idVideo, newComment);
-        console.log('postComment: ', result);
-        setNewComment('');
-        const result1 = await getList(idVideo);
-        setListComment(result1);
-    };
-    const handleSubmit = () => {
-        fetchApi();
-        showNotify('Comment posted');
-        setActiveComment(false);
-    };
-
-    const handleChange = (e) => {
-        setActiveComment(true);
-        if (e.target.value === '') {
-            setActiveComment(false);
-        }
-        setNewComment(e.target.value);
-    };
 
     const handleDeleteComment = async () => {
         const result = await deleteCommentService(idComment);
         console.log(result);
         const result1 = await getList(idVideo);
         setListComment(result1);
-        console.log(result1);
+
         setIsPressDelete(false);
         showNotify('Deleted');
     };
@@ -111,12 +75,9 @@ function Comment({ idVideo }) {
         </div>
     );
     return (
-        <div>
-            {/* {loaded && <span className={cx('notify')}>Deleted</span>} */}
-            {/* {posted && <span className={cx('notify')}>Posted Comment!</span>} */}
+        <div className={cx('comment')}>
             {isPressDelete && (
                 <div className={cx('wrapper-delete')}>
-                    {/* {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />} */}
                     <div className={cx('container-delete')}>
                         <div className={cx('title-delete')}>
                             <span>
@@ -200,34 +161,6 @@ function Comment({ idVideo }) {
                             </div>
                         ))}
                 </div>
-            </div>
-            <div className={cx('footer')}>
-                <form className={cx('footer-container')}>
-                    <div className={cx('creat-cmt')}>
-                        <input
-                            className={cx('text-cmt')}
-                            placeholder="Add comment..."
-                            style={{ height: '18px' }}
-                            value={newComment}
-                            onChange={handleChange}
-                        />
-                        <div className={cx('emojis')}>
-                            <FontAwesomeIcon
-                                icon={faFaceSmileBeam}
-                                className={cx('icon')}
-                            />
-                        </div>
-                    </div>
-                    <div
-                        className={cx(
-                            'post-cmt',
-                            activeComment ? 'active-cmt' : '',
-                        )}
-                        onClick={handleSubmit}
-                    >
-                        Post
-                    </div>
-                </form>
             </div>
         </div>
     );

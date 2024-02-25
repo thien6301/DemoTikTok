@@ -23,6 +23,7 @@ import { CommentContext } from '../Contexts/VideoModalContext';
 import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
 import { LoginContext } from '../Contexts/LoginModalContext';
 import { ModalContext } from '../Contexts/ModalProvider';
+import UpdateForm from '../Modals/AuthModal/UpdateProfileModal/UpdateProfileModal';
 
 const cx = classNames.bind(styles);
 
@@ -48,6 +49,7 @@ function ProfileItems({ children, data, result }) {
     const [activeLiked, setActiveLiked] = useState(false);
     const [activeLine, setActiveLine] = useState(false);
     const [isFollowed, setIsFollowed] = useState(data?.is_followed);
+
     console.log(data);
     console.log(data.is_followed);
 
@@ -102,8 +104,15 @@ function ProfileItems({ children, data, result }) {
             </div>
         );
     };
+    const body = document.body;
+
+    const handleOpenEditForm = () => {
+        contextModal.handleShowModalEdit();
+    };
+
     return (
         <div className={cx('wrapper')}>
+            {contextModal.openFormEdit && <UpdateForm />}
             <div className={cx('container')}>
                 <div className={cx('profile-container')}>
                     <div className={cx('profile-info')}>
@@ -113,16 +122,15 @@ function ProfileItems({ children, data, result }) {
                             <h2 className={cx('full-name')}>
                                 {data.first_name + ' ' + data.last_name}
                             </h2>
-                            {/* {
-                                <Button up>
+                            {contextLogin.data?.nickname == data.nickname ? (
+                                <Button up onClick={handleOpenEditForm}>
                                     <span className={'editIcon'}>
                                         {' '}
                                         <IconNote />
                                     </span>{' '}
                                     Edit Profile
                                 </Button>
-                            } */}
-                            {isFollowed ? (
+                            ) : isFollowed ? (
                                 <div className={cx('message-container')}>
                                     <Button outline className={cx('message')}>
                                         Message
@@ -166,7 +174,7 @@ function ProfileItems({ children, data, result }) {
                     </h3>
                     <h2 className={cx('user-bio')}>{data.bio}</h2>
                     <div className={cx('profile-link')}>
-                        amiamii.passio.eco/home
+                        {window.location.href}
                     </div>
 
                     <div className={cx('more-btn')}>

@@ -19,6 +19,12 @@ export const logout = async (path, options = {}) => {
     return response.data;
 };
 
+export const patch = async (path, data, options) => {
+    const response = await httpRequest.patch(path, data, options);
+
+    return response;
+};
+
 export const curuser = async (path, options = {}) => {
     const response = await httpRequest.get(path, options);
     return response.data;

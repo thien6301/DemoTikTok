@@ -10,7 +10,7 @@ const Image = forwardRef(
             src,
             alt,
             className,
-            fallback: customFallback = images.noImage,
+            fallback: customFallback = images.noImages,
             ...props
         },
         ref,

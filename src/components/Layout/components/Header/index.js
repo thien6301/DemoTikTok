@@ -117,11 +117,17 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
+    const contextLogin = useContext(LoginContext);
+    const contextModal = useContext(ModalContext);
+    const contextTheme = useContext(ThemeContext);
+
+    console.log(contextLogin.data?.nickname);
+
     const userMenu = [
         {
             icon: <ViewProfile />,
             title: 'View Profile',
-            // to: `/@${curUser.nickname}`,
+            to: `/@${contextLogin.data?.nickname}`,
             style: true,
         },
 
@@ -152,10 +158,6 @@ function Header() {
             separate: true,
         },
     ];
-
-    const contextModal = useContext(ModalContext);
-    const contextLogin = useContext(LoginContext);
-    const contextTheme = useContext(ThemeContext);
 
     return (
         <header className={cx('wrapper')}>
