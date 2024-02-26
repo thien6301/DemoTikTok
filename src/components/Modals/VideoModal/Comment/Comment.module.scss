@@ -96,11 +96,14 @@
         transform: scale(1);
     }
 }
+s
 
 //comment
 .cmt-wrapper {
-    height: 565px;
+    height: 530px;
     overflow: auto;
+}
+.cmt-container {
     flex-grow: 1;
     width: 100%;
     background-color: var(--body-background);

@@ -5,8 +5,8 @@ import styles from './Upload.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { postVideoService } from '~/services/PostVideoService';
-import { UploadVideoIcon } from '~/components/Icons';
+import uploadVideo, { postVideoService } from '~/services/PostVideoService';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -59,7 +59,7 @@ function Upload() {
                             />
                         )}
                         <span className={cx('icon-upload')}>
-                            <UploadVideoIcon />
+                            <FontAwesomeIcon icon={upLoadFile} />
                         </span>
                         <input
                             className={cx('input-file')}

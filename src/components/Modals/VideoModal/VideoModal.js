@@ -8,6 +8,7 @@ import { faFaceSmileBeam, faMusic } from '@fortawesome/free-solid-svg-icons';
 import {
     DownIcon,
     Embed,
+    MoreIcon,
     MuteIcon,
     PauseIcon,
     ReportLargeIcon,
@@ -15,6 +16,7 @@ import {
     ShareIconMini,
     SharetoFacebook,
     SharetoWatchsApp,
+    TrashCanIcon,
     TwitterIcon,
     UnMuteIcon,
     XIcon,
@@ -32,6 +34,10 @@ import { Link } from 'react-router-dom';
 import { getList } from '~/services/getCommentList';
 import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
 import { PostCommentService } from '~/services/PostCommentService';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
+
+import { Wrapper as PopperWrapper } from '~/components/Popper';
+import { DeleteVideoService, deleteVideo } from '~/services/DeleteVideo';
 
 const INIT_PAGE = 1;
 
@@ -43,6 +49,7 @@ function VideoModal({ idVideo }) {
     const thumbRef = useRef();
 
     const ContextComment = useContext(CommentContext);
+    const ContextLogin = useContext(LoginContext);
     const indexCurrent = ContextComment.indexCurrent + 1;
     const [indexVideo, setIndexVideo] = useState(indexCurrent);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -62,6 +69,7 @@ function VideoModal({ idVideo }) {
     const [listVideos, setListVideos] = useState([]);
     const [curUser, setCurUser] = useState([]);
     const [isId, setIsId] = useState(idVideo);
+    const [isPressDeleteVideo, setIsPressDeleteVideo] = useState(false);
 
     //post comment
 
@@ -236,8 +244,65 @@ function VideoModal({ idVideo }) {
             fetchApiNextVideo();
         }
     };
+    const handleDeleteVideo = async () => {
+        const responseData = await DeleteVideoService(idVideo);
+
+        if (responseData?.message) {
+            showNotify('Video cannot be deleted. Please try again later!');
+        } else {
+            showNotify('Deleted');
+
+            setIsPressDeleteVideo(true);
+            window.location.reload();
+        }
+    };
+    const renderDeleteVideo = (attrs) => (
+        <div className={cx('menu-list')} {...attrs}>
+            <PopperWrapper classNames={cx('menu-popper')}>
+                <span
+                    className={cx('line-1')}
+                    onClick={() => {
+                        setIsPressDeleteVideo(true);
+                    }}
+                >
+                    <span className={cx('trashIcon')}>
+                        <TrashCanIcon />
+                    </span>
+                    Delete
+                </span>
+            </PopperWrapper>
+        </div>
+    );
+
     return (
         <div className={cx('wrapper')}>
+            {isPressDeleteVideo && (
+                <div className={cx('wrapper-delete')}>
+                    <div className={cx('container-delete')}>
+                        <div className={cx('title-delete')}>
+                            <span>
+                                Are you sure you want to delete this Video?
+                            </span>
+                        </div>
+                        <div className={cx('button-wrapper-delete')}>
+                            <Button
+                                up
+                                className={cx('button-cancel')}
+                                onClick={() => setIsPressDeleteVideo(false)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                outline
+                                className={cx('button-delete')}
+                                onClick={handleDeleteVideo}
+                            >
+                                Delete
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className={cx('video-wrapper')}>
                 <div className={cx('video-container')}>
                     <p
@@ -394,16 +459,28 @@ function VideoModal({ idVideo }) {
                                     <span>{showVideo.published_at}</span>
                                 </h4>
                             </Link>
-                            <div
-                                className={cx('follow')}
-                                // onClick={() => handleFollowStateChange(!isFollowed)}
-                            >
-                                {curUser.is_followed ? (
-                                    <Button up>Following</Button>
-                                ) : (
-                                    <Button primary>Follow</Button>
-                                )}
-                            </div>
+                            {ContextLogin.data.nickname == curUser.nickname ? (
+                                <Tippy
+                                    delay={[0, 300]}
+                                    offset={[10, -20]}
+                                    interactive
+                                    placement="bottom-end"
+                                    animation={false}
+                                    render={() => renderDeleteVideo(curUser)}
+                                >
+                                    <span>
+                                        <MoreIcon />
+                                    </span>
+                                </Tippy>
+                            ) : (
+                                <div className={cx('follow')}>
+                                    {curUser.is_followed ? (
+                                        <Button up>Following</Button>
+                                    ) : (
+                                        <Button primary>Follow</Button>
+                                    )}
+                                </div>
+                            )}
                         </div>
                         <div className={cx('main-container')}>
                             <div className={cx('title-content')}>
@@ -473,14 +550,14 @@ function VideoModal({ idVideo }) {
                                 Copy link
                             </button>
                         </div>
-                        <div className={cx('tab-menu')}>
-                            <div className={cx('tab-container')}>
-                                <div className={cx('cmt-tab')}>Commnents</div>
-                            </div>
-                            <div className={cx('tab-container')}>
-                                <div className={cx('creator-tab')}>
-                                    Creator Videos
-                                </div>
+                    </div>
+                    <div className={cx('tab-menu')}>
+                        <div className={cx('tab-container')}>
+                            <div className={cx('cmt-tab')}>Commnents</div>
+                        </div>
+                        <div className={cx('tab-container')}>
+                            <div className={cx('creator-tab')}>
+                                Creator Videos
                             </div>
                         </div>
                     </div>

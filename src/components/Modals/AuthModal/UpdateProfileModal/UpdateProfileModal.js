@@ -32,7 +32,6 @@ function UpdateForm() {
         setNewFirstName(contextLogin?.data.first_name);
         setNewLink(contextLogin.data?.website_url);
         setNewBio(contextLogin.data?.bio);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
