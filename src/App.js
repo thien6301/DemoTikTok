@@ -12,13 +12,13 @@ import { getAnalytics } from 'firebase/analytics';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: 'AIzaSyCPFlDrdqTO6Tkwd4WnoDpiBAVU5yeHcAU',
-    authDomain: 'tiktok-ui2024-26722.firebaseapp.com',
-    projectId: 'tiktok-ui2024-26722',
-    storageBucket: 'tiktok-ui2024-26722.appspot.com',
-    messagingSenderId: '681055794641',
-    appId: '1:681055794641:web:d61099bcf364cb9fbfdcf0',
-    measurementId: 'G-5CY21CE7EZ',
+    apiKey: 'AIzaSyAzVIzHDIVPsTVbmCmHhR7Y0plA7mUxii0',
+    authDomain: 'tiktok2024-2d5ce.firebaseapp.com',
+    projectId: 'tiktok2024-2d5ce',
+    storageBucket: 'tiktok2024-2d5ce.appspot.com',
+    messagingSenderId: '342575615312',
+    appId: '1:342575615312:web:57c22d8afbc5f2f9b6f055',
+    measurementId: 'G-3L2M5HP33T',
 };
 
 // Initialize Firebase

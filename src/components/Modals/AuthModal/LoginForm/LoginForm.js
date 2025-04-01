@@ -21,10 +21,13 @@ function LoginForm() {
     const pattern = /\S/;
 
     const contextLogin = useContext(LoginContext);
-
     const handleSubmit = () => {
-        contextLogin.fetchApi(emailTemp, password);
-        showNotify('Login Success');
+        const action = contextLogin.fetchApi(emailTemp, password);
+        // if (contextLogin.showError) {
+        //     showNotify('Your username or passwork incorrect');
+        // } else {
+        //     showNotify('Login Success');
+        // }
     };
 
     const handleKeyPress = (e) => {
@@ -34,7 +37,7 @@ function LoginForm() {
             pattern.test(emailTemp) &&
             pattern.test(password)
         ) {
-            e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt
+            e.preventDefault(); 
             handleSubmit();
         }
     };

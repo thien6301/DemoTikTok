@@ -19,7 +19,6 @@ const cx = classNames.bind(styles);
 const passwordRules = [
     {
         name: '8 đến 20 ký tự',
-        // null: default, true: ok, false: no ok
         state: null,
         check: (password) => {
             return password.length >= 8 && password.length <= 20;
@@ -42,10 +41,8 @@ function RegisterWithEmail() {
     // Input state
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [showPass, setShowPass] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [logined, setLogined] = useState(false);
 
     // Error state
     const [isPassError, setIsPassError] = useState(false);
@@ -78,10 +75,7 @@ function RegisterWithEmail() {
         });
 
         isChanged && setPassRules(newPassRules);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [password]);
-
     const handleToggleShowPass = () => {
         setShowPass(!showPass);
     };
@@ -179,8 +173,7 @@ function RegisterWithEmail() {
             setEmailErrorMessage('Email này hiện không khả dụng!');
         } else {
             contextLogin.fetchApi(email, password);
-            showNotify('Login Success')
-            // reload to reset videos data
+
             setTimeout(() => {
                 window.location.reload();
             }, 2000);

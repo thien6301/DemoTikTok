@@ -96,13 +96,9 @@
         transform: scale(1);
     }
 }
-s
 
 //comment
-.cmt-wrapper {
-    height: 530px;
-    overflow: auto;
-}
+
 .cmt-container {
     flex-grow: 1;
     width: 100%;
@@ -214,6 +210,7 @@ s
     width: 40px;
     border-radius: 50%;
     margin-right: 12px;
+    object-fit: cover;
 }
 .name {
     flex: 1 1 auto;

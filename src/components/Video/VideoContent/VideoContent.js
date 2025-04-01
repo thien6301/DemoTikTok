@@ -23,12 +23,16 @@ import ActionItems from '../ActionItems/ActionItems';
 import { ActionFollow, ActionUnFollow } from '~/services/PostHandleVideo';
 import { CommentContext } from '~/components/Contexts/VideoModalContext';
 import Image from '~/components/Image';
+import { LoginContext } from '~/components/Contexts/LoginModalContext';
+import { ModalContext } from '~/components/Contexts/ModalProvider';
 
 const cx = classNames.bind(styles);
 function VideoContent({ children, idVideo, uuidVideo, item, index }) {
     const videoRef = useRef();
 
     const contextComment = useContext(CommentContext);
+    const ContextLogin = useContext(LoginContext);
+    const contextModal = useContext(ModalContext);
     const [isFollowed, setIsFollowed] = useState(item.user?.is_followed);
     const [isplaying, setIsPlaying] = useState(false);
     const [isVolume, setIsVolume] = useState(50);
@@ -92,13 +96,17 @@ function VideoContent({ children, idVideo, uuidVideo, item, index }) {
         }
     };
     const handleViewVideo = () => {
-        handlePauseVideo();
+        if (ContextLogin.data) {
+            handlePauseVideo();
 
-        contextComment.handleShowComment();
-        contextComment.handleSetLink(children);
-        contextComment.setIdVideoCurrent(idVideo);
-        contextComment.setIndexCurrent(index);
-        contextComment.setUiidVideo(uuidVideo);
+            contextComment.handleShowComment();
+            contextComment.handleSetLink(children);
+            contextComment.setIdVideoCurrent(idVideo);
+            contextComment.setIndexCurrent(index);
+            contextComment.setUiidVideo(uuidVideo);
+        } else {
+            contextModal.handleShowModal();
+        }
     };
     return (
         <div className={cx('wrapper')}>

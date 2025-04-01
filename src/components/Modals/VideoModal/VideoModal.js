@@ -37,7 +37,7 @@ import { PostCommentService } from '~/services/PostCommentService';
 import { LoginContext } from '~/components/Contexts/LoginModalContext';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-import { DeleteVideoService, deleteVideo } from '~/services/DeleteVideo';
+import { DeleteVideoService } from '~/services/DeleteVideo';
 
 const INIT_PAGE = 1;
 
@@ -79,9 +79,9 @@ function VideoModal({ idVideo }) {
     const [activeComment, setActiveComment] = useState(false);
 
     const fetchApiPostComment = async () => {
-        const result = await PostCommentService(isId, newComment);
+        const result = await PostCommentService(idVideo, newComment);
         console.log('postComment: ', result);
-        const result1 = await getList(isId);
+        const result1 = await getList(idVideo);
 
         setListComment(result1);
         setNewComment('');
@@ -117,9 +117,6 @@ function VideoModal({ idVideo }) {
         setIsId(listVideos[indexVideo]?.id);
     }, [indexVideo]);
 
-    // xử lí id
-    // useEffect(() => {
-    // }, [indexVideo]);
     const fetchApiVideo = async () => {
         const result = await getCurrentVideo(isId);
         setShowVideo(result);
@@ -129,11 +126,11 @@ function VideoModal({ idVideo }) {
         fetchApiVideo();
     }, []);
 
-    const fetchApiNextVideo = async () => {
-        const result = await getCurrentVideo(listVideos[indexVideo]?.id);
-        setShowVideo(result);
-        setCurUser(result.user);
-    };
+    // const fetchApiNextVideo = async () => {
+    //     const result = await getCurrentVideo(listVideos[indexVideo]?.id);
+    //     setShowVideo(result);
+    //     setCurUser(result.user);
+    // };
 
     useEffect(() => {
         const rangeWidth = rangeRef.current.getBoundingClientRect().width;
@@ -232,18 +229,18 @@ function VideoModal({ idVideo }) {
     };
 
     /// ActionVideo
-    const handleNextVideo = () => {
-        setIndexVideo((prev) => prev + 1);
-        if (indexVideo) {
-            fetchApiNextVideo();
-        }
-    };
-    const handlePrevVideo = () => {
-        if (indexVideo && indexVideo >= 0) {
-            setIndexVideo((prev) => prev - 1);
-            fetchApiNextVideo();
-        }
-    };
+    // const handleNextVideo = () => {
+    //     setIndexVideo((prev) => prev + 1);
+    //     if (indexVideo) {
+    //         fetchApiNextVideo();
+    //     }
+    // };
+    // const handlePrevVideo = () => {
+    //     if (indexVideo && indexVideo >= 0) {
+    //         setIndexVideo((prev) => prev - 1);
+    //         fetchApiNextVideo();
+    //     }
+    // };
     const handleDeleteVideo = async () => {
         const responseData = await DeleteVideoService(idVideo);
 
@@ -342,13 +339,13 @@ function VideoModal({ idVideo }) {
                     </div>
                     <div
                         className={cx('back-video', 'subVideo')}
-                        onClick={handlePrevVideo}
+                        // onClick={handlePrevVideo}
                     >
                         <DownIcon />
                     </div>
                     <div
                         className={cx('next-video', 'subVideo')}
-                        onClick={handleNextVideo}
+                        // onClick={handleNextVideo}
                     >
                         <DownIcon />
                     </div>
@@ -425,6 +422,7 @@ function VideoModal({ idVideo }) {
                     )}
                 </div>
             </div>
+        
 
             {/* mm */}
 
@@ -468,7 +466,7 @@ function VideoModal({ idVideo }) {
                                     animation={false}
                                     render={() => renderDeleteVideo(curUser)}
                                 >
-                                    <span>
+                                    <span className={cx('more-button')}>
                                         <MoreIcon />
                                     </span>
                                 </Tippy>
@@ -562,7 +560,7 @@ function VideoModal({ idVideo }) {
                         </div>
                     </div>
                     <Comment
-                        idVideo={isId}
+                        idVideo={idVideo}
                         listVideos={listVideos}
                         indexVideo={indexVideo}
                         commentState={[listComment, setListComment]}

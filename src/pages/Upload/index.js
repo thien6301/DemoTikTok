@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import Button from '~/components/Button';
 import styles from './Upload.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import uploadVideo, { postVideoService } from '~/services/PostVideoService';
-import Image from '~/components/Image';
+import { postVideoService } from '~/services/PostVideoService';
+import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
+import { UploadVideoIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
 function Upload() {
+    const showNotify = useContext(NotifyContextKey);
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [isFile, setIsFile] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -42,12 +45,12 @@ function Upload() {
         };
         fetchApi();
     };
+    if (loaded) {
+        showNotify('Upload success');
+    }
 
     return (
         <div className={cx('cover-outside')}>
-            {loaded && (
-                <span className={cx('notify')}>Upload Video Success</span>
-            )}
             <div className={cx('wrapper')}>
                 <div className={cx('container')}>
                     <div className={cx('body-upload')}>
@@ -59,7 +62,7 @@ function Upload() {
                             />
                         )}
                         <span className={cx('icon-upload')}>
-                            <FontAwesomeIcon icon={upLoadFile} />
+                            <UploadVideoIcon />
                         </span>
                         <input
                             className={cx('input-file')}

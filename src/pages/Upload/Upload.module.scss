@@ -155,12 +155,15 @@
 }
 
 .button-choose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 36px;
     width: 400px;
     font-family: 'TikTokFont', Arial, Tahoma, PingFangSC, sans-serif;
     font-size: 1.6rem;
     font-weight: 600;
-    margin-top: 28px;
+    margin-top: 18px;
 }
 
 .button-post {

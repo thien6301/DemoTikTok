@@ -2,13 +2,14 @@ import { createContext, useContext, useState } from 'react';
 
 import * as LoginService from '~/services/LoginService';
 import { ModalContext } from './ModalProvider';
+import { NotifyContextKey } from './NotifyContext';
 
 export const LoginContext = createContext();
 
 function LoginProvider({ children }) {
+    const showNotify = useContext(NotifyContextKey);
+
     const [data, setData] = useState();
-    const [showError, setShowError] = useState(false);
-    const [isNotify, setIsNotify] = useState(false);
     const contentModal = useContext(ModalContext);
 
     const handleDeleteData = () => {
@@ -23,20 +24,17 @@ function LoginProvider({ children }) {
         const result = await LoginService.loginService(email, password);
         setData(result.data);
         console.log(result);
-        if (result) {
-            localStorage.setItem('token', result.meta.token);
-            setIsNotify(true);
-            setShowError(false);
-            contentModal.handleHideModal();
+        if (!result) {
+            showNotify('Your username or passwork incorrect');
         } else {
-            setShowError(true);
+            localStorage.setItem('token', result.meta.token);
+            contentModal.handleHideModal();
+            showNotify('Login Sucess');
         }
     };
 
     const value = {
         data,
-        showError,
-        isNotify,
         fetchApi,
         handleSetData,
         handleDeleteData,

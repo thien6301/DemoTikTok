@@ -19,6 +19,7 @@ function LogOutForm() {
         localStorage.removeItem('token');
         contextLogin.handleDeleteData();
         showNotify('Logout Success');
+        contextModal.handleHideModalLogOut();
     };
 
     return (
@@ -38,7 +39,7 @@ function LogOutForm() {
 
                     <Button
                         outline
-                        className={cx('button-cancel')}
+                        className={cx('button-submit')}
                         onClick={fetchApi}
                     >
                         Log out

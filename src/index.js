@@ -25,7 +25,6 @@ root.render(
                 </ModalProvider>
             </ThemProvider>
         </GlobalStyles>
-        ,
     </NotifyContextKey>,
     /* </React.StrictMode>, */
 );

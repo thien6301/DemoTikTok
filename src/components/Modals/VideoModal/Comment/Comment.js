@@ -18,10 +18,13 @@ import Button from '~/components/Button';
 import { deleteCommentService } from '~/services/deleteCommentService';
 import { getCurrentUser } from '~/services/getCurrentUserService';
 import { NotifyContextKey } from '~/components/Contexts/NotifyContext';
+import { Link } from 'react-router-dom';
+import { CommentContext } from '~/components/Contexts/VideoModalContext';
 
 const cx = classNames.bind(styles);
 
 function Comment({ idVideo, commentState }) {
+    const ContextComment = useContext(CommentContext);
     const showNotify = useContext(NotifyContextKey);
 
     const [isPressDelete, setIsPressDelete] = useState(false);
@@ -111,11 +114,24 @@ function Comment({ idVideo, commentState }) {
                         listComment.map((result) => (
                             <div key={result.id} className={cx('main-cmt')}>
                                 <div className={cx('comment-item')}>
-                                    <Image
-                                        src={result.user.avatar}
-                                        className={cx('avatar')}
-                                    />
-                                    <div className={cx('body-cmt')}>
+                                    <Link
+                                        to={`/@${result.user.nickname}`}
+                                        onClick={
+                                            ContextComment.handleHideComment
+                                        }
+                                    >
+                                        <Image
+                                            src={result.user.avatar}
+                                            className={cx('avatar')}
+                                        />
+                                    </Link>
+                                    <Link
+                                        className={cx('body-cmt')}
+                                        to={`/@${result.user.nickname}`}
+                                        onClick={
+                                            ContextComment.handleHideComment
+                                        }
+                                    >
                                         <h4 className={cx('fullname')}>
                                             {result.user.first_name +
                                                 ' ' +
@@ -132,7 +148,7 @@ function Comment({ idVideo, commentState }) {
                                                 Reply
                                             </span>
                                         </p>
-                                    </div>
+                                    </Link>
                                     <div className={cx('action-container')}>
                                         <div className={cx('btn-delete')}>
                                             <Tippy
